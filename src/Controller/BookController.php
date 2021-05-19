@@ -2,59 +2,59 @@
 
 namespace App\Controller;
 
-use App\Entity\Author;
-use App\Repository\AuthorRepository;
+use App\Entity\Book;
+use App\Repository\BookRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class AuthorController.
+ * Class BookController.
  *
- * @Route("/author")
+ * @Route("/book")
  */
 
-class AuthorController extends AbstractController
+class BookController extends AbstractController
 {
     /**
      * Index action.
      *
-     * @param \App\Repository\AuthorRepository $authorRepository Auhtor repository
+     * @param \App\Repository\BookRepository $bookRepository Book repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
      *    "/",
-     *    name="author_index",
+     *    name="book_index",
      *    methods={"GET"}
      * )
      */
-    public function index(AuthorRepository $authorRepository): Response
+    public function index(BookRepository $bookRepository): Response
     {
-        return $this->render('author/index.html.twig',
-            ['authors' => $authorRepository->findAll()]
+        return $this->render('book/index.html.twig',
+            ['books' => $bookRepository->findAll()]
         );
     }
 
     /**
      * Show action.
      *
-     * @param \App\Entity\Author $author Author entity
+     * @param \App\Entity\Book $book Book entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
      *     "/{id}",
      *     methods={"GET"},
-     *     name="author_show",
+     *     name="book_show",
      *     requirements={"id": "[1-9]\d*"},
      * )
      */
-    public function show(Author $author): Response
+    public function show(Book $book): Response
     {
         return $this->render(
-            'author/show.html.twig',
-            ['author' => $author]
+            'book/show.html.twig',
+            ['book' => $book]
         );
     }
 }
