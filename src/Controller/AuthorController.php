@@ -7,6 +7,8 @@ use App\Repository\AuthorRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * Class AuthorController.
@@ -19,7 +21,10 @@ class AuthorController extends AbstractController
     /**
      * Index action.
      *
+     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
      * @param \App\Repository\AuthorRepository $authorRepository Author repository
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator      Paginator
+
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -29,10 +34,17 @@ class AuthorController extends AbstractController
      *    methods={"GET"}
      * )
      */
-    public function index(AuthorRepository $authorRepository): Response
+    public function index(Request $request, AuthorRepository $authorRepository, PaginatorInterface $paginator): Response
     {
-        return $this->render('author/index.html.twig',
-            ['authors' => $authorRepository->findAll()]
+        $pagination = $paginator->paginate(
+            $authorRepository->queryAll(),
+            $request->query->getInt('page', 1),
+            AuthorRepository::PAGINATOR_ITEMS_PER_PAGE
+        );
+
+        return $this->render(
+            'author/index.html.twig',
+            ['pagination' => $pagination]
         );
     }
 

@@ -6,17 +6,22 @@
 
 {% block body %}
     <h1>{{ 'title_author_list'|trans }}</h1>
-    {% if authors is defined and authors|length %}
+    {% if pagination is defined and pagination.items|length %}
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{ 'label_id'|trans }}</th>
-                <th>{{ 'label_author_name'|trans }}</th>
-                <th>{{ 'label_books'|trans }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'author.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_author_name'|trans, 'author.authorName') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_books'|trans, 'author.book.bookName') }}</th>
             </tr>
             </thead>
             <tbody>
-            {% for author in authors %}
+            {% for author in pagination.items %}
                 <tr>
                     <td>{{ author.id }}</td>
                     <td>{{ author.authorName }}</td>
@@ -31,6 +36,9 @@
             {% endfor %}
             </tbody>
         </table>
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
     {% else %}
         <p>
             {{ 'message_empty_list'|trans }}

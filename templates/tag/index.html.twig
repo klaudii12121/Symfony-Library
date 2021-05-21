@@ -6,17 +6,22 @@
 
 {% block body %}
     <h1>{{ 'title_tag_list'|trans }}</h1>
-    {% if tags is defined and tags|length %}
+    {% if pagination is defined and pagination.items|length %}
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{ 'label_id'|trans }}</th>
-                <th>{{ 'label_tag_name'|trans }}</th>
-
+                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'tag.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_tag_name'|trans, 'tag.tagName') }}</th>
+                <th>{{ 'label_more'|trans }}</th>
             </tr>
             </thead>
             <tbody>
-            {% for tag in tags %}
+            {% for tag in pagination.items %}
                 <tr>
                     <td>{{ tag.id }}</td>
                     <td>{{ tag.tagName }}</td>
@@ -30,6 +35,11 @@
             {% endfor %}
             </tbody>
         </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
     {% else %}
         <p>
             {{ 'message_empty_list'|trans }}
