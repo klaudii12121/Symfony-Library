@@ -1,34 +1,33 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title_author_list'|trans }}
+    {{ 'title_category_list'|trans }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title_author_list'|trans }}</h1>
-    {% if authors is defined and authors|length %}
+    <h1>{{ 'title_category_list'|trans }}</h1>
+    {% if category is defined and category|length %}
         <table class="table table-striped">
             <thead>
             <tr>
                 <th>{{ 'label_id'|trans }}</th>
-                <th>{{ 'label_author_name'|trans }}</th>
+                <th>{{ 'label_category_name'|trans }}</th>
                 <th>{{ 'label_books'|trans }}</th>
             </tr>
             </thead>
             <tbody>
-            {% for author in authors %}
                 <tr>
-                    <td>{{ author.id }}</td>
-                    <td>{{ author.authorName }}</td>
+                    <td>{{ category.id }}</td>
+                    <td>{{ category.categoryName }}</td>
+
                     <td>
-                        {% for books in author.books %}
-                        <a href="{{ url('book_show', {'id': books.id}) }}" title="{{ books.bookName }}">
-                            {{ books.bookName }}<br>
-                        </a>
+                        {% for books in category.books %}
+                            <a href="{{ url('book_show', {'id': books.id}) }}" title="{{ books.bookName }}">
+                                {{ books.bookName }}<br>
+                            </a>
                         {% endfor %}
                     </td>
                 </tr>
-            {% endfor %}
             </tbody>
         </table>
     {% else %}

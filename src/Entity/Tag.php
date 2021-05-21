@@ -1,4 +1,7 @@
 <?php
+/**
+ * Tag entity.
+ */
 
 namespace App\Entity;
 
@@ -8,6 +11,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Class Tag.
+ *
  * @ORM\Entity(repositoryClass=TagRepository::class)
  * @ORM\Table(name="tags")
  */
@@ -15,6 +20,8 @@ class Tag
 {
     /**
      * Primary key.
+     *
+     * @var int
      *
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -25,64 +32,93 @@ class Tag
     /**
      * Tag name.
      *
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(type="string", length=128)
      */
     private $tagName;
 
     /**
-     * Book Tags.
+     * Books.
      *
-     * @ORM\OneToMany(targetEntity=BookTag::class, mappedBy="tag")
+     * @ORM\ManyToMany(targetEntity=Book::class, mappedBy="tags")
      */
-    private $bookTags;
+    private $books;
 
+    /**
+     * Tag constructor.
+     */
     public function __construct()
     {
-        $this->bookTags = new ArrayCollection();
+        $this->books = new ArrayCollection();
     }
 
+    /**
+     * Getter for Id.
+     *
+     * @return int|null Result
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
-
+    /**
+     * Getter for tagName.
+     *
+     * @return string|null TagName
+     */
     public function getTagName(): ?string
     {
         return $this->tagName;
     }
-
-    public function setTagName(string $tagName): self
+    /**
+     * Setter for tagName.
+     *
+     * @param string $tagName TagName
+     */
+    public function setTagName(string $tagName): void
     {
         $this->tagName = $tagName;
-
-        return $this;
     }
 
     /**
-     * @return Collection|BookTag[]
+     * Getter for the books.
+     *
+     * @return Collection|Book[]
      */
-    public function getBookTags(): Collection
+    public function getBooks(): Collection
     {
-        return $this->bookTags;
+        return $this->books;
     }
 
-    public function addBookTag(BookTag $bookTag): self
+    /**
+     * Add for book.
+     *
+     * @param Book $book
+     *
+     * @return $this
+     */
+    public function addBook(Book $book): self
     {
-        if (!$this->bookTags->contains($bookTag)) {
-            $this->bookTags[] = $bookTag;
-            $bookTag->setTag($this);
+        if (!$this->books->contains($book)) {
+            $this->books[] = $book;
+            $book->addTag($this);
         }
 
         return $this;
     }
 
-    public function removeBookTag(BookTag $bookTag): self
+    /**
+     * Remove for book.
+     *
+     * @param Book $book
+     *
+     * @return $this
+     */
+    public function removeBook(Book $book): self
     {
-        if ($this->bookTags->removeElement($bookTag)) {
-            // set the owning side to null (unless already changed)
-            if ($bookTag->getTag() === $this) {
-                $bookTag->setTag(null);
-            }
+        if ($this->books->removeElement($book)) {
+            $book->removeTag($this);
         }
 
         return $this;

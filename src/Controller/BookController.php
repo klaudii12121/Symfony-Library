@@ -19,7 +19,7 @@ class BookController extends AbstractController
     /**
      * Index action.
      *
-     * @param \App\Repository\BookRepository $bookRepository Book repository
+     * @param \App\Repository\BookRepository $bookRepository book repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -39,7 +39,7 @@ class BookController extends AbstractController
     /**
      * Show action.
      *
-     * @param \App\Entity\Book $book Book entity
+     * @param \App\Entity\Book $book book entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -58,3 +58,4 @@ class BookController extends AbstractController
         );
     }
 }
+

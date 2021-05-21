@@ -1,4 +1,7 @@
 <?php
+/**
+ * Publisher entity.
+ */
 
 namespace App\Entity;
 
@@ -8,6 +11,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Class Publisher.
+ *
  * @ORM\Entity(repositoryClass=PublisherRepository::class)
  * @ORM\Table(name="publishers")
  */
@@ -15,6 +20,8 @@ class Publisher
 {
     /**
      * Primary key.
+     *
+     * @var int
      *
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -25,7 +32,9 @@ class Publisher
     /**
      * Publisher name.
      *
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(type="string", length=128)
      */
     private $publisherName;
 
@@ -36,29 +45,47 @@ class Publisher
      */
     private $books;
 
+    /**
+     * Publisher constructor.
+     */
     public function __construct()
     {
         $this->books = new ArrayCollection();
     }
 
+    /**
+     * Getter for Id.
+     *
+     * @return int|null Result
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * Getter for Publisher name.
+     *
+     * @return string|null PublisherName
+     */
     public function getPublisherName(): ?string
     {
         return $this->publisherName;
     }
 
-    public function setPublisherName(string $publisherName): self
+    /**
+     * Setter for Publisher name.
+     *
+     * @param string $publisherName PublisherName
+     */
+    public function setPublisherName(string $publisherName): void
     {
         $this->publisherName = $publisherName;
-
-        return $this;
     }
 
     /**
+     * Getter for the books.
+     *
      * @return Collection|Book[]
      */
     public function getBooks(): Collection
@@ -66,6 +93,13 @@ class Publisher
         return $this->books;
     }
 
+    /**
+     * Add for book.
+     *
+     * @param Book $book
+     *
+     * @return $this
+     */
     public function addBook(Book $book): self
     {
         if (!$this->books->contains($book)) {
@@ -76,6 +110,13 @@ class Publisher
         return $this;
     }
 
+    /**
+     * Remove for book.
+     *
+     * @param Book $book
+     *
+     * @return $this
+     */
     public function removeBook(Book $book): self
     {
         if ($this->books->removeElement($book)) {

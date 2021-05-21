@@ -22,6 +22,14 @@
             <dd>{{  book.author.authorName}}</dd>
             <dt>{{ 'label_publisher'|trans }}</dt>
             <dd>{{  book.publisher.publisherName }}</dd>
+            {#            <dt>{{ 'label_tag'|trans }}</dt>#}
+            {#            {%  for booktags in book.bookTags %}#}
+            {#                <dd><a href="{{ url('tag_show', {'id': booktags.id}) }}" title="{{ booktags.id }}">#}
+            {#                        {{ booktags.id }}#}
+            {#                    </a></dd>#}
+            {#            {% endfor %}#}
+
+
         </dl>
         <p>
             <a href="{{ url('book_index') }}" title="{{ 'action_back_to_list'|trans }}">
@@ -34,3 +42,4 @@
         </p>
     {% endif %}
 {% endblock %}
+

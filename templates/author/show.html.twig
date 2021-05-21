@@ -1,36 +1,37 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title_book_details'|trans({'%id%': book.id|default('')}) }}
+    {{ 'title_author_list'|trans }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title_book_details'|trans({'%id%': book.id|default('')}) }}</h1>
-    {% if book is defined and book|length %}
-        <dl class="dl-horizontal">
-            <dt>{{ 'label_id'|trans }}</dt>
-            <dd>{{ book.id }}</dd>
-            <dt>{{ 'label_book_name'|trans }}</dt>
-            <dd>{{  book.bookName }}</dd>
-            <dt>{{ 'label_book_desc'|trans }}</dt>
-            <dd>{{  book.bookDesc }}</dd>
-            <dt>{{ 'label_release_year'|trans }}</dt>
-            <dd>{{  book.releaseYear }}</dd>
-            <dt>{{ 'label_category'|trans }}</dt>
-            <dd>{{  book.category }}</dd>
-            <dt>{{ 'label_author'|trans }}</dt>
-            <dd>{{  book.author }}</dd>
-            <dt>{{ 'label_publisher'|trans }}</dt>
-            <dd>{{  book.publisher }}</dd>
-        </dl>
-        <p>
-            <a href="{{ url('book_index') }}" title="{{ 'action_back_to_list'|trans }}">
-                {{ 'action_back_to_list'|trans }}
-            </a>
-        </p>
+    <h1>{{ 'title_author_list'|trans }}</h1>
+    {% if author is defined and author|length %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ 'label_id'|trans }}</th>
+                <th>{{ 'label_author_name'|trans }}</th>
+                <th>{{ 'label_books'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ author.id }}</td>
+                    <td>{{ author.authorName }}</td>
+                    <td>
+                        {% for books in author.books %}
+                        <a href="{{ url('book_show', {'id': books.id}) }}" title="{{ books.bookName }}">
+                            {{ books.bookName }}<br>
+                        </a>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     {% else %}
         <p>
-            {{ 'message_item_not_found'|trans }}
+            {{ 'message_empty_list'|trans }}
         </p>
     {% endif %}
 {% endblock %}

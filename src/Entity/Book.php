@@ -1,4 +1,7 @@
 <?php
+/**
+ * book entity.
+ */
 
 namespace App\Entity;
 
@@ -8,6 +11,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Class book.
+ *
  * @ORM\Entity(repositoryClass=BookRepository::class)
  * @ORM\Table(name="books")
  */
@@ -16,6 +21,8 @@ class Book
     /**
      * Primary key.
      *
+     * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -23,14 +30,18 @@ class Book
     private $id;
 
     /**
-     * Book name.
+     * book name.
+     *
+     * @var string
      *
      * @ORM\Column(type="string", length=255)
      */
     private $bookName;
 
     /**
-     * Book description.
+     * book description.
+     *
+     * @var string
      *
      * @ORM\Column(type="string", length=1000, nullable=true)
      */
@@ -39,12 +50,16 @@ class Book
     /**
      * Release year.
      *
+     * @var int
+     *
      * @ORM\Column(type="integer", nullable=true)
      */
     private $releaseYear;
 
     /**
-     * Book icon.
+     * book icon.
+     *
+     * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -75,167 +90,206 @@ class Book
     private $publisher;
 
     /**
-     * Book tags.
+     * Tags.
      *
-     * @ORM\OneToMany(targetEntity=BookTag::class, mappedBy="book")
+     * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="books")
      */
-    private $bookTags;
+    private $tags;
 
     /**
-     * Borrowings.
-     *
-     * @ORM\OneToMany(targetEntity=Borrowing::class, mappedBy="book")
+     * book constructor.
      */
-    private $borrowings;
-
     public function __construct()
     {
-        $this->bookTags = new ArrayCollection();
-        $this->borrowings = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
+    /**
+     * Getter for Id.
+     *
+     * @return int|null Result
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * Getter for book name.
+     *
+     * @return string|null BookName
+     */
     public function getBookName(): ?string
     {
         return $this->bookName;
     }
 
-    public function setBookName(string $bookName): self
+    /**
+     * Setter for book name.
+     *
+     * @param string $bookName BookName
+     */
+    public function setBookName(string $bookName): void
     {
         $this->bookName = $bookName;
-
-        return $this;
     }
 
+    /**
+     * Getter for book description.
+     *
+     * @return string|null BookDesc
+     */
     public function getBookDesc(): ?string
     {
         return $this->bookDesc;
     }
 
-    public function setBookDesc(?string $bookDesc): self
+    /**
+     * Setter for book description.
+     *
+     * @param string|null $bookDesc BookDesc
+     */
+    public function setBookDesc(?string $bookDesc): void
     {
         $this->bookDesc = $bookDesc;
-
-        return $this;
     }
 
+    /**
+     * Getter for Release year.
+     *
+     * @return int|null ReleaseYear
+     */
     public function getReleaseYear(): ?int
     {
         return $this->releaseYear;
     }
 
-    public function setReleaseYear(?int $releaseYear): self
+    /**
+     * Setter for Release year.
+     *
+     * @param int|null $releaseYear ReleaseYear
+     */
+    public function setReleaseYear(?int $releaseYear): void
     {
         $this->releaseYear = $releaseYear;
-
-        return $this;
     }
 
+    /**
+     * Getter for book icon.
+     *
+     * @return string|null BookIcon
+     */
     public function getBookIcon(): ?string
     {
         return $this->bookIcon;
     }
 
-    public function setBookIcon(?string $bookIcon): self
+    /**
+     * Setter for book Icon.
+     *
+     * @param string|null $bookIcon BookIcon
+     */
+    public function setBookIcon(?string $bookIcon): void
     {
         $this->bookIcon = $bookIcon;
-
-        return $this;
     }
 
+    /**
+     * Getter for Category.
+     *
+     * @return Category|null Category
+     */
     public function getCategory(): ?Category
     {
         return $this->category;
     }
 
-    public function setCategory(?Category $category): self
+    /**
+     * Setter for Category.
+     *
+     * @param Category|null $category Category
+     */
+    public function setCategory(?Category $category): void
     {
         $this->category = $category;
-
-        return $this;
     }
 
+    /**
+     * Getter for Author.
+     *
+     * @return Author|null Author
+     */
     public function getAuthor(): ?Author
     {
         return $this->author;
     }
 
-    public function setAuthor(?Author $author): self
+    /**
+     * Setter for Author.
+     *
+     * @param Author|null $author Author
+     */
+    public function setAuthor(?Author $author): void
     {
         $this->author = $author;
-
-        return $this;
     }
 
+    /**
+     * Getter for Publisher.
+     *
+     * @return Publisher|null Publisher
+     */
     public function getPublisher(): ?Publisher
     {
         return $this->publisher;
     }
 
-    public function setPublisher(?Publisher $publisher): self
+    /**
+     * Setter for Publisher.
+     *
+     * @param Publisher|null $publisher Publisher
+     */
+    public function setPublisher(?Publisher $publisher): void
     {
         $this->publisher = $publisher;
-
-        return $this;
     }
 
     /**
-     * @return Collection|BookTag[]
+     * Getter for the tags.
+     *
+     * @return Collection|Tag[]
      */
-    public function getBookTags(): Collection
+    public function getTags(): Collection
     {
-        return $this->bookTags;
+        return $this->tags;
     }
 
-    public function addBookTag(BookTag $bookTag): self
+    /**
+     * Add for tag.
+     *
+     * @param Tag $tag
+     *
+     * @return $this
+     */
+    public function addTag(Tag $tag): self
     {
-        if (!$this->bookTags->contains($bookTag)) {
-            $this->bookTags[] = $bookTag;
-            $bookTag->addBook($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBookTag(BookTag $bookTag): self
-    {
-        if ($this->bookTags->removeElement($bookTag)) {
-            $bookTag->removeBook($this);
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
         }
 
         return $this;
     }
 
     /**
-     * @return Collection|Borrowing[]
+     * Remove for tag.
+     *
+     * @param Tag $tag
+     *
+     * @return $this
      */
-    public function getBorrowings(): Collection
+    public function removeTag(Tag $tag): self
     {
-        return $this->borrowings;
-    }
-
-    public function addBorrowing(Borrowing $borrowing): self
-    {
-        if (!$this->borrowings->contains($borrowing)) {
-            $this->borrowings[] = $borrowing;
-            $borrowing->setBook($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBorrowing(Borrowing $borrowing): self
-    {
-        if ($this->borrowings->removeElement($borrowing)) {
-            // set the owning side to null (unless already changed)
-            if ($borrowing->getBook() === $this) {
-                $borrowing->setBook(null);
-            }
-        }
+        $this->tags->removeElement($tag);
 
         return $this;
     }

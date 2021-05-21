@@ -12,8 +12,9 @@
             <tr>
                 <th>{{ 'label_id'|trans }}</th>
                 <th>{{ 'label_book_name'|trans }}</th>
-                <th>{{ 'label_release_year'|trans }}</th>
+                <th>{{ 'label_author'|trans }}</th>
                 <th>{{ 'label_category'|trans }}</th>
+                <th>{{ 'label_more'|trans }}</th>
             </tr>
             </thead>
             <tbody>
@@ -21,9 +22,12 @@
                 <tr>
                     <td>{{ book.id }}</td>
                     <td>{{ book.bookName }}</td>
-                    <td>{{ book.releaseYear }}</td>
+                    <td>
+                        <a href="{{ url('author_show', {id: book.author.id}) }}" title="{{ 'author_view'|trans }}">
+                            {{ book.author.authorName }}
+                        </a>
+                    </td>
                     <td>{{ book.category.categoryName }}</td>
-
                     <td>
                         <a href="{{ url('book_show', {id: book.id}) }}" title="{{ 'action_view'|trans }}">
                             {{ 'action_view'|trans }}

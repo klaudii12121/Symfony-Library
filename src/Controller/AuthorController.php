@@ -19,7 +19,7 @@ class AuthorController extends AbstractController
     /**
      * Index action.
      *
-     * @param \App\Repository\AuthorRepository $authorRepository Auhtor repository
+     * @param \App\Repository\AuthorRepository $authorRepository Author repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -39,7 +39,7 @@ class AuthorController extends AbstractController
     /**
      * Show action.
      *
-     * @param \App\Entity\Author $author Author entity
+     * @param \App\Entity\Author $author author entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -58,3 +58,4 @@ class AuthorController extends AbstractController
         );
     }
 }
+
