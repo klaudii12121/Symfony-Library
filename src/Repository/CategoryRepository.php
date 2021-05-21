@@ -30,6 +30,7 @@ class CategoryRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Category::class);
     }
+
     /**
      * Query all records.
      *
@@ -51,6 +52,34 @@ class CategoryRepository extends ServiceEntityRepository
     private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {
         return $queryBuilder ?? $this->createQueryBuilder('category');
+    }
+
+    /**
+     * Save record.
+     *
+     * @param \App\Entity\Category $category Category entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Category $category): void
+    {
+        $this->_em->persist($category);
+        $this->_em->flush();
+    }
+
+    /**
+     * Delete record.
+     *
+     * @param \App\Entity\Category $category Category entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Category $category): void
+    {
+        $this->_em->remove($category);
+        $this->_em->flush();
     }
 
     // /**

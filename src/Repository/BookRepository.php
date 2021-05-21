@@ -54,6 +54,34 @@ class BookRepository extends ServiceEntityRepository
         return $queryBuilder ?? $this->createQueryBuilder('book');
     }
 
+    /**
+     * Save record.
+     *
+     * @param \App\Entity\Book $book Book entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Book $book): void
+    {
+        $this->_em->persist($book);
+        $this->_em->flush();
+    }
+
+    /**
+     * Delete record.
+     *
+     * @param \App\Entity\Book $book Book entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Book $book): void
+    {
+        $this->_em->remove($book);
+        $this->_em->flush();
+    }
+
     // /**
     //  * @return book[] Returns an array of book objects
     //  */

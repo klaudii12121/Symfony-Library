@@ -8,17 +8,13 @@
     <h1>{{ 'title_book_list'|trans }}</h1>
     {% if pagination is defined and pagination.items|length %}
 
-        <div class="navigation text-center">
-            {{ knp_pagination_render(pagination) }}
-        </div>
-
         <table class="table table-striped">
             <thead>
             <tr>
                 <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'book.id') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_book_name'|trans, 'book.bookName') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_author'|trans, 'book.auhtor.authorName') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_category'|trans, 'book.category.categoryName')}}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_author_name'|trans, 'book.auhtor.authorName') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_category_name'|trans, 'book.category.categoryName')}}</th>
                 <th>{{ 'label_more'|trans }}</th>
             </tr>
             </thead>
@@ -32,7 +28,11 @@
                             {{ book.author.authorName }}
                         </a>
                     </td>
-                    <td>{{ book.category.categoryName }}</td>
+                    <td>
+                        <a href="{{ url('category_show', {id: book.category.id}) }}" title="{{ 'category_view'|trans }}">
+                            {{ book.category.categoryName }}
+                        </a>
+                    </td>
                     <td>
                         <a href="{{ url('book_show', {id: book.id}) }}" title="{{ 'action_view'|trans }}">
                             {{ 'action_view'|trans }}
