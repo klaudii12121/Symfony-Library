@@ -33,7 +33,7 @@ class BookType extends AbstractType
             'bookName',
             TextType::class,
             [
-                'label' => 'label_bookName',
+                'label' => 'label_book_name',
                 'required' => true,
                 'attr' => ['max_length' => 64],
             ]

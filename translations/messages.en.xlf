@@ -58,6 +58,63 @@
                 <source>label_publisher_name</source>
                 <target>Publisher</target>
             </trans-unit>
+             <trans-unit id="Library">
+                <source>Library</source>
+                <target>Library</target>
+            </trans-unit>
+            <trans-unit id="authors">
+                <source>authors</source>
+                <target>Authors</target>
+            </trans-unit>
+            <trans-unit id="books">
+                <source>books</source>
+                <target>Books</target>
+            </trans-unit>
+            <trans-unit id="categories">
+                <source>categories</source>
+                <target>Categories</target>
+            </trans-unit>
+            <trans-unit id="tags">
+                <source>tags</source>
+                <target>Tags</target>
+            </trans-unit>
+            <trans-unit id="the_lastest_book">
+                <source>the_lastest_book</source>
+                <target>Recently purchased book</target>
+            </trans-unit>
+            <trans-unit id="news">
+                <source>news</source>
+                <target>News</target>
+            </trans-unit>
+            <trans-unit id="add_book">
+                <source>add_book</source>
+                <target>Add book</target>
+            </trans-unit>
+            <trans-unit id="add_category">
+                <source>add_category</source>
+                <target>Add category</target>
+            </trans-unit>
+            <trans-unit id="add_tag">
+                <source>add_tag</source>
+                <target>Add tag</target>
+            </trans-unit>
+            <trans-unit id="action_back_to_list">
+                <source>action_back_to_list</source>
+                <target>Back to the list</target>
+            </trans-unit>
+            <trans-unit id="action_save">
+                <source>action_save</source>
+                <target>Add!</target>
+            </trans-unit>
+            <trans-unit id="title_category_create">
+                <source>title_category_create</source>
+                <target>Add category</target>
+            </trans-unit>
+            <trans-unit id="title_book_create">
+                <source>title_book_create</source>
+                <target>Add book</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

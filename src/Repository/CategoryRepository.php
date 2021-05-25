@@ -39,6 +39,8 @@ class CategoryRepository extends ServiceEntityRepository
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
+            ->select('category', 'books')
+            ->join('category.books', 'books')
             ->orderBy('category.categoryName', 'ASC');
     }
 

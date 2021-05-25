@@ -33,7 +33,7 @@ class CategoryType extends AbstractType
             'categoryName',
             TextType::class,
             [
-                'label' => 'label_categoryName',
+                'label' => 'label_category_name',
                 'required' => true,
                 'attr' => ['max_length' => 64],
             ]
