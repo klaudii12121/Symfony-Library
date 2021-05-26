@@ -8,7 +8,7 @@
     <h1>{{ 'title_book_delete'|trans({'%id%': book.id|default('')}) }}</h1>
     {{ form_start(form, { method: 'DELETE', action: url('book_delete', {id: book.id}) }) }}
     {{ form_widget(form) }}
-    <p>Are you sure you want to remove {{ book.bookName }} by {{ book.author.authorName }}?</p>
+    <p>{{ 'sure_to_remove_book'|trans }} "{{ book.bookName }}" {{ 'by'|trans }} {{ book.author.authorName }}? </p>
     <div class="form-group row float-sm-right">
         <input type="submit" value="{{ 'action_delete'|trans }}" class="btn btn-primary" />
     </div>

@@ -8,6 +8,7 @@
     <h1>{{ 'title_category_delete'|trans({'%id%': category.id|default('')}) }}</h1>
     {{ form_start(form, { method: 'DELETE', action: url('category_delete', {id: category.id}) }) }}
     {{ form_widget(form) }}
+    <p>{{ 'sure_to_remove_category'|trans }} "{{ category.categoryName }}"{{ 'category'|trans }}? </p>
     <div class="form-group row float-sm-right">
         <input type="submit" value="{{ 'action_save'|trans }}" class="btn btn-primary" />
     </div>

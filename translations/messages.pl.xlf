@@ -130,6 +130,42 @@
                 <source>category_view</source>
                 <target>Wyświetl kategorię</target>
             </trans-unit>
+            <trans-unit id="title_book_edit">
+                <source>title_book_edit</source>
+                <target>Modyfikuj książkę</target>
+            </trans-unit>
+            <trans-unit id="title_category_edit">
+                <source>title_category_edit</source>
+                <target>Modyfikuj kategorię</target>
+            </trans-unit>
+            <trans-unit id="action_back_to_details">
+                <source>action_back_to_details</source>
+                <target>Powrót do szczegołów</target>
+            </trans-unit>
+            <trans-unit id="title_book_delete">
+                <source>title_book_delete</source>
+                <target>Usuń książkę</target>
+            </trans-unit>
+            <trans-unit id="title_category_delete">
+                <source>title_category_delete</source>
+                <target>Usuń kategorię</target>
+            </trans-unit>
+            <trans-unit id="sure_to_remove_book">
+                <source>sure_to_remove_book</source>
+                <target>Czy na pewno chcesz usunąć książkę</target>
+            </trans-unit>
+            <trans-unit id="by">
+                <source>by</source>
+                <target>napisaną przez</target>
+            </trans-unit>
+            <trans-unit id="sure_to_remove_category">
+                <source>sure_to_remove_category</source>
+                <target>Czy na pewno chcesz usunąć kategorię</target>
+            </trans-unit>
+            <trans-unit id="category">
+                <source>category</source>
+                <target></target>
+            </trans-unit>
 
         </body>
     </file>

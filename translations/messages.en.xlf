@@ -130,7 +130,42 @@
                 <source>category_view</source>
                 <target>View category</target>
             </trans-unit>
-
+            <trans-unit id="title_book_edit">
+                <source>title_book_edit</source>
+                <target>edit book</target>
+            </trans-unit>
+            <trans-unit id="title_category_edit">
+                <source>title_category_edit</source>
+                <target>edit category</target>
+            </trans-unit>
+            <trans-unit id="action_back_to_details">
+                <source>action_back_to_details</source>
+                <target>back to details</target>
+            </trans-unit>
+            <trans-unit id="title_book_delete">
+                <source>title_book_delete</source>
+                <target>delete book</target>
+            </trans-unit>
+            <trans-unit id="title_category_delete">
+                <source>title_category_delete</source>
+                <target>delete category</target>
+            </trans-unit>
+            <trans-unit id="sure_to_remove_book">
+                <source>sure_to_remove_book</source>
+                <target>Are you sure you want to remove</target>
+            </trans-unit>
+            <trans-unit id="by">
+                <source>by</source>
+                <target>by</target>
+            </trans-unit>
+            <trans-unit id="sure_to_remove_category">
+                <source>sure_to_remove_book_category</source>
+                <target>Are you sure you want to remove</target>
+            </trans-unit>
+            <trans-unit id="category">
+                <source>category</source>
+                <target> category</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
