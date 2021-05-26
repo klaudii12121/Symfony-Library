@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Author controller.
+ */
 namespace App\Controller;
 
 use App\Entity\Author;

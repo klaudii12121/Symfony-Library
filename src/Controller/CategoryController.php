@@ -1,4 +1,7 @@
 <?php
+/**
+ * Category controller.
+ */
 
 namespace App\Controller;
 
@@ -12,7 +15,6 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use App\Form\CategoryType;
 
-
 /**
  * Class CategoryController.
  *
@@ -25,9 +27,9 @@ class CategoryController extends AbstractController
      * Index action.
      *
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
-     * @param \App\Repository\CategoryRepository $categoryRepository Category repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator      Paginator
+     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
+     * @param \App\Repository\CategoryRepository $categoryRepository        Category repository
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator          Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -99,6 +101,8 @@ class CategoryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $categoryRepository->save($category);
 
+            $this->addFlash('success', 'message_created_successfully');
+
             return $this->redirectToRoute('category_index');
         }
 
@@ -134,6 +138,8 @@ class CategoryController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $categoryRepository->save($category);
+
+            $this->addFlash('success', 'message_updated_successfully');
 
             return $this->redirectToRoute('category_index');
         }

@@ -39,6 +39,8 @@ class AuthorRepository extends ServiceEntityRepository
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
+            ->select('author', 'books')
+            ->leftjoin('author.books', 'books')
             ->orderBy('author.authorName', 'ASC');
     }
 

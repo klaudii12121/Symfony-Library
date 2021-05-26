@@ -17,28 +17,28 @@
             <dt>{{ 'label_release_year'|trans }}</dt>
             <dd>{{ book.releaseYear }}</dd>
             <dt>{{ 'label_category_name'|trans }}</dt>
-            <dd>{{  book.category.categoryName }}</dd>
+            <dd>
+                <a href="{{ url('category_show', {id: book.category.id}) }}" title="{{ 'go_to_category'|trans }}">
+                {{  book.category.categoryName }}
+                </a>
+            </dd>
             <dt>{{ 'label_author_name'|trans }}</dt>
-            <dd>{{  book.author.authorName}}</dd>
+            <dd>
+                <a href="{{ url('author_show', {id: book.author.id}) }}" title="{{ 'go_to_author'|trans }}">
+                {{  book.author.authorName}}
+                </a>
+            </dd>
             <dt>{{ 'label_publisher_name'|trans }}</dt>
             <dd>{{  book.publisher.publisherName }}</dd>
-            {#            <dt>{{ 'label_tag'|trans }}</dt>#}
-            {#            {%  for booktags in book.bookTags %}#}
-            {#                <dd><a href="{{ url('tag_show', {'id': booktags.id}) }}" title="{{ booktags.id }}">#}
-            {#                        {{ booktags.id }}#}
-            {#                    </a></dd>#}
-            {#            {% endfor %}#}
-
-
         </dl>
         <p>
-            <a href="{{ url('author_show', {id: book.author.id}) }}" title="{{ 'go_to_author'|trans }}">
-                {{ 'go_to_author'|trans({'%id%': book.author.id|default('')})  }}
+            <a href="{{ url('book_edit', {id: book.id}) }}" title="{{ 'action_edit'|trans }}">
+                {{ 'action_edit'|trans }}
             </a>
         </p>
         <p>
-            <a href="{{ url('category_show', {id: book.category.id}) }}" title="{{ 'go_to_category'|trans }}">
-                {{ 'go_to_category'|trans({'%id%': book.category.id|default('')})  }}
+            <a href="{{ url('book_delete', {id: book.id}) }}" title="{{ 'action_delete'|trans }}">
+                {{ 'action_delete'|trans }}
             </a>
         </p>
     {% else %}

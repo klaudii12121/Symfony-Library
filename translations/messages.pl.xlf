@@ -4,11 +4,11 @@
         <body>
             <trans-unit id="title_author_list">
                  <source>title_author_list</source>
-                 <target>List of authors</target>
+                 <target>Lista autorów</target>
             </trans-unit>
             <trans-unit id="label_more">
                 <source>label_more</source>
-                <target>More details</target>
+                <target>Szczegóły</target>
             </trans-unit>
             <trans-unit id="label_id">
                 <source>label_id</source>
@@ -16,119 +16,119 @@
             </trans-unit>
             <trans-unit id="label_author_name">
                 <source>label_author_name</source>
-                <target>Author</target>
+                <target>Autor</target>
             </trans-unit>
             <trans-unit id="label_books">
                 <source>label_books</source>
-                <target>Books</target>
+                <target>Książki</target>
             </trans-unit>
             <trans-unit id="title_book_list">
                 <source>title_book_list</source>
-                <target>List of books</target>
+                <target>Lista książek</target>
             </trans-unit>
             <trans-unit id="label_book_name">
                 <source>label_book_name</source>
-                <target>Title</target>
+                <target>Tytuł</target>
             </trans-unit>
             <trans-unit id="label_category_name">
                 <source>label_category_name</source>
-                <target>Category</target>
+                <target>Kategoria</target>
             </trans-unit>
             <trans-unit id="action_view">
                 <source>action_view</source>
-                <target>Show</target>
+                <target>Pokaż</target>
             </trans-unit>
             <trans-unit id="title_category_list">
                 <source>title_category_list</source>
-                <target>List of categories</target>
+                <target>Lista kategorii</target>
             </trans-unit>
             <trans-unit id="title_book_details">
                 <source>title_book_details</source>
-                <target>Book details</target>
+                <target>Szczegóły książki</target>
             </trans-unit>
             <trans-unit id="label_book_desc">
                 <source>label_book_desc</source>
-                <target>Book description</target>
+                <target>Opis książki</target>
             </trans-unit>
             <trans-unit id="label_release_year">
                 <source>label_release_year</source>
-                <target>Release year</target>
+                <target>Rok wydania</target>
             </trans-unit>
             <trans-unit id="label_publisher_name">
                 <source>label_publisher_name</source>
-                <target>Publisher</target>
+                <target>Wydawnictwo</target>
             </trans-unit>
              <trans-unit id="Library">
                 <source>Library</source>
-                <target>Library</target>
+                <target>Biblioteka</target>
             </trans-unit>
             <trans-unit id="authors">
                 <source>authors</source>
-                <target>Authors</target>
+                <target>Autorzy</target>
             </trans-unit>
             <trans-unit id="books">
                 <source>books</source>
-                <target>Books</target>
+                <target>Książki</target>
             </trans-unit>
             <trans-unit id="categories">
                 <source>categories</source>
-                <target>Categories</target>
+                <target>Kategorie</target>
             </trans-unit>
             <trans-unit id="tags">
                 <source>tags</source>
-                <target>Tags</target>
+                <target>Tagi</target>
             </trans-unit>
             <trans-unit id="the_lastest_book">
                 <source>the_lastest_book</source>
-                <target>Recently purchased book</target>
+                <target>Ostatni nabytek</target>
             </trans-unit>
             <trans-unit id="news">
                 <source>news</source>
-                <target>News</target>
+                <target>Aktualności</target>
             </trans-unit>
             <trans-unit id="add_book">
                 <source>add_book</source>
-                <target>Add book</target>
+                <target>Dodaj książkę</target>
             </trans-unit>
             <trans-unit id="add_category">
                 <source>add_category</source>
-                <target>Add category</target>
+                <target>Dodaj kategorię</target>
             </trans-unit>
             <trans-unit id="add_tag">
                 <source>add_tag</source>
-                <target>Add tag</target>
+                <target>Dodaj tag</target>
             </trans-unit>
             <trans-unit id="action_back_to_list">
                 <source>action_back_to_list</source>
-                <target>Back to the list</target>
+                <target>Powrót do listy</target>
             </trans-unit>
             <trans-unit id="action_save">
                 <source>action_save</source>
-                <target>Add!</target>
+                <target>Dodaj!</target>
             </trans-unit>
             <trans-unit id="title_category_create">
                 <source>title_category_create</source>
-                <target>Add category</target>
+                <target>Tworzenie kategorii</target>
             </trans-unit>
             <trans-unit id="title_book_create">
                 <source>title_book_create</source>
-                <target>Add book</target>
+                <target>Dodawanie książki</target>
             </trans-unit>
             <trans-unit id="action_delete">
                 <source>action_delete</source>
-                <target>Delete</target>
+                <target>Usuń</target>
             </trans-unit>
             <trans-unit id="action_edit">
                 <source>action_edit</source>
-                <target>Modify</target>
+                <target>Modyfikuj</target>
             </trans-unit>
             <trans-unit id="author_view">
                 <source>author_view</source>
-                <target>View author</target>
+                <target>Wyświetl autora</target>
             </trans-unit>
             <trans-unit id="category_view">
                 <source>category_view</source>
-                <target>View category</target>
+                <target>Wyświetl kategorię</target>
             </trans-unit>
 
         </body>

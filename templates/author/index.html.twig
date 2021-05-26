@@ -12,9 +12,9 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'author.id') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_author_name'|trans, 'author.authorName') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_books'|trans, 'author.book.bookName') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'author.id') }}<i class="fa fa-fw fa-sort"></i></th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_author_name'|trans, 'author.authorName') }}<i class="fa fa-fw fa-sort"></i></th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_books'|trans, 'book.bookName') }}<i class="fa fa-fw fa-sort"></i></th>
             </tr>
             </thead>
             <tbody>

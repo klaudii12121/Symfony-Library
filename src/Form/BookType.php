@@ -6,10 +6,15 @@
 namespace App\Form;
 
 use App\Entity\Book;
+use App\Entity\Category;
+use App\Entity\Author;
+use App\Entity\Publisher;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
  * Class BookType.
@@ -35,7 +40,55 @@ class BookType extends AbstractType
             [
                 'label' => 'label_book_name',
                 'required' => true,
-                'attr' => ['max_length' => 64],
+                'attr' => ['max_length' => 128],
+            ]
+        );
+
+        $builder->add(
+            'bookDesc',
+            TextareaType::class,
+            [
+                'label' => 'label_book_desc',
+                'attr' => ['max_length' => 1000],
+            ]
+        );
+
+        $builder->add(
+            'category',
+            EntityType::class,
+            [
+                'class' => Category::class,
+                'choice_label' => function (Category $category) {
+                     return $category->getCategoryName();
+                },
+                'label' => 'label_category_name',
+                'required' => true,
+            ]
+        );
+
+        $builder->add(
+            'author',
+            EntityType::class,
+            [
+                'class' => Author::class,
+                'choice_label' => function (Author $author) {
+                    return $author->getAuthorName();
+                },
+                'label' => 'label_author_name',
+                'required' => true,
+            ]
+        );
+
+        $builder->add(
+            'publisher',
+            EntityType::class,
+            [
+                'class' => Publisher::class,
+                'choice_label' => function (Publisher $publisher) {
+                    return $publisher->getPublisherName();
+                },
+                'label' => 'label_publisher_name',
+                'required' => true,
             ]
         );
     }

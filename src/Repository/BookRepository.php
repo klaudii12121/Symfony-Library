@@ -40,9 +40,9 @@ class BookRepository extends ServiceEntityRepository
     {
         return $this->getOrCreateQueryBuilder()
             ->select('book', 'author', 'category', 'publisher')
-            ->join('book.author', 'author')
-            ->join('book.category', 'category')
-            ->join('book.category', 'publisher')
+            ->leftjoin('book.author', 'author')
+            ->leftjoin('book.category', 'category')
+            ->leftjoin('book.category', 'publisher')
             ->orderBy('book.bookName', 'ASC');
     }
 

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Tag controller.
+ */
 namespace App\Controller;
 
 use App\Entity\Tag;

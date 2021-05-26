@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Book controller.
+ */
 namespace App\Controller;
 
 use App\Entity\Book;
@@ -100,6 +102,7 @@ class BookController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $bookRepository->save($book);
 
+            $this->addFlash('success', 'message_created_successfully');
             return $this->redirectToRoute('book_index');
         }
 
@@ -181,6 +184,7 @@ class BookController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $bookRepository->delete($book);
 
+            $this->addFlash('success', 'message.deleted_successfully');
             return $this->redirectToRoute('book_index');
         }
 

@@ -13,6 +13,8 @@
                 <th>{{ 'label_id'|trans }}</th>
                 <th>{{ 'label_category_name'|trans }}</th>
                 <th>{{ 'label_books'|trans }}</th>
+                <th></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -26,6 +28,16 @@
                                 {{ books.bookName }}<br>
                             </a>
                         {% endfor %}
+                    </td>
+                    <td>
+                        <a href="{{ url('category_edit', {id: category.id}) }}" title="{{ 'action_edit'|trans }}">
+                            {{ 'action_edit'|trans }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ url('category_delete', {id: category.id}) }}" title="{{ 'action_delete'|trans }}">
+                            {{ 'action_delete'|trans }}
+                        </a>
                     </td>
                 </tr>
             </tbody>

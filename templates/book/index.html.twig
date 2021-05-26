@@ -11,10 +11,10 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'book.id') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_book_name'|trans, 'book.bookName') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_author_name'|trans, 'book.auhtor.authorName') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_category_name'|trans, 'book.category.categoryName')}}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'book.id') }}<i class="fa fa-fw fa-sort"></i></th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_book_name'|trans, 'book.bookName') }}<i class="fa fa-fw fa-sort"></i></th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_author_name'|trans, 'author.authorName') }}<i class="fa fa-fw fa-sort"></i></th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_category_name'|trans, 'category.categoryName')}}<i class="fa fa-fw fa-sort"></i></th>
                 <th>{{ 'label_more'|trans }}</th>
             </tr>
             </thead>
