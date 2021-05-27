@@ -166,6 +166,18 @@
                 <source>category</source>
                 <target> category</target>
             </trans-unit>
+            <trans-unit id="message.deleted_successfully">
+                <source>message.deleted_successfully</source>
+                <target>Successfully deleted!</target>
+            </trans-unit>
+            <trans-unit id="message_updated_successfully">
+                <source>message_updated_successfully</source>
+                <target>Successfully updated!</target>
+            </trans-unit>
+            <trans-unit id="message_created_successfully">
+                <source>message_created_successfully</source>
+                <target>Successfully created!</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

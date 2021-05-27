@@ -116,11 +116,11 @@
             </trans-unit>
             <trans-unit id="action_delete">
                 <source>action_delete</source>
-                <target>Usuń</target>
+                <target>Usuń!</target>
             </trans-unit>
             <trans-unit id="action_edit">
                 <source>action_edit</source>
-                <target>Modyfikuj</target>
+                <target>Modyfikuj!</target>
             </trans-unit>
             <trans-unit id="author_view">
                 <source>author_view</source>
@@ -165,6 +165,18 @@
             <trans-unit id="category">
                 <source>category</source>
                 <target></target>
+            </trans-unit>
+            <trans-unit id="message.deleted_successfully">
+                <source>message.deleted_successfully</source>
+                <target>Usunięte z powodzeniem!</target>
+            </trans-unit>
+            <trans-unit id="message_updated_successfully">
+                <source>message_updated_successfully</source>
+                <target>Zmodyfikowane z powodzeniem!</target>
+            </trans-unit>
+            <trans-unit id="message_created_successfully">
+                <source>message_created_successfully</source>
+                <target>Dodane z powodzeniem!</target>
             </trans-unit>
 
         </body>
