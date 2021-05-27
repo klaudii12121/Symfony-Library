@@ -178,6 +178,14 @@
                 <source>message_created_successfully</source>
                 <target>Dodane z powodzeniem!</target>
             </trans-unit>
+            <trans-unit id="empty_space_books">
+                <source>empty_space_books</source>
+                <target>Brak książek</target>
+            </trans-unit>
+            <trans-unit id="message_empty_list">
+                <source>message_empty_list</source>
+                <target>Pusta lista</target>
+            </trans-unit>
 
         </body>
     </file>

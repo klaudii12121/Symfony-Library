@@ -23,11 +23,15 @@
                     <td>{{ author.id }}</td>
                     <td>{{ author.authorName }}</td>
                     <td>
-                        {% for books in author.books %}
-                        <a href="{{ url('book_show', {'id': books.id}) }}" title="{{ books.bookName }}">
-                            {{ books.bookName }}<br>
-                        </a>
-                        {% endfor %}
+                        {% if author.books|length %}
+                            {% for books in author.books %}
+                                <a href="{{ url('book_show', {'id': books.id}) }}" title="{{ books.bookName }}">
+                                    {{ books.bookName }}<br>
+                                </a>
+                            {% endfor %}
+                        {% else %}
+                            {{ 'empty_space_books'|trans }}
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

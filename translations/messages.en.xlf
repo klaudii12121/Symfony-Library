@@ -178,6 +178,14 @@
                 <source>message_created_successfully</source>
                 <target>Successfully created!</target>
             </trans-unit>
+            <trans-unit id="empty_space_books">
+                <source>empty_space_books</source>
+                <target>No books</target>
+            </trans-unit>
+            <trans-unit id="message_empty_list">
+                <source>message_empty_list</source>
+                <target>Empty list</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
