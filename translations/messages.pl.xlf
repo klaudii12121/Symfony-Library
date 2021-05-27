@@ -186,6 +186,10 @@
                 <source>message_empty_list</source>
                 <target>Pusta lista</target>
             </trans-unit>
+            <trans-unit id="welcome">
+                <source>welcome</source>
+                <target>Witaj w internetowej bibliotece!</target>
+            </trans-unit>
 
         </body>
     </file>

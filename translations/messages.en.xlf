@@ -186,6 +186,10 @@
                 <source>message_empty_list</source>
                 <target>Empty list</target>
             </trans-unit>
+            <trans-unit id="welcome">
+                <source>welcome</source>
+                <target>Welcome to the online library!</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
