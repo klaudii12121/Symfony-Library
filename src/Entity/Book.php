@@ -92,8 +92,8 @@ class Book
     /**
      * Tags.
      *
-     * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="books")
-     * @ORM\JoinTable(name="books_tags)
+     * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="books", orphanRemoval=true)
+     * @ORM\JoinTable(name="books_tags")
      */
     private $tags;
 

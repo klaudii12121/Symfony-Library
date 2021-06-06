@@ -190,6 +190,14 @@
                 <source>welcome</source>
                 <target>Welcome to the online library!</target>
             </trans-unit>
+            <trans-unit id="register">
+                <source>register</source>
+                <target>register!</target>
+            </trans-unit>
+            <trans-unit id="log_in">
+                <source>log_in</source>
+                <target>log in!</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
