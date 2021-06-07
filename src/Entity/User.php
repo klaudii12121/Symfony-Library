@@ -1,4 +1,7 @@
 <?php
+/**
+ * User entity.
+ */
 
 namespace App\Entity;
 
@@ -8,7 +11,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -42,6 +44,10 @@ class User implements UserInterface
     const ROLE_ADMIN = 'ROLE_ADMIN';
 
     /**
+     * Primary key.
+     *
+     * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(
@@ -52,6 +58,8 @@ class User implements UserInterface
     private $id;
 
     /**
+     * Email.
+     *
      * @ORM\Column(type="string", length=180, unique=true)
      *
      * @Assert\NotBlank
@@ -60,6 +68,8 @@ class User implements UserInterface
     private $email;
 
     /**
+     * Roles.
+     *
      * @ORM\Column(type="json")
      */
     private $roles = [];
@@ -77,21 +87,43 @@ class User implements UserInterface
      */
     private $password;
 
+    /**
+     * User data.
+     *
+     * @ORM\OneToOne(targetEntity=UserData::class, cascade={"persist", "remove"})
+     */
+    private $userData;
+
+
+    /**
+     * Getter for Id.
+     *
+     * @return int|null Result
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+
+    /**
+     * Getter for email.
+     *
+     * @return string|null Result
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    /**
+     * Setter for email.
+     *
+     * @param string $email Email
+     */
+    public function setEmail(string $email): void
     {
         $this->email = $email;
-
-        return $this;
     }
 
     /**
@@ -105,7 +137,11 @@ class User implements UserInterface
     }
 
     /**
+     * Getter for roles.
+     *
      * @see UserInterface
+     *
+     * @return array Roles
      */
     public function getRoles(): array
     {
@@ -116,11 +152,14 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): self
+    /**
+     * Setter for roles.
+     *
+     * @param array $roles Roles
+     */
+    public function setRoles(array $roles): void
     {
         $this->roles = $roles;
-
-        return $this;
     }
 
     /**
@@ -164,5 +203,25 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * Getter for User data
+     *
+     * @return UserData|null
+     */
+    public function getUserData(): ?UserData
+    {
+        return $this->userData;
+    }
+
+    /**
+     * Setter for User data
+     *
+     * @param UserData|null $userData
+     */
+    public function setUserData(?UserData $userData): void
+    {
+        $this->userData = $userData;
     }
 }

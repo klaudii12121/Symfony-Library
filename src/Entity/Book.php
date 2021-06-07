@@ -98,11 +98,17 @@ class Book
     private $tags;
 
     /**
+     * @ORM\OneToMany(targetEntity=Borrowing::class, mappedBy="book")
+     */
+    private $borrowings;
+
+    /**
      * book constructor.
      */
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->borrowings = new ArrayCollection();
     }
 
     /**
@@ -291,6 +297,36 @@ class Book
     public function removeTag(Tag $tag): self
     {
         $this->tags->removeElement($tag);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Borrowing[]
+     */
+    public function getBorrowings(): Collection
+    {
+        return $this->borrowings;
+    }
+
+    public function addBorrowing(Borrowing $borrowing): self
+    {
+        if (!$this->borrowings->contains($borrowing)) {
+            $this->borrowings[] = $borrowing;
+            $borrowing->setBook($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBorrowing(Borrowing $borrowing): self
+    {
+        if ($this->borrowings->removeElement($borrowing)) {
+            // set the owning side to null (unless already changed)
+            if ($borrowing->getBook() === $this) {
+                $borrowing->setBook(null);
+            }
+        }
 
         return $this;
     }

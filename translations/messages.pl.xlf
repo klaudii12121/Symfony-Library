@@ -190,6 +190,18 @@
                 <source>welcome</source>
                 <target>Witaj w internetowej bibliotece!</target>
             </trans-unit>
+            <trans-unit id="register">
+                <source>register</source>
+                <target>zarejestruj się!</target>
+            </trans-unit>
+            <trans-unit id="log_in">
+                <source>log_in</source>
+                <target>zaloguj się!</target>
+            </trans-unit>
+            <trans-unit id="borrow_book">
+                <source>borrow_book</source>
+                <target>Wypożycz książkę</target>
+            </trans-unit>
 
         </body>
     </file>

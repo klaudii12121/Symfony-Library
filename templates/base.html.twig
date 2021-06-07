@@ -23,17 +23,32 @@
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ 'books'|trans }}</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="{{ url('book_index') }}">{{ 'title_book_list'|trans }}</a>
+                    {% if is_granted('ROLE_ADMIN') %}
                     <a class="dropdown-item" href="{{ url('book_create') }}">{{ 'add_book'|trans }}</a>
+                    {% endif %}
+                    {% if is_granted('ROLE_USER') %}
+                        <a class="dropdown-item" >{{ 'borrow_book'|trans }}</a>
+                    {% endif %}
                 </div>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="{{ url('category_index') }}" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ 'categories'|trans }}</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="{{ url('category_index') }}">{{ 'title_category_list'|trans }}</a>
+                    {% if is_granted('ROLE_ADMIN') %}
                     <a class="dropdown-item" href="{{ url('category_create') }}">{{ 'add_category'|trans }}</a>
+                    {% endif %}
                 </div>
             </li>
         </ul>
+    </div>
+    <div class="navbar-nav ml-auto">
+        {% if is_granted('ROLE_USER') %}
+            <a href="{{ url('app_logout') }}" class="btn btn-outline-success">{{ 'log_out'|trans }}</a>
+        {% else %}
+            <a href="{{ url('app_login') }}" class="btn btn-outline-success">{{'log_in'|trans}}</a>
+            <a href="{{ url('app_register') }}" class="btn btn-outline-success">{{ 'register'|trans }}</a>
+        {% endif %}
     </div>
 </nav>
 <div class="container-fluid">

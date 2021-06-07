@@ -198,6 +198,10 @@
                 <source>log_in</source>
                 <target>log in!</target>
             </trans-unit>
+            <trans-unit id="borrow_book">
+                <source>borrow_book</source>
+                <target>Borrow book</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
