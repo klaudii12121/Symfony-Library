@@ -42,13 +42,22 @@
             </li>
         </ul>
     </div>
-    <div class="navbar-nav ml-auto">
-        {% if is_granted('ROLE_USER') %}
-            <a href="{{ url('app_logout') }}" class="btn btn-outline-success">{{ 'log_out'|trans }}</a>
-        {% else %}
-            <a href="{{ url('app_login') }}" class="btn btn-outline-success">{{'log_in'|trans}}</a>
-            <a href="{{ url('app_register') }}" class="btn btn-outline-success">{{ 'register'|trans }}</a>
-        {% endif %}
+    <div class="navbar-collapse navbar-right">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                {% if is_granted('ROLE_USER') %}
+                <a class="nav-link dropdown-toggle" style="margin-right: 3em" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ 'Account'|trans }}</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item">{{ 'profile_show'|trans }}</a>
+                        <a class="dropdown-item" href="{{ url('borrow_index') }}">{{ 'borrowings'|trans }}</a>
+                        <a href="{{ url('app_logout') }}" class="btn btn-outline-primary" style="margin-left: 1.5em;margin-top: 1em" >{{ 'log_out'|trans }}</a>
+                        {% else %}
+                        <a href="{{ url('app_login') }}" class="btn btn-outline-success">{{'log_in'|trans}}</a>
+                        <a href="{{ url('app_register') }}" class="btn btn-outline-success">{{ 'register'|trans }}</a>
+                    {% endif %}
+                </div>
+            </li>
+        </ul>
     </div>
 </nav>
 <div class="container-fluid">
