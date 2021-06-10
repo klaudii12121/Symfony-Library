@@ -36,7 +36,6 @@ class BorrowingController extends AbstractController
      *     methods={"GET"},
      *     name="borrow_index",
      * )
-     * @IsGranted("ROLE_USER")
      */
     public function index(Request $request, BorrowingRepository $borrowingRepository, PaginatorInterface $paginator): Response
     {
@@ -66,7 +65,6 @@ class BorrowingController extends AbstractController
      *     methods={"GET"},
      *     name="all_borrow_index",
      * )
-     * @IsGranted("ROLE_ADMIN")
      */
     public function index_all(Request $request, BorrowingRepository $borrowingRepository, PaginatorInterface $paginator): Response
     {

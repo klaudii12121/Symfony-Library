@@ -41,7 +41,7 @@ class Borrowing
     /**
      * Return date.
      *
-     * @var DateTimeInterface
+     * @var DateTimeInterface|null
      *
      * @ORM\Column(type="date", nullable=true)
      *

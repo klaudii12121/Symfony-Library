@@ -14,7 +14,6 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'user.id') }}<i class="fa fa-fw fa-sort"></i></th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_user_email'|trans, 'user.email') }}<i class="fa fa-fw fa-sort"></i></th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_nick'|trans, 'user.userData.nick') }}<i class="fa fa-fw fa-sort"></i></th>
-                <th>{{ 'label_more'|trans }}</th>
             </tr>
             </thead>
             <tbody>
@@ -23,11 +22,6 @@
                     <td>{{ user.id }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.userData.nick }}</td>
-                    <td>
-                        <a href="{{ url('user_show', {id: user.id}) }}" title="{{ 'action_view'|trans }}">
-                            {{ 'action_view'|trans }}
-                        </a>
-                    </td>
                 </tr>
             {% endfor %}
             </tbody>
