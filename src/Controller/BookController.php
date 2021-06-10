@@ -14,8 +14,6 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use App\Form\BookType;
 
-
-
 /**
  * Class BookController.
  *
@@ -185,6 +183,7 @@ class BookController extends AbstractController
             $bookRepository->delete($book);
 
             $this->addFlash('success', 'message.deleted_successfully');
+
             return $this->redirectToRoute('book_index');
         }
 

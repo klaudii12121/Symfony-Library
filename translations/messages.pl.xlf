@@ -202,7 +202,18 @@
                 <source>borrow_book</source>
                 <target>Wypożycz książkę</target>
             </trans-unit>
-
+            <trans-unit id="Account">
+                <source>Account</source>
+                <target>Cześć, </target>
+            </trans-unit>
+            <trans-unit id="profile_show">
+                <source>profile_show</source>
+                <target>Twój profil</target>
+            </trans-unit>
+            <trans-unit id="borrowings">
+                <source>borrowings</source>
+                <target>Twoje wypożyczenia</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

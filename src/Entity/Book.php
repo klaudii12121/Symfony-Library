@@ -30,7 +30,7 @@ class Book
     private $id;
 
     /**
-     * book name.
+     * Book name.
      *
      * @var string
      *
@@ -39,7 +39,7 @@ class Book
     private $bookName;
 
     /**
-     * book description.
+     * Book description.
      *
      * @var string
      *
@@ -57,7 +57,7 @@ class Book
     private $releaseYear;
 
     /**
-     * book icon.
+     * Book icon.
      *
      * @var string
      *
@@ -98,12 +98,14 @@ class Book
     private $tags;
 
     /**
+     * Borrowings.
+     *
      * @ORM\OneToMany(targetEntity=Borrowing::class, mappedBy="book")
      */
     private $borrowings;
 
     /**
-     * book constructor.
+     * Book constructor.
      */
     public function __construct()
     {

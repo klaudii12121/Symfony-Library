@@ -26,9 +26,6 @@
                     {% if is_granted('ROLE_ADMIN') %}
                     <a class="dropdown-item" href="{{ url('book_create') }}">{{ 'add_book'|trans }}</a>
                     {% endif %}
-                    {% if is_granted('ROLE_USER') %}
-                        <a class="dropdown-item" >{{ 'borrow_book'|trans }}</a>
-                    {% endif %}
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -45,15 +42,20 @@
     <div class="navbar-collapse navbar-right">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
-                {% if is_granted('ROLE_USER') %}
-                <a class="nav-link dropdown-toggle" style="margin-right: 3em" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ 'Account'|trans }}</a>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <a class="nav-link dropdown-toggle" style="margin-right: 1em" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ 'Account'|trans }}{{ app.user.userData.nick }}</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item">{{ 'profile_show'|trans }}</a>
+                        <a href="{{ url('user_show', {id: app.user.id}) }}" class="dropdown-item">{{ 'profile_show'|trans }}</a>
+                        {% if is_granted('ROLE_USER') %}
                         <a class="dropdown-item" href="{{ url('borrow_index') }}">{{ 'borrowings'|trans }}</a>
                         <a href="{{ url('app_logout') }}" class="btn btn-outline-primary" style="margin-left: 1.5em;margin-top: 1em" >{{ 'log_out'|trans }}</a>
-                        {% else %}
-                        <a href="{{ url('app_login') }}" class="btn btn-outline-success">{{'log_in'|trans}}</a>
-                        <a href="{{ url('app_register') }}" class="btn btn-outline-success">{{ 'register'|trans }}</a>
+                     {% else %}
+                         <a class="dropdown-item" href="{{ url('all_borrow_index') }}">{{ 'borrowings'|trans }}</a>
+                         <a href="{{ url('app_logout') }}" class="btn btn-outline-primary" style="margin-left: 1.5em;margin-top: 1em" >{{ 'log_out'|trans }}</a>
+                     {% endif %}
+                    {% else %}
+                         <a href="{{ url('app_login') }}" class="btn btn-outline-primary">{{'log_in'|trans}}</a>
+                            <a href="{{ url('app_register') }}" class="btn btn-outline-primary">{{ 'register'|trans }}</a>
                     {% endif %}
                 </div>
             </li>

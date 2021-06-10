@@ -202,6 +202,18 @@
                 <source>borrow_book</source>
                 <target>Borrow book</target>
             </trans-unit>
+            <trans-unit id="Account">
+                <source>Account</source>
+                <target>Hi, </target>
+            </trans-unit>
+            <trans-unit id="profile_show">
+                <source>profile_show</source>
+                <target>Your profile</target>
+            </trans-unit>
+            <trans-unit id="borrowings">
+                <source>borrowings</source>
+                <target>Your borrowing</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

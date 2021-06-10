@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class BorrowingController.
@@ -21,10 +23,10 @@ use Knp\Component\Pager\PaginatorInterface;
 class BorrowingController extends AbstractController
 {
     /**
-     * Index action.
+     * One user borrowings.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
-     * @param \App\Repository\BookRepository $bookRepository book repository
+     * @param \App\Repository\BorrowingRepository $borrowingRepository borrowing repository
      * @param \Knp\Component\Pager\PaginatorInterface   $paginator      Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
@@ -34,11 +36,42 @@ class BorrowingController extends AbstractController
      *     methods={"GET"},
      *     name="borrow_index",
      * )
+     * @IsGranted("ROLE_USER")
      */
     public function index(Request $request, BorrowingRepository $borrowingRepository, PaginatorInterface $paginator): Response
     {
         $pagination = $paginator->paginate(
             $borrowingRepository->queryByUser($this->getUser()),
+            $request->query->getInt('page', 1),
+            BorrowingRepository::PAGINATOR_ITEMS_PER_PAGE
+        );
+
+        return $this->render(
+            'borrowing/index.html.twig',
+            ['pagination' => $pagination]
+        );
+    }
+
+    /**
+     * All users borrowings.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
+     * @param \App\Repository\BorrowingRepository $borrowingRepository borrowing repository
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator      Paginator
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @Route(
+     *     "/",
+     *     methods={"GET"},
+     *     name="all_borrow_index",
+     * )
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function index_all(Request $request, BorrowingRepository $borrowingRepository, PaginatorInterface $paginator): Response
+    {
+        $pagination = $paginator->paginate(
+            $borrowingRepository->queryAll(),
             $request->query->getInt('page', 1),
             BorrowingRepository::PAGINATOR_ITEMS_PER_PAGE
         );
