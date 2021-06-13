@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\UserData;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
+use App\Repository\UserDataRepository;
 use App\Security\LoginFormAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +21,7 @@ class RegistrationController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
      * @param \App\Repository\UserRepository        $userRepository User repository
+     * @param \App\Repository\UserDataRepository        $userDataRepository UserData repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -32,9 +35,10 @@ class RegistrationController extends AbstractController
      *     name="app_register",
      * )
      */
-    public function register(Request $request, UserRepository $userRepository, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
+    public function register(Request $request, UserDataRepository $userDataRepository, UserRepository $userRepository, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
     {
         $user = new User();
+        $userData = new UserData();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
@@ -47,10 +51,12 @@ class RegistrationController extends AbstractController
                 )
             );
             $user->setRoles([User::ROLE_USER]);
-
+            $user->setUserData($userData);
+            $userData->setNick('noname');
             $userRepository->save($user);
+            $userDataRepository->save($userData);
 
-            $this->addFlash('success', 'Your account has been created successfully');
+            $this->addFlash('success', 'Hello new user! You are noname now. Go to your profile and fill in the details about yourself!');
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,

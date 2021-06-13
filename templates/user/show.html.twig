@@ -6,7 +6,7 @@
 
 {% block body %}
     <h1>{{ 'title_user_details'|trans({'%id%': book.id|default('')}) }}</h1>
-    {% if user is defined and user|length %}
+    {% if user.userData.nick != 'noname' and user.userData|length %}
         <dl class="dl-horizontal">
             <dt>{{ 'label_id'|trans }}</dt>
             <dd>{{ user.id }}</dd>
@@ -19,9 +19,29 @@
             <dt>{{ 'label_last_name'|trans }}</dt>
             <dd>{{ user.userData.lastName }}</dd>
         </dl>
+        <p>
+            <a href="{{ url('userData_edit', {id: user.userData.id}) }}" title="{{ 'action_edit'|trans }}">
+                {{ 'action_edit'|trans }}
+            </a>
+        </p>
+        <p>
+            <a href="{{ url('pass_edit', {id: user.id}) }}" title="{{ 'action_edit'|trans }}">
+                {{ 'action_edit'|trans }}
+            </a>
+        </p>
     {% else %}
         <p>
-            {{ 'message_item_not_found'|trans }}
+            {{ 'We have no informations about you :C' }}
+        </p>
+        <p>
+            <a href="{{ url('userData_edit', {id: user.userData.id}) }}" title="{{ 'action_edit'|trans }}">
+                {{ 'action_edit'|trans }}
+            </a>
+        </p>
+        <p>
+            <a href="{{ url('pass_edit', {id: user.id}) }}" title="{{ 'action_edit'|trans }}">
+                {{ 'action_edit'|trans }}
+            </a>
         </p>
     {% endif %}
 {% endblock %}

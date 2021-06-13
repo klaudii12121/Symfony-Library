@@ -6,6 +6,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserDataType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +14,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use App\Form\UserType;
+use App\Form\UpgradePassType;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class UserController.
@@ -74,5 +76,49 @@ class UserController extends AbstractController
             ['user' => $user]
         );
     }
+
+    /**
+     * Upgrade password.
+     *
+     * @param \App\Entity\User $user User entity
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @Route(
+     *     "/{id}/password",
+     *     methods={"GET","PUT"},
+     *     name="pass_edit",
+     *     requirements={"id": "[1-9]\d*"},
+     * )
+     */
+    public function upgradePass(Request $request, User $user, UserRepository $userRepository, UserPasswordEncoderInterface $passwordEncoder): Response
+    {
+        $form = $this->createForm(UpgradePassType::class, $user, ['method' => 'PUT']);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+                $user->setPassword(
+                    $passwordEncoder->encodePassword(
+                        $user,
+                        $form->get('password')->getData()
+                    )
+                );
+
+                $userRepository->save($user);
+                $this->addFlash('success', 'password changed successfully');
+
+                return $this->redirectToRoute('user_show');
+            }
+        return $this->render(
+            'user/upgrade.html.twig',
+            [
+                'form' => $form->createView(),
+                'user' => $user,
+            ]
+        );
+    }
+
+
 
 }

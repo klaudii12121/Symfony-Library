@@ -19,7 +19,19 @@ class UserDataRepository extends ServiceEntityRepository
         parent::__construct($registry, UserData::class);
     }
 
-
+    /**
+     * Save user data.
+     *
+     * @param \App\Entity\UserData $userData UserData entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(UserData $userData): void
+    {
+        $this->_em->persist($userData);
+        $this->_em->flush($userData);
+    }
     // /**
     //  * @return UserData[] Returns an array of UserData objects
     //  */

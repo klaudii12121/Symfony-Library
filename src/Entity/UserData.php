@@ -37,7 +37,7 @@ class UserData
      * @Assert\Type(type="string")
      * @Assert\Length(
      *     min="6",
-     *     max="10",
+     *     max="128",
      * )
      * @Assert\NotBlank
      */
