@@ -11,6 +11,7 @@ use App\Entity\Author;
 use App\Entity\Publisher;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -88,6 +89,15 @@ class BookType extends AbstractType
                     return $publisher->getPublisherName();
                 },
                 'label' => 'label_publisher_name',
+                'required' => true,
+            ]
+        );
+
+        $builder->add(
+            'amount',
+            IntegerType::class,
+            [
+                'label' => 'label_amount',
                 'required' => true,
             ]
         );

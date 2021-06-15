@@ -31,6 +31,7 @@
             <dt>{{ 'label_publisher_name'|trans }}</dt>
             <dd>{{  book.publisher.publisherName }}</dd>
         </dl>
+    {% if is_granted('ROLE_ADMIN') %}
         <p>
             <a href="{{ url('book_edit', {id: book.id}) }}" title="{{ 'action_edit'|trans }}">
                 {{ 'action_edit'|trans }}
@@ -41,6 +42,13 @@
                 {{ 'action_delete'|trans }}
             </a>
         </p>
+        {% else %}
+            <p>
+                <a href="{{ url('borrow_create', {id: book.id}) }}" title="{{ 'action_borrow'|trans }}">
+                    {{ 'action_borrow'|trans }}
+                </a>
+            </p>
+    {% endif %}
     {% else %}
         <p>
             {{ 'message_item_not_found'|trans }}

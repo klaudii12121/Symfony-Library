@@ -105,6 +105,13 @@ class Book
     private $borrowings;
 
     /**
+     * Amount.
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $amount;
+
+    /**
      * Book constructor.
      */
     public function __construct()
@@ -329,6 +336,18 @@ class Book
                 $borrowing->setBook(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAmount(): ?int
+    {
+        return $this->amount;
+    }
+
+    public function setAmount(int $amount): self
+    {
+        $this->amount = $amount;
 
         return $this;
     }

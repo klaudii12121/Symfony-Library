@@ -26,24 +26,17 @@
             </thead>
             <tbody>
             {% for borrowing in pagination.items %}
-                {% if borrowing.borrowDate != unixDate %}
-                <tr>
-                    <td>{{ borrowing.id }}</td>
-                    <td>{{ borrowing.user.email }}</td>
-                    <td>{{ borrowing.book.bookName }}</td>
-                    <td>{{ borrowing.borrowDate|date('Y/m/d') }}</td>
-                    {% if borrowing.returnDate is not empty %}
-                        <td>{{ borrowing.returnDate|date('Y/m/d') }}</td>
-                    {% else %}
-                        <td>{{ borrowing.returnDate }}</td>
-                    {% endif %}
-                    <td>
-                        <a href="{{ url('borrow_show', {id: borrowing.id}) }}" title="{{ 'action_view'|trans }}">
-                            {{ 'action_view'|trans }}
-                        </a>
-                    </td>
-                </tr>
-                {% endif %}
+                    <tr>
+                        <td>{{ borrowing.id }}</td>
+                        <td>{{ borrowing.user.email }}</td>
+                        <td>{{ borrowing.book.bookName }}</td>
+                        <td>{{ borrowing.borrowDate|date('Y/m/d') }}</td>
+                        {% if borrowing.returnDate != unixDate %}
+                            <td>{{ borrowing.returnDate|date('Y/m/d') }}</td>
+                        {% else %}
+                            <td>{{ "" }}</td>
+                        {% endif %}
+                    </tr>
             {% endfor %}
             </tbody>
         </table>
@@ -54,7 +47,7 @@
 
     {% else %}
         <p>
-            {{ 'Nic nie wypożyczałeś, bądź czekasz na potwierdzenie wypożyczenia przez Admina.'|trans }}
+            {{ 'brak'|trans }}
         </p>
     {% endif %}
 {% endblock %}
