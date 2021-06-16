@@ -36,7 +36,7 @@ class BorrowingController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
-     *     "/all",
+     *     "/",
      *     methods={"GET"},
      *     name="borrow_index",
      * )
@@ -65,7 +65,7 @@ class BorrowingController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
-     *     "/",
+     *     "/all",
      *     methods={"GET"},
      *     name="borrow_all",
      * )
@@ -159,4 +159,133 @@ class BorrowingController extends AbstractController
         );
     }
 
+    /**
+     * Confirm action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
+     * @param \App\Repository\BorrowingRepository        $borrowingRepository Borrowing repository
+     * @param \App\Repository\BookRepository        $bookRepository Book repository
+     * @param \App\Entity\Borrowing                      $borrowing           Borrowing entity
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/{id}/confirm",
+     *     methods={"GET", "PUT"},
+     *     name="borrow_confirm",
+     *     requirements={"id": "[1-9]\d*"}
+     * )
+     */
+    public function confirm(Request $request, Borrowing $borrowing, BorrowingRepository $borrowingRepository, BookRepository $bookRepository): Response
+    {
+
+        $form = $this->createForm(BorrowingType::class, $borrowing, [ 'method' => 'PUT']);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $borrowing->setBorrowDate(new \DateTime( 'NOW'));
+            $borrowing->setReturnDate(new \DateTime('1970-01-01'));
+
+            $borrowingRepository->save($borrowing);
+
+            $this->addFlash('success', 'Potwierdziłeś wypożyczenie. Książka została dzisiaj wypożyczona.');
+            return $this->redirectToRoute('borrow_all');
+        }
+        return $this->render(
+            'borrowing/confirm.html.twig',
+            ['form' => $form->createView(),
+                'borrowing' => $borrowing,]
+        );
+    }
+
+    /**
+     * Discard action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
+     * @param \App\Repository\BorrowingRepository        $borrowingRepository Borrowing repository
+     * @param \App\Repository\BookRepository        $bookRepository Book repository
+     * @param \App\Entity\Borrowing                      $borrowing           Borrowing entity
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/{id}/discard",
+     *     methods={"GET", "DELETE"},
+     *     name="borrow_discard",
+     *     requirements={"id": "[1-9]\d*"}
+     * )
+     */
+    public function discard(Request $request, Borrowing $borrowing, BorrowingRepository $borrowingRepository, BookRepository $bookRepository): Response
+    {
+
+        $form = $this->createForm(BorrowingType::class, $borrowing, [ 'method' => 'DELETE']);
+        $form->handleRequest($request);
+        $book = $bookRepository->find($borrowing->getBook());
+
+        if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
+            $form->submit($request->request->get($form->getName()));
+        }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $borrowingRepository->delete($borrowing);
+            $bookAmount = $book->setAmount($book->getAmount()+1);
+            $bookRepository->save($bookAmount);
+
+            $this->addFlash('success', 'Odrzuciłeś wypożyczenie.');
+            return $this->redirectToRoute('borrow_all');
+        }
+        return $this->render(
+            'borrowing/discard.html.twig',
+            ['form' => $form->createView(),
+                'borrowing' => $borrowing,
+                'book' => $book,]
+        );
+    }
+    /**
+     * Return action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
+     * @param \App\Repository\BorrowingRepository        $borrowingRepository Borrowing repository
+     * @param \App\Repository\BookRepository        $bookRepository Book repository
+     * @param \App\Entity\Borrowing                      $borrowing           Borrowing entity
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/{id}/return",
+     *     methods={"GET", "PUT"},
+     *     name="borrow_return",
+     *     requirements={"id": "[1-9]\d*"}
+     * )
+     */
+    public function return(Request $request, Borrowing $borrowing, BorrowingRepository $borrowingRepository, BookRepository $bookRepository): Response
+    {
+
+        $form = $this->createForm(BorrowingType::class, $borrowing, [ 'method' => 'PUT']);
+        $form->handleRequest($request);
+        $book = $bookRepository->find($borrowing->getBook());
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $borrowing->setReturnDate(new \DateTime( 'NOW'));
+            $bookAmount = $book->setAmount($book->getAmount()+1);
+            $bookRepository->save($bookAmount);
+            $borrowingRepository->save($borrowing);
+
+            $this->addFlash('success', 'Zwróciłeś książkę.');
+            return $this->redirectToRoute('borrow_index');
+        }
+        return $this->render(
+            'borrowing/confirm.html.twig',
+            ['form' => $form->createView(),
+                'borrowing' => $borrowing,]
+        );
+    }
 }

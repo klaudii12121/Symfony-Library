@@ -44,6 +44,7 @@
             <li class="nav-item dropdown">
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <a class="nav-link dropdown-toggle" style="margin-right: 2em" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
                     {{ 'Account'|trans }}{{ app.user.userData.nick }}
                 </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

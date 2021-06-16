@@ -80,6 +80,20 @@ class BorrowingRepository extends ServiceEntityRepository
 
         return $queryBuilder;
     }
+
+    /**
+     * Delete record.
+     *
+     * @param \App\Entity\Borrowing $borrowing Borrowing entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Borrowing $borrowing): void
+    {
+        $this->_em->remove($borrowing);
+        $this->_em->flush();
+    }
     // /**
     //  * @return Borrowing[] Returns an array of Borrowing objects
     //  */

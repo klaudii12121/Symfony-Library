@@ -22,6 +22,7 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label_borrow_date'|trans, 'borrowing.borrowDate') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_return_date'|trans, 'borrowing.returnDate') }}</th>
                 <th>{{ 'label_actions'|trans }}</th>
+                <th>{{ 'label_actions'|trans }}</th>
             </tr>
             </thead>
             <tbody>
@@ -30,11 +31,27 @@
                         <td>{{ borrowing.id }}</td>
                         <td>{{ borrowing.user.email }}</td>
                         <td>{{ borrowing.book.bookName }}</td>
+                        {% if borrowing.borrowDate != unixDate %}
                         <td>{{ borrowing.borrowDate|date('Y/m/d') }}</td>
-                        {% if borrowing.returnDate != unixDate %}
+                        {% else %}
+                            <td>{{ "" }}</td>
+                        {% endif %}
+                        {% if borrowing.returnDate != unixDate and borrowing.borrowDate != borrowing.returnDate %}
                             <td>{{ borrowing.returnDate|date('Y/m/d') }}</td>
                         {% else %}
                             <td>{{ "" }}</td>
+                        {% endif %}
+                        {% if borrowing.borrowDate == unixDate %}
+                        <td>
+                            <a href="{{ url('borrow_confirm', {id: borrowing.id}) }}" title="{{ 'confirm'|trans }}">
+                                {{ 'confirm'|trans }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ url('borrow_discard', {id: borrowing.id }) }}" title="{{ 'discard'|trans }}">
+                                {{ 'discard'|trans }}
+                            </a>
+                        </td>
                         {% endif %}
                     </tr>
             {% endfor %}

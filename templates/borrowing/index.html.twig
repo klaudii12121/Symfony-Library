@@ -31,15 +31,19 @@
                     <td>{{ borrowing.id }}</td>
                     <td>{{ borrowing.user.email }}</td>
                     <td>{{ borrowing.book.bookName }}</td>
-                    <td>{{ borrowing.borrowDate|date('Y/m/d') }}</td>
-                    {% if borrowing.returnDate is not empty %}
+                    {% if borrowing.borrowDate != unixDate %}
+                        <td>{{ borrowing.borrowDate|date('Y/m/d') }}</td>
+                    {% else %}
+                        <td>{{ "" }}</td>
+                    {% endif %}
+                    {% if borrowing.returnDate != unixDate and borrowing.borrowDate != borrowing.returnDate %}
                         <td>{{ borrowing.returnDate|date('Y/m/d') }}</td>
                     {% else %}
-                        <td>{{ borrowing.returnDate }}</td>
+                        <td>{{ "" }}</td>
                     {% endif %}
                     <td>
-                        <a href="{{ url('borrow_show', {id: borrowing.id}) }}" title="{{ 'action_view'|trans }}">
-                            {{ 'action_view'|trans }}
+                        <a href="{{ url('borrow_return', {id: borrowing.id}) }}" title="{{ 'return'|trans }}">
+                            {{ 'return'|trans }}
                         </a>
                     </td>
                 </tr>
