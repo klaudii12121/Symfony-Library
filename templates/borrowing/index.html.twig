@@ -36,7 +36,7 @@
                     {% else %}
                         <td>{{ "" }}</td>
                     {% endif %}
-                    {% if borrowing.returnDate != unixDate and borrowing.borrowDate != borrowing.returnDate %}
+                    {% if borrowing.returnDate != unixDate %}
                         <td>{{ borrowing.returnDate|date('Y/m/d') }}</td>
                     {% else %}
                         <td>{{ "" }}</td>
