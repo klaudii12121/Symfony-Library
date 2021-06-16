@@ -283,7 +283,7 @@ class BorrowingController extends AbstractController
             return $this->redirectToRoute('borrow_index');
         }
         return $this->render(
-            'borrowing/confirm.html.twig',
+            'borrowing/return.html.twig',
             ['form' => $form->createView(),
                 'borrowing' => $borrowing,]
         );
