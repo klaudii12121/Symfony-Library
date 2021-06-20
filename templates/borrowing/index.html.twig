@@ -21,7 +21,7 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label_book_name'|trans, 'book.bookName') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_borrow_date'|trans, 'borrowing.borrowDate') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_return_date'|trans, 'borrowing.returnDate') }}</th>
-                <th>{{ 'label_actions'|trans }}</th>
+                <th>{{ 'status'|trans }}</th>
             </tr>
             </thead>
             <tbody>
@@ -38,14 +38,17 @@
                     {% endif %}
                     {% if borrowing.returnDate != unixDate %}
                         <td>{{ borrowing.returnDate|date('Y/m/d') }}</td>
+                        <td style="color: forestgreen">
+                            {{ "Oddana" }}
+                        </td>
                     {% else %}
                         <td>{{ "" }}</td>
-                    {% endif %}
                     <td>
                         <a href="{{ url('borrow_return', {id: borrowing.id}) }}" title="{{ 'return'|trans }}">
                             {{ 'return'|trans }}
                         </a>
                     </td>
+                    {% endif %}
                 </tr>
                 {% endif %}
             {% endfor %}

@@ -198,6 +198,10 @@
                 <source>log_in</source>
                 <target>log in!</target>
             </trans-unit>
+            <trans-unit id="log_out">
+                <source>log_out</source>
+                <target>log out!</target>
+            </trans-unit>
             <trans-unit id="borrow_book">
                 <source>borrow_book</source>
                 <target>Borrow book</target>
@@ -213,6 +217,58 @@
             <trans-unit id="borrowings">
                 <source>borrowings</source>
                 <target>Your borrowing</target>
+            </trans-unit>
+            <trans-unit id="return">
+                <source>return</source>
+                <target>Return</target>
+            </trans-unit>
+            <trans-unit id="label_email">
+                <source>label_email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="label_borrow_date">
+                <source>label_borrow_date</source>
+                <target>Borrow date</target>
+            </trans-unit>
+            <trans-unit id="label_return_date">
+                <source>label_return_date</source>
+                <target>Return date</target>
+            </trans-unit>
+            <trans-unit id="status">
+                <source>status</source>
+                <target>Status</target>
+            </trans-unit>
+            <trans-unit id="title_borrowing_list">
+                <source>title_borrowing_list</source>
+                <target>List of borrowings</target>
+            </trans-unit>
+            <trans-unit id="title_user_details">
+                <source>title_user_details</source>
+                <target>User details</target>
+            </trans-unit>
+            <trans-unit id="label_nick">
+                <source>label_nick</source>
+                <target>Nick</target>
+            </trans-unit>
+            <trans-unit id="label_first_name">
+                <source>label_first_name</source>
+                <target>First name</target>
+            </trans-unit>
+            <trans-unit id="label_last_name">
+                <source>label_last_name</source>
+                <target>Last name</target>
+            </trans-unit>
+            <trans-unit id="password_edit">
+                <source>password_edit</source>
+                <target>Edit password</target>
+            </trans-unit>
+            <trans-unit id="confirm">
+                <source>confirm</source>
+                <target>Confirm</target>
+            </trans-unit>
+            <trans-unit id="discard">
+                <source>discard</source>
+                <target>Discard</target>
             </trans-unit>
         </body>
     </file>

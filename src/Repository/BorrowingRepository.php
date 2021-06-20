@@ -35,7 +35,7 @@ class BorrowingRepository extends ServiceEntityRepository
             ->select('borrowing', 'user', 'book')
             ->leftjoin('borrowing.user', 'user')
             ->leftjoin('borrowing.book', 'book')
-            ->orderBy('borrowing.borrowDate', 'ASC');
+            ->orderBy('borrowing.borrowDate', 'DESC');
     }
 
     /**

@@ -137,7 +137,7 @@ class BorrowingController extends AbstractController
         $form->handleRequest($request);
         $book = $bookRepository->find($request->query->getInt('id'));
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $book->getAmount() != 0) {
             $borrowing->setUser($this->getUser());
             $borrowing->setBook($book);
             $borrowing->setBorrowDate(new \DateTime('1970-01-01'));
@@ -148,6 +148,9 @@ class BorrowingController extends AbstractController
             $bookRepository->save($bookAmount);
 
             $this->addFlash('success', 'Wyraziłeś chęć wypożyczenia, musisz poczekać, aż Admin zaakceptuje twoje wypożyczenie, wtedy zobaczysz je na tej liście!');
+            return $this->redirectToRoute('borrow_index');
+        }elseif ($book->getAmount() == 0) {
+            $this->addFlash('success', 'Tej ksiązki, na razie, nie mamy na stanie. Poczekaj aż ktoś inny zwróci swój egzemplarz.');
             return $this->redirectToRoute('borrow_index');
         }
 
@@ -187,7 +190,6 @@ class BorrowingController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $borrowing->setBorrowDate(new \DateTime( 'NOW'));
-            $borrowing->setReturnDate(new \DateTime('1970-01-01'));
 
             $borrowingRepository->save($borrowing);
 

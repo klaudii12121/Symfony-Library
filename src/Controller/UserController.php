@@ -108,7 +108,7 @@ class UserController extends AbstractController
                 $userRepository->save($user);
                 $this->addFlash('success', 'password changed successfully');
 
-                return $this->redirectToRoute('user_show');
+                return $this->redirectToRoute('app_logout');
             }
         return $this->render(
             'user/upgrade.html.twig',

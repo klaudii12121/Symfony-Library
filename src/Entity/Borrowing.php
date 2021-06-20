@@ -33,8 +33,6 @@ class Borrowing
      * @var DateTimeInterface
      *
      * @ORM\Column(type="date")
-     *
-     * @Gedmo\Timestampable(on="create")
      */
     private $borrowDate;
 
@@ -44,8 +42,6 @@ class Borrowing
      * @var DateTimeInterface|null
      *
      * @ORM\Column(type="date", nullable=true)
-     *
-     * @Gedmo\Timestampable(on="update")
      */
     private $returnDate;
 
