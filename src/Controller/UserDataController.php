@@ -7,11 +7,11 @@ namespace App\Controller;
 
 use App\Entity\UserData;
 use App\Form\UserDataType;;
-use App\Repository\UserDataRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\UserDataService;
 
 /**
  * Class UserDataController
@@ -20,10 +20,26 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserDataController extends AbstractController
 {
     /**
+     * UserData service
+     *
+     * @var UserDataService
+     */
+    private $userDataService;
+
+    /**
+     * UserDataController constructor.
+     *
+     * @param UserDataService $userDataService
+     */
+    public function __construct(UserDataService $userDataService)
+    {
+        $this->userDataService = $userDataService;
+    }
+
+    /**
      * Edit User data.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Repository\UserDataRepository $userDataRepository UserData repository
      *
      *
      * @return Response
@@ -38,13 +54,13 @@ class UserDataController extends AbstractController
      *     name="userData_edit",
      * );
      */
-    public function edit(Request $request, UserData $userData, UserDataRepository $userDataRepository): Response
+    public function edit(Request $request, UserData $userData): Response
     {
         $form = $this->createForm(UserDataType::class, $userData, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $userDataRepository->save($userData);
+            $this->userDataService->save($userData);
 
             $this->addFlash('success', 'data updated successfully');
 

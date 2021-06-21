@@ -5,14 +5,13 @@
 namespace App\Controller;
 
 use App\Entity\Book;
-use App\Repository\BookRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use App\Form\BookType;
+use App\Service\BookService;
 
 /**
  * Class BookController.
@@ -23,12 +22,27 @@ use App\Form\BookType;
 class BookController extends AbstractController
 {
     /**
+     * Book service.
+     *
+     * @var \App\Service\BookService
+     */
+    private $bookService;
+
+    /**
+     * BookController constructor.
+     *
+     * @param \App\Service\BookService $bookService Book service
+     */
+    public function __construct(BookService $bookService)
+    {
+        $this->bookService = $bookService;
+    }
+
+    /**
      * Index action.
      *
      *
      * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
-     * @param \App\Repository\BookRepository $bookRepository book repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator      Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -38,13 +52,11 @@ class BookController extends AbstractController
      *    methods={"GET"}
      * )
      */
-    public function index(Request $request, BookRepository $bookRepository, PaginatorInterface $paginator): Response
+    public function index(Request $request): Response
     {
-        $pagination = $paginator->paginate(
-            $bookRepository->queryAll(),
-            $request->query->getInt('page', 1),
-            BookRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        $page = $request->query->getInt('page', '1');
+        $pagination = $this->bookService->createPaginatedList($page);
+
 
         return $this->render(
             'book/index.html.twig',
@@ -78,7 +90,6 @@ class BookController extends AbstractController
      * Create action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Repository\BookRepository        $bookRepository Book repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -91,14 +102,14 @@ class BookController extends AbstractController
      *     name="book_create",
      * )
      */
-    public function create(Request $request, BookRepository $bookRepository): Response
+    public function create(Request $request): Response
     {
         $book = new Book();
         $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $bookRepository->save($book);
+            $this->bookService->save($book);
 
             $this->addFlash('success', 'message_created_successfully');
             return $this->redirectToRoute('book_index');
@@ -115,7 +126,6 @@ class BookController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
      * @param \App\Entity\Book                      $book           Book entity
-     * @param \App\Repository\BookRepository        $bookRepository Book repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -129,13 +139,13 @@ class BookController extends AbstractController
      *     name="book_edit",
      * )
      */
-    public function edit(Request $request, Book $book, BookRepository $bookRepository): Response
+    public function edit(Request $request, Book $book): Response
     {
         $form = $this->createForm(BookType::class, $book, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $bookRepository->save($book);
+            $this->bookService->save($book);
 
             $this->addFlash('success', 'message_updated_successfully');
 
@@ -156,7 +166,6 @@ class BookController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
      * @param \App\Entity\Book                      $book           Book entity
-     * @param \App\Repository\BookRepository        $bookRepository Book repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -170,7 +179,7 @@ class BookController extends AbstractController
      *     name="book_delete",
      * )
      */
-    public function delete(Request $request, Book $book, BookRepository $bookRepository): Response
+    public function delete(Request $request, Book $book): Response
     {
         $form = $this->createForm(FormType::class, $book, ['method' => 'DELETE']);
         $form->handleRequest($request);
@@ -180,7 +189,7 @@ class BookController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $bookRepository->delete($book);
+            $this->bookService->delete($book);
 
             $this->addFlash('success', 'message.deleted_successfully');
 

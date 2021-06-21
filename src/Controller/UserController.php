@@ -6,16 +6,15 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\UserDataType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
 use App\Form\UpgradePassType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Service\UserService;
 
 /**
  * Class UserController.
@@ -26,12 +25,27 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserController extends AbstractController
 {
     /**
+     * User service.
+     *
+     * @var \App\Service\UserService
+     */
+    private $userService;
+
+    /**
+     * UserController constructor.
+     *
+     * @param \App\Service\UserService $userService User service
+     */
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
+    /**
      * Index action.
      *
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Repository\UserRepository $userRepository User repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -41,13 +55,10 @@ class UserController extends AbstractController
      *    methods={"GET"}
      * )
      */
-    public function index(Request $request, UserRepository $userRepository, PaginatorInterface $paginator): Response
+    public function index(Request $request): Response
     {
-        $pagination = $paginator->paginate(
-            $userRepository->queryAll(),
-            $request->query->getInt('page', 1),
-            UserRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        $page = $request->query->getInt('page', '1');
+        $pagination = $this->bookService->createPaginatedList($page);
 
         return $this->render(
             'user/index.html.twig',
@@ -81,6 +92,7 @@ class UserController extends AbstractController
      * Upgrade password.
      *
      * @param \App\Entity\User $user User entity
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -91,7 +103,7 @@ class UserController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      * )
      */
-    public function upgradePass(Request $request, User $user, UserRepository $userRepository, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function upgradePass(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $form = $this->createForm(UpgradePassType::class, $user, ['method' => 'PUT']);
         $form->handleRequest($request);
@@ -105,7 +117,7 @@ class UserController extends AbstractController
                     )
                 );
 
-                $userRepository->save($user);
+                $this->userService->save($user);
                 $this->addFlash('success', 'password changed successfully');
 
                 return $this->redirectToRoute('app_logout');

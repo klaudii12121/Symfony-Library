@@ -6,17 +6,15 @@
 namespace App\Controller;
 
 use App\Entity\Borrowing;
-use App\Entity\Book;
-use App\Entity\User;
 use App\Form\BorrowingType;
-use App\Repository\BookRepository;
-use App\Repository\BorrowingRepository;
-use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Knp\Component\Pager\PaginatorInterface;
+use App\Service\BorrowingService;
+use App\Service\BookService;
+use App\Service\UserService;
 
 
 /**
@@ -27,11 +25,37 @@ use Knp\Component\Pager\PaginatorInterface;
 class BorrowingController extends AbstractController
 {
     /**
+     * @var BorrowingService
+     */
+    private $borrowingService;
+
+    /**
+     * @var BookService
+     */
+    private $bookService;
+
+    /**
+     * @var UserService
+     */
+    private $userService;
+
+    /**
+     * BorrowingController constructor.
+     *
+     * @param BorrowingService $borrowingService
+     * @param BookService     $bookService
+     * @param UserService $userService
+     */
+    public function __construct(BorrowingService $borrowingService, BookService $bookService, UserService $userService)
+    {
+        $this->borrowingService = $borrowingService;
+        $this->bookService = $bookService;
+        $this->userService = $userService;
+    }
+    /**
      * One user borrowings.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Repository\BorrowingRepository $borrowingRepository borrowing repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -41,13 +65,11 @@ class BorrowingController extends AbstractController
      *     name="borrow_index",
      * )
      */
-    public function index(Request $request, BorrowingRepository $borrowingRepository, PaginatorInterface $paginator): Response
+    public function index(Request $request): Response
     {
-        $pagination = $paginator->paginate(
-            $borrowingRepository->queryByUser($this->getUser()),
-            $request->query->getInt('page', 1),
-            BorrowingRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        $user = $this->getUser();
+        $page = $request->query->getInt('page', '1');
+        $pagination = $this->borrowingService->borrowByUser($page,$user);
 
         return $this->render(
             'borrowing/index.html.twig',
@@ -59,8 +81,6 @@ class BorrowingController extends AbstractController
      * All borrowings.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Repository\BorrowingRepository $borrowingRepository borrowing repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -70,13 +90,10 @@ class BorrowingController extends AbstractController
      *     name="borrow_all",
      * )
      */
-    public function allBorrowings(Request $request, BorrowingRepository $borrowingRepository, PaginatorInterface $paginator): Response
+    public function allBorrowings(Request $request): Response
     {
-        $pagination = $paginator->paginate(
-            $borrowingRepository->queryForAdmin(),
-            $request->query->getInt('page', 1),
-            BorrowingRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        $page = $request->query->getInt('page', '1');
+        $pagination = $this->borrowingService->borrowForAdmin($page);
 
         return $this->render(
             'borrowing/all.html.twig',
@@ -115,10 +132,7 @@ class BorrowingController extends AbstractController
      * Create action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Repository\BorrowingRepository        $borrowingRepository Borrowing repository
-     * @param \App\Repository\BookRepository        $bookRepository Book repository
-     *
-     *
+
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @throws \Doctrine\ORM\ORMException
@@ -130,20 +144,20 @@ class BorrowingController extends AbstractController
      *     name="borrow_create",
      * )
      */
-    public function create(Request $request, BorrowingRepository $borrowingRepository, BookRepository $bookRepository): Response
+    public function create(Request $request): Response
     {
         $borrowing = new Borrowing();
         $form = $this->createForm(BorrowingType::class, $borrowing);
         $form->handleRequest($request);
-        $book = $bookRepository->find($request->query->getInt('id'));
+        $book = $this->bookService->find($request->query->getInt('id'));
 
         if ($form->isSubmitted() && $form->isValid() && $book->getAmount() != 0) {
             $borrowing->setUser($this->getUser());
             $borrowing->setBook($book);
             $bookAmount = $book->setAmount($book->getAmount()-1);
 
-            $borrowingRepository->save($borrowing);
-            $bookRepository->save($bookAmount);
+            $this->borrowingService->save($borrowing);
+            $this->bookService->save($bookAmount);
 
             $this->addFlash('success', 'Wyraziłeś chęć wypożyczenia, musisz poczekać, aż Admin zaakceptuje twoje wypożyczenie, wtedy zobaczysz je na tej liście!');
             return $this->redirectToRoute('borrow_index');
@@ -164,8 +178,6 @@ class BorrowingController extends AbstractController
      * Confirm action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Repository\BorrowingRepository        $borrowingRepository Borrowing repository
-     * @param \App\Repository\BookRepository        $bookRepository Book repository
      * @param \App\Entity\Borrowing                      $borrowing           Borrowing entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
@@ -180,7 +192,7 @@ class BorrowingController extends AbstractController
      *     requirements={"id": "[1-9]\d*"}
      * )
      */
-    public function confirm(Request $request, Borrowing $borrowing, BorrowingRepository $borrowingRepository, BookRepository $bookRepository): Response
+    public function confirm(Request $request, Borrowing $borrowing): Response
     {
 
         $form = $this->createForm(BorrowingType::class, $borrowing, [ 'method' => 'PUT']);
@@ -189,7 +201,7 @@ class BorrowingController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $borrowing->setBorrowDate(new \DateTime( 'NOW'));
 
-            $borrowingRepository->save($borrowing);
+            $this->borrowingService->save($borrowing);
 
             $this->addFlash('success', 'Potwierdziłeś wypożyczenie. Książka została dzisiaj wypożyczona.');
             return $this->redirectToRoute('borrow_all');
@@ -205,8 +217,6 @@ class BorrowingController extends AbstractController
      * Discard action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Repository\BorrowingRepository        $borrowingRepository Borrowing repository
-     * @param \App\Repository\BookRepository        $bookRepository Book repository
      * @param \App\Entity\Borrowing                      $borrowing           Borrowing entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
@@ -221,20 +231,20 @@ class BorrowingController extends AbstractController
      *     requirements={"id": "[1-9]\d*"}
      * )
      */
-    public function discard(Request $request, Borrowing $borrowing, BorrowingRepository $borrowingRepository, BookRepository $bookRepository): Response
+    public function discard(Request $request, Borrowing $borrowing): Response
     {
 
         $form = $this->createForm(BorrowingType::class, $borrowing, [ 'method' => 'DELETE']);
         $form->handleRequest($request);
-        $book = $bookRepository->find($borrowing->getBook());
+        $book = $this->bookService->find($borrowing->getBook());
 
         if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
             $form->submit($request->request->get($form->getName()));
         }
         if ($form->isSubmitted() && $form->isValid()) {
-            $borrowingRepository->delete($borrowing);
+            $this->borrowingService->delete($borrowing);
             $bookAmount = $book->setAmount($book->getAmount()+1);
-            $bookRepository->save($bookAmount);
+            $this->bookService->save($bookAmount);
 
             $this->addFlash('success', 'Odrzuciłeś wypożyczenie.');
             return $this->redirectToRoute('borrow_all');
@@ -250,8 +260,6 @@ class BorrowingController extends AbstractController
      * Return action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Repository\BorrowingRepository        $borrowingRepository Borrowing repository
-     * @param \App\Repository\BookRepository        $bookRepository Book repository
      * @param \App\Entity\Borrowing                      $borrowing           Borrowing entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
@@ -266,18 +274,18 @@ class BorrowingController extends AbstractController
      *     requirements={"id": "[1-9]\d*"}
      * )
      */
-    public function return(Request $request, Borrowing $borrowing, BorrowingRepository $borrowingRepository, BookRepository $bookRepository): Response
+    public function return(Request $request, Borrowing $borrowing): Response
     {
 
         $form = $this->createForm(BorrowingType::class, $borrowing, [ 'method' => 'PUT']);
         $form->handleRequest($request);
-        $book = $bookRepository->find($borrowing->getBook());
+        $book = $this->bookService->find($borrowing->getBook());
 
         if ($form->isSubmitted() && $form->isValid()) {
             $borrowing->setReturnDate(new \DateTime( 'NOW'));
             $bookAmount = $book->setAmount($book->getAmount()+1);
-            $bookRepository->save($bookAmount);
-            $borrowingRepository->save($borrowing);
+            $this->bookService->save($bookAmount);
+            $this->borrowingService->save($borrowing);
 
             $this->addFlash('success', 'Zwróciłeś książkę.');
             return $this->redirectToRoute('borrow_index');
