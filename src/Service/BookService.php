@@ -58,14 +58,27 @@ class BookService
     }
 
     /**
-     * Find.
+     * Find by int.
+     *
+     * @param int $book
+     *
+     * @return \App\Entity\Book $book Book entity
+     *
+     */
+    public function findByID(int $book): ?Book
+    {
+        return $this->bookRepository->find($book);
+    }
+
+    /**
+     * Find by object.
      *
      * @param \App\Entity\Book $book Book entity
      *
      * @return \App\Entity\Book $book Book entity
      *
      */
-    public function find(Book $book): ?Book
+    public function findByObject(Book $book): ?Book
     {
         return $this->bookRepository->find($book);
     }

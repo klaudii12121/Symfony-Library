@@ -149,7 +149,7 @@ class BorrowingController extends AbstractController
         $borrowing = new Borrowing();
         $form = $this->createForm(BorrowingType::class, $borrowing);
         $form->handleRequest($request);
-        $book = $this->bookService->find($request->query->getInt('id'));
+        $book = $this->bookService->findByID($request->query->getInt('id'));
 
         if ($form->isSubmitted() && $form->isValid() && $book->getAmount() != 0) {
             $borrowing->setUser($this->getUser());
@@ -236,7 +236,7 @@ class BorrowingController extends AbstractController
 
         $form = $this->createForm(BorrowingType::class, $borrowing, [ 'method' => 'DELETE']);
         $form->handleRequest($request);
-        $book = $this->bookService->find($borrowing->getBook());
+        $book = $this->bookService->findByObject($borrowing->getBook());
 
         if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
             $form->submit($request->request->get($form->getName()));
@@ -279,7 +279,7 @@ class BorrowingController extends AbstractController
 
         $form = $this->createForm(BorrowingType::class, $borrowing, [ 'method' => 'PUT']);
         $form->handleRequest($request);
-        $book = $this->bookService->find($borrowing->getBook());
+        $book = $this->bookService->findByObject($borrowing->getBook());
 
         if ($form->isSubmitted() && $form->isValid()) {
             $borrowing->setReturnDate(new \DateTime( 'NOW'));
@@ -288,7 +288,7 @@ class BorrowingController extends AbstractController
             $this->borrowingService->save($borrowing);
 
             $this->addFlash('success', 'Zwróciłeś książkę.');
-            return $this->redirectToRoute('borrow_index');
+            return $this->redirectToRoute('borrow_all');
         }
         return $this->render(
             'borrowing/return.html.twig',

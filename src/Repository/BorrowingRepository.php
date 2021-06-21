@@ -34,8 +34,7 @@ class BorrowingRepository extends ServiceEntityRepository
         return $this->getOrCreateQueryBuilder()
             ->select('borrowing', 'user', 'book')
             ->leftjoin('borrowing.user', 'user')
-            ->leftjoin('borrowing.book', 'book')
-            ->orderBy('borrowing.returnDate', 'ASC');
+            ->leftjoin('borrowing.book', 'book');
     }
 
     /**
@@ -75,8 +74,10 @@ class BorrowingRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->queryAll();
 
+        $queryBuilder->andWhere('borrowing.borrowDate IS NOT NULL');
         $queryBuilder->andWhere('borrowing.user = :user')
             ->setParameter('user', $user);
+        $queryBuilder->orderBy('borrowing.returnDate', 'ASC');
 
         return $queryBuilder;
     }
@@ -91,6 +92,7 @@ class BorrowingRepository extends ServiceEntityRepository
         $queryBuilder = $this->queryAll();
 
         $queryBuilder->andWhere('borrowing.returnDate IS NULL');
+        $queryBuilder->orderBy('borrowing.borrowDate', 'ASC');
 
         return $queryBuilder;
     }
