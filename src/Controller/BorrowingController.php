@@ -73,7 +73,7 @@ class BorrowingController extends AbstractController
     public function allBorrowings(Request $request, BorrowingRepository $borrowingRepository, PaginatorInterface $paginator): Response
     {
         $pagination = $paginator->paginate(
-            $borrowingRepository->queryAll(),
+            $borrowingRepository->queryForAdmin(),
             $request->query->getInt('page', 1),
             BorrowingRepository::PAGINATOR_ITEMS_PER_PAGE
         );

@@ -35,7 +35,7 @@ class BorrowingRepository extends ServiceEntityRepository
             ->select('borrowing', 'user', 'book')
             ->leftjoin('borrowing.user', 'user')
             ->leftjoin('borrowing.book', 'book')
-            ->orderBy('borrowing.borrowDate', 'DESC');
+            ->orderBy('borrowing.returnDate', 'ASC');
     }
 
     /**
@@ -77,6 +77,20 @@ class BorrowingRepository extends ServiceEntityRepository
 
         $queryBuilder->andWhere('borrowing.user = :user')
             ->setParameter('user', $user);
+
+        return $queryBuilder;
+    }
+
+    /**
+     * Query all borrowings for admin.
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    public function queryForAdmin(): QueryBuilder
+    {
+        $queryBuilder = $this->queryAll();
+
+        $queryBuilder->andWhere('borrowing.returnDate IS NULL');
 
         return $queryBuilder;
     }
