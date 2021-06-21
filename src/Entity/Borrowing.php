@@ -30,9 +30,9 @@ class Borrowing
     /**
      * Borrowing date.
      *
-     * @var DateTimeInterface
+     * @var DateTimeInterface|null
      *
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $borrowDate;
 

@@ -9,6 +9,7 @@ use App\Repository\BookRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class book.
@@ -35,6 +36,10 @@ class Book
      * @var string
      *
      * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(max="255")
      */
     private $bookName;
 
@@ -44,6 +49,9 @@ class Book
      * @var string
      *
      * @ORM\Column(type="string", length=1000, nullable=true)
+     *
+     * @Assert\Type(type="string")
+     * @Assert\Length(max="1000")
      */
     private $bookDesc;
 
@@ -53,17 +61,10 @@ class Book
      * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
+     *
+     * @Assert\Type(type="integer")
      */
     private $releaseYear;
-
-    /**
-     * Book icon.
-     *
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $bookIcon;
 
     /**
      * Category.
@@ -188,26 +189,6 @@ class Book
     public function setReleaseYear(?int $releaseYear): void
     {
         $this->releaseYear = $releaseYear;
-    }
-
-    /**
-     * Getter for book icon.
-     *
-     * @return string|null BookIcon
-     */
-    public function getBookIcon(): ?string
-    {
-        return $this->bookIcon;
-    }
-
-    /**
-     * Setter for book Icon.
-     *
-     * @param string|null $bookIcon BookIcon
-     */
-    public function setBookIcon(?string $bookIcon): void
-    {
-        $this->bookIcon = $bookIcon;
     }
 
     /**

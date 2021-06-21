@@ -140,8 +140,6 @@ class BorrowingController extends AbstractController
         if ($form->isSubmitted() && $form->isValid() && $book->getAmount() != 0) {
             $borrowing->setUser($this->getUser());
             $borrowing->setBook($book);
-            $borrowing->setBorrowDate(new \DateTime('1970-01-01'));
-            $borrowing->setReturnDate(new \DateTime('1970-01-01'));
             $bookAmount = $book->setAmount($book->getAmount()-1);
 
             $borrowingRepository->save($borrowing);

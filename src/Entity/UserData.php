@@ -49,6 +49,12 @@ class UserData
      * @var string
      *
      * @ORM\Column(type="string", length=128, nullable=true)
+     *
+     * @Assert\Type(type="string")
+     * @Assert\Length(
+     *     min="3",
+     *     max="128",
+     * )
      */
     private $firstName;
 
@@ -58,17 +64,14 @@ class UserData
      * @var string
      *
      * @ORM\Column(type="string", length=128, nullable=true)
+     *
+     * @Assert\Type(type="string")
+     * @Assert\Length(
+     *     min="3",
+     *     max="128",
+     * )
      */
     private $lastName;
-
-    /**
-     * User icon.
-     *
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $userIcon;
 
     /**
      * Getter for Id.
@@ -138,25 +141,5 @@ class UserData
     public function setLastName(?string $lastName): void
     {
         $this->lastName = $lastName;
-    }
-
-    /**
-     * Getter for user icon.
-     *
-     * @return string|null Result
-     */
-    public function getUserIcon(): ?string
-    {
-        return $this->userIcon;
-    }
-
-    /**
-     * Setter for user icon.
-     *
-     * @param string|null $userIcon UserIcon
-     */
-    public function setUserIcon(?string $userIcon): void
-    {
-        $this->userIcon = $userIcon;
     }
 }

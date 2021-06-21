@@ -26,31 +26,25 @@
             </thead>
             <tbody>
             {% for borrowing in pagination.items %}
-                {% if borrowing.borrowDate != unixDate %}
                 <tr>
                     <td>{{ borrowing.id }}</td>
                     <td>{{ borrowing.user.email }}</td>
                     <td>{{ borrowing.book.bookName }}</td>
-                    {% if borrowing.borrowDate != unixDate %}
-                        <td>{{ borrowing.borrowDate|date('Y/m/d') }}</td>
-                    {% else %}
-                        <td>{{ "" }}</td>
-                    {% endif %}
-                    {% if borrowing.returnDate != unixDate %}
-                        <td>{{ borrowing.returnDate|date('Y/m/d') }}</td>
-                        <td style="color: forestgreen">
-                            {{ "Oddana" }}
-                        </td>
-                    {% else %}
-                        <td>{{ "" }}</td>
+                    <td>{{ borrowing.borrowDate|date('Y/m/d') }}</td>
+                    {% if borrowing.returnDate is empty %}
+                    <td>{{ borrowing.returnDate}}</td>
                     <td>
                         <a href="{{ url('borrow_return', {id: borrowing.id}) }}" title="{{ 'return'|trans }}">
                             {{ 'return'|trans }}
                         </a>
                     </td>
+                        {% else %}
+                            <td>{{ borrowing.returnDate|date('Y/m/d') }}</td>
+                            <td style="color: forestgreen">
+                                {{ 'Oddana' }}
+                            </td>
                     {% endif %}
                 </tr>
-                {% endif %}
             {% endfor %}
             </tbody>
         </table>

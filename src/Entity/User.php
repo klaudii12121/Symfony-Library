@@ -50,10 +50,8 @@ class User implements UserInterface
      *
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\Column(
-     *     type="integer",
-     *     nullable=false,
-     *     )
+     * @ORM\Column(type="integer", nullable=false)
+     *
      */
     private $id;
 
@@ -94,7 +92,6 @@ class User implements UserInterface
      */
     private $userData;
 
-
     /**
      * Getter for Id.
      *
@@ -104,7 +101,6 @@ class User implements UserInterface
     {
         return $this->id;
     }
-
 
     /**
      * Getter for email.

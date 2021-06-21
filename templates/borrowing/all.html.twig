@@ -26,22 +26,14 @@
             </thead>
             <tbody>
             {% for borrowing in pagination.items %}
-                {% if borrowing.returnDate == unixDate %}
+                {%  if borrowing.returnDate is empty %}
                 <tr>
                     <td>{{ borrowing.id }}</td>
                     <td>{{ borrowing.user.email }}</td>
                     <td>{{ borrowing.book.bookName }}</td>
-                    {% if borrowing.borrowDate != unixDate %}
-                        <td>{{ borrowing.borrowDate|date('Y/m/d') }}</td>
-                    {% else %}
-                        <td>{{ "" }}</td>
-                    {% endif %}
-                    {% if borrowing.returnDate != unixDate and borrowing.borrowDate != borrowing.returnDate %}
-                        <td>{{ borrowing.returnDate|date('Y/m/d') }}</td>
-                    {% else %}
-                        <td>{{ "" }}</td>
-                    {% endif %}
-                    {% if borrowing.borrowDate == unixDate %}
+                    {% if borrowing.borrowDate is empty %}
+                    <td>{{ borrowing.borrowDate }}</td>
+                    <td>{{ borrowing.returnDate }}</td>
                         <td>
                             <a style="color: forestgreen" href="{{ url('borrow_confirm', {id: borrowing.id}) }}" title="{{ 'confirm'|trans }}">
                                 {{ 'confirm'|trans }}
@@ -51,8 +43,10 @@
                             </a>
                         </td>
                         {% else %}
+                            <td>{{ borrowing.borrowDate|date('Y/m/d') }}</td>
+                            <td>{{ borrowing.returnDate }}</td>
                             <td style="color: forestgreen">{{ 'aktualnie wypożyczona' }}</td>
-                    {% endif %}
+                        {% endif %}
                 </tr>
                 {% endif %}
             {% endfor %}
