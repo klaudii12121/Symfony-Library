@@ -30,6 +30,8 @@
             </dd>
             <dt>{{ 'label_publisher_name'|trans }}</dt>
             <dd>{{  book.publisher.publisherName }}</dd>
+            <dt>{{ 'label_amount'|trans }}</dt>
+            <dd>{{  book.amount }}</dd>
         </dl>
     {% if is_granted('ROLE_ADMIN') %}
         <p>
@@ -43,11 +45,13 @@
             </a>
         </p>
         {% else %}
+            {% if book.amount != 0 %}
             <p>
                 <a href="{{ url('borrow_create', {id: book.id}) }}" title="{{ 'action_borrow'|trans }}">
                     {{ 'action_borrow'|trans }}
                 </a>
             </p>
+                {% endif %}
     {% endif %}
     {% else %}
         <p>

@@ -156,7 +156,7 @@
             </trans-unit>
             <trans-unit id="by">
                 <source>by</source>
-                <target>by</target>
+                <target>written by</target>
             </trans-unit>
             <trans-unit id="sure_to_remove_category">
                 <source>sure_to_remove_book_category</source>
@@ -269,6 +269,50 @@
             <trans-unit id="discard">
                 <source>discard</source>
                 <target>Discard</target>
+            </trans-unit>
+            <trans-unit id="action_borrow">
+                <source>action_borrow</source>
+                <target>Borrow</target>
+            </trans-unit>
+            <trans-unit id="title_borrowing_create">
+                <source>title_borrowing_create</source>
+                <target>Borrow book</target>
+            </trans-unit>
+            <trans-unit id="sure_to_borrow_book">
+                <source>sure_to_borrow_book</source>
+                <target>Are you sure you want to borrow </target>
+            </trans-unit>
+            <trans-unit id="title_borrowing_confirm">
+                <source>title_borrowing_confirm</source>
+                <target>Confirm borrowing</target>
+            </trans-unit>
+            <trans-unit id="sure_to_confirm_book">
+                <source>sure_to_confirm_book</source>
+                <target>Are you sure you want to confirm borrowing the book </target>
+            </trans-unit>
+            <trans-unit id="byUser">
+                <source>byUser</source>
+                <target>reserved by </target>
+            </trans-unit>
+            <trans-unit id="action_confirm">
+                <source>action_confirm</source>
+                <target>Confirm</target>
+            </trans-unit>
+            <trans-unit id="title_borrowing_discard">
+                <source>title_borrowing_discard</source>
+                <target>Discard borrowing</target>
+            </trans-unit>
+            <trans-unit id="sure_to_discard_book">
+                <source>sure_to_discard_book</source>
+                <target>Are you sure you want to discard borrowing the book </target>
+            </trans-unit>
+            <trans-unit id="action_discard">
+                <source>action_discard</source>
+                <target>Discard</target>
+            </trans-unit>
+            <trans-unit id="label_amount">
+                <source>label_amount</source>
+                <target>Amount</target>
             </trans-unit>
         </body>
     </file>

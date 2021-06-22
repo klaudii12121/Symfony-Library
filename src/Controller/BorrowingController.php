@@ -197,10 +197,11 @@ class BorrowingController extends AbstractController
 
         $form = $this->createForm(BorrowingType::class, $borrowing, [ 'method' => 'PUT']);
         $form->handleRequest($request);
+        $book = $borrowing->getBook();
+        $user = $borrowing->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $borrowing->setBorrowDate(new \DateTime( 'NOW'));
-
             $this->borrowingService->save($borrowing);
 
             $this->addFlash('success', 'Potwierdziłeś wypożyczenie. Książka została dzisiaj wypożyczona.');
@@ -209,7 +210,9 @@ class BorrowingController extends AbstractController
         return $this->render(
             'borrowing/confirm.html.twig',
             ['form' => $form->createView(),
-                'borrowing' => $borrowing,]
+                'borrowing' => $borrowing,
+                'book' => $book,
+                'user' => $user]
         );
     }
 
@@ -237,6 +240,7 @@ class BorrowingController extends AbstractController
         $form = $this->createForm(BorrowingType::class, $borrowing, [ 'method' => 'DELETE']);
         $form->handleRequest($request);
         $book = $this->bookService->findByObject($borrowing->getBook());
+        $user = $borrowing->getUser();
 
         if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
             $form->submit($request->request->get($form->getName()));
@@ -253,7 +257,8 @@ class BorrowingController extends AbstractController
             'borrowing/discard.html.twig',
             ['form' => $form->createView(),
                 'borrowing' => $borrowing,
-                'book' => $book,]
+                'book' => $book,
+                'user' => $user,]
         );
     }
     /**

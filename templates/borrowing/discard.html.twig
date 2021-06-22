@@ -8,8 +8,9 @@
     <h1>{{ 'title_borrowing_discard'|trans({'%id%': book.id|default('')}) }}</h1>
     {{ form_start(form, { method: 'DELETE', action: url('borrow_discard', {id: borrowing.id, book: book.id}) }) }}
     {{ form_widget(form) }}
+    <p>{{ 'sure_to_discard_book'|trans }} "{{ book.bookName }}" {{ 'byUser'|trans }} {{ borrowing.user.userData.nick }}? </p>
     <div class="form-group row float-sm-right">
-        <input type="submit" value="{{ 'action_delete'|trans }}" class="btn btn-primary" />
+        <input type="submit" value="{{ 'action_discard'|trans }}" class="btn btn-primary" />
     </div>
     <div class="form-group row float-sm-left">
         <a href="{{ url('borrow_all') }}" class="btn btn-link">

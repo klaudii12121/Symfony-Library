@@ -8,8 +8,9 @@
     <h1>{{ 'title_borrowing_create'|trans }}</h1>
     {{ form_start(form, { method: 'POST', action: url('borrow_create', {id: book.id}) }) }}
     {{ form_widget(form) }}
+    <p>{{ 'sure_to_borrow_book'|trans }} "{{ book.bookName }}" {{ 'by'|trans }} {{ book.author.authorName }}? </p>
     <div class="form-group row float-sm-right">
-        <input type="submit" value="{{ 'action_save'|trans }}" class="btn btn-primary" />
+        <input type="submit" value="{{ 'action_borrow'|trans }}" class="btn btn-primary" />
     </div>
     <div class="form-group row float-sm-left">
         <a href="{{ url('borrow_index') }}" class="btn btn-link">
