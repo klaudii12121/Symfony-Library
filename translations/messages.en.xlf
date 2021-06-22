@@ -310,9 +310,41 @@
                 <source>action_discard</source>
                 <target>Discard</target>
             </trans-unit>
+            <trans-unit id="title_borrowing_return">
+                <source>title_borrowing_return</source>
+                <target>Return book</target>
+            </trans-unit>
+            <trans-unit id="sure_to_return_book">
+                <source>sure_to_return_book</source>
+                <target>Are you sure you want to return </target>
+            </trans-unit>
+            <trans-unit id="action_return">
+                <source>action_return</source>
+                <target>Return</target>
+            </trans-unit>
             <trans-unit id="label_amount">
                 <source>label_amount</source>
                 <target>Amount</target>
+            </trans-unit>
+            <trans-unit id="registration">
+                <source>registration</source>
+                <target>Registration </target>
+            </trans-unit>
+            <trans-unit id="label_password">
+                <source>label_password</source>
+                <target>Password</target>
+            </trans-unit>
+            <trans-unit id="account_true">
+                <source>account_true</source>
+                <target>If you have an account,</target>
+            </trans-unit>
+            <trans-unit id="account_false">
+                <source>account_false</source>
+                <target>If you do not have an account</target>
+            </trans-unit>
+            <trans-unit id="sign_in">
+                <source>sign_in</source>
+                <target>Sign in</target>
             </trans-unit>
         </body>
     </file>

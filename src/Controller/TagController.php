@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
 /**
@@ -36,6 +38,8 @@ class TagController extends AbstractController
      *    name="tag_index",
      *    methods={"GET"}
      * )
+     *
+     * @IsGranted("ROLE_USER")
      */
     public function index(Request $request, TagRepository $tagRepository, PaginatorInterface $paginator): Response
     {
@@ -64,6 +68,8 @@ class TagController extends AbstractController
      *     name="tag_show",
      *     requirements={"id": "[1-9]\d*"},
      * )
+     *
+     * @IsGranted("ROLE_USER")
      */
     public function show(Tag $tag): Response
     {

@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use App\Form\BookType;
 use App\Service\BookService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class BookController.
@@ -51,6 +53,8 @@ class BookController extends AbstractController
      *    name="book_index",
      *    methods={"GET"}
      * )
+     *
+     * @IsGranted("ROLE_USER")
      */
     public function index(Request $request): Response
     {
@@ -77,6 +81,8 @@ class BookController extends AbstractController
      *     name="book_show",
      *     requirements={"id": "[1-9]\d*"},
      * )
+     *
+     * @IsGranted("ROLE_USER")
      */
     public function show(Book $book): Response
     {
@@ -101,6 +107,8 @@ class BookController extends AbstractController
      *     methods={"GET", "POST"},
      *     name="book_create",
      * )
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function create(Request $request): Response
     {
@@ -138,6 +146,8 @@ class BookController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="book_edit",
      * )
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Book $book): Response
     {
@@ -178,6 +188,8 @@ class BookController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="book_delete",
      * )
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Book $book): Response
     {

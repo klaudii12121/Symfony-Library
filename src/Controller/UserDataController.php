@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\UserDataService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class UserDataController
@@ -53,6 +55,8 @@ class UserDataController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="userData_edit",
      * );
+     *
+     * @IsGranted("ROLE_USER")
      */
     public function edit(Request $request, UserData $userData): Response
     {

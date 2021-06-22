@@ -6,15 +6,15 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Knp\Component\Pager\PaginatorInterface;
 use App\Form\UpgradePassType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Service\UserService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class UserController.
@@ -54,11 +54,13 @@ class UserController extends AbstractController
      *    name="user_index",
      *    methods={"GET"}
      * )
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(Request $request): Response
     {
         $page = $request->query->getInt('page', '1');
-        $pagination = $this->bookService->createPaginatedList($page);
+        $pagination = $this->userService->createPaginatedList($page);
 
         return $this->render(
             'user/index.html.twig',
@@ -79,6 +81,8 @@ class UserController extends AbstractController
      *     name="user_show",
      *     requirements={"id": "[1-9]\d*"},
      * )
+     *
+     * @IsGranted("ROLE_USER")
      */
     public function show(User $user): Response
     {
@@ -102,6 +106,8 @@ class UserController extends AbstractController
      *     name="pass_edit",
      *     requirements={"id": "[1-9]\d*"},
      * )
+     *
+     * @IsGranted("ROLE_USER")
      */
     public function upgradePass(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response
     {

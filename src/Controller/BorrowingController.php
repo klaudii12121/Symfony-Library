@@ -11,10 +11,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Knp\Component\Pager\PaginatorInterface;
 use App\Service\BorrowingService;
 use App\Service\BookService;
 use App\Service\UserService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
 /**
@@ -64,6 +65,8 @@ class BorrowingController extends AbstractController
      *     methods={"GET"},
      *     name="borrow_index",
      * )
+     *
+     * @IsGranted("ROLE_USER")
      */
     public function index(Request $request): Response
     {
@@ -89,6 +92,8 @@ class BorrowingController extends AbstractController
      *     methods={"GET"},
      *     name="borrow_all",
      * )
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function allBorrowings(Request $request): Response
     {
@@ -114,6 +119,8 @@ class BorrowingController extends AbstractController
      *     name="borrow_show",
      *     requirements={"id": "[1-9]\d*"},
      * )
+     *
+     * @IsGranted("ROLE_USER")
      */
     public function show(Borrowing $borrowing): Response
     {
@@ -143,6 +150,8 @@ class BorrowingController extends AbstractController
      *     methods={"GET", "POST"},
      *     name="borrow_create",
      * )
+     *
+     * @IsGranted("ROLE_USER")
      */
     public function create(Request $request): Response
     {
@@ -191,6 +200,8 @@ class BorrowingController extends AbstractController
      *     name="borrow_confirm",
      *     requirements={"id": "[1-9]\d*"}
      * )
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function confirm(Request $request, Borrowing $borrowing): Response
     {
@@ -233,6 +244,8 @@ class BorrowingController extends AbstractController
      *     name="borrow_discard",
      *     requirements={"id": "[1-9]\d*"}
      * )
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function discard(Request $request, Borrowing $borrowing): Response
     {
@@ -278,6 +291,8 @@ class BorrowingController extends AbstractController
      *     name="borrow_return",
      *     requirements={"id": "[1-9]\d*"}
      * )
+     *
+     * @IsGranted("ROLE_USER")
      */
     public function return(Request $request, Borrowing $borrowing): Response
     {
@@ -293,7 +308,7 @@ class BorrowingController extends AbstractController
             $this->borrowingService->save($borrowing);
 
             $this->addFlash('success', 'Zwróciłeś książkę.');
-            return $this->redirectToRoute('borrow_all');
+            return $this->redirectToRoute('borrow_index');
         }
         return $this->render(
             'borrowing/return.html.twig',

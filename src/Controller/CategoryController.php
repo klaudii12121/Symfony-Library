@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use App\Form\CategoryType;
 use App\Service\CategoryService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class CategoryController.
@@ -52,6 +54,8 @@ class CategoryController extends AbstractController
      *    name="category_index",
      *    methods={"GET"}
      * )
+     *
+     * @IsGranted("ROLE_USER")
      */
     public function index(Request $request): Response
     {
@@ -77,6 +81,8 @@ class CategoryController extends AbstractController
      *     name="category_show",
      *     requirements={"id": "[1-9]\d*"},
      * )
+     *
+     * @IsGranted("ROLE_USER")
      */
     public function show(Category $category): Response
     {
@@ -101,6 +107,8 @@ class CategoryController extends AbstractController
      *     methods={"GET", "POST"},
      *     name="category_create",
      * )
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function create(Request $request): Response
     {
@@ -138,7 +146,9 @@ class CategoryController extends AbstractController
      *     methods={"GET", "PUT"},
      *     requirements={"id": "[1-9]\d*"},
      *     name="category_edit",
-     * )
+     *)
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Category $category): Response
     {
@@ -179,6 +189,8 @@ class CategoryController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="category_delete",
      * )
+     *
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Category $category): Response
     {

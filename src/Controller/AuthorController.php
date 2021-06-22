@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Service\AuthorService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class AuthorController.
@@ -50,6 +52,8 @@ class AuthorController extends AbstractController
      *    name="author_index",
      *    methods={"GET"}
      * )
+     *
+     * @IsGranted("ROLE_USER")
      */
     public function index(Request $request): Response
     {
@@ -75,6 +79,8 @@ class AuthorController extends AbstractController
      *     name="author_show",
      *     requirements={"id": "[1-9]\d*"},
      * )
+     *
+     * @IsGranted("ROLE_USER")
      */
     public function show(Author $author): Response
     {

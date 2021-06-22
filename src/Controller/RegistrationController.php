@@ -14,6 +14,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use App\Service\UserDataService;
 use App\Service\UserService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
 class RegistrationController extends AbstractController
@@ -45,6 +47,7 @@ class RegistrationController extends AbstractController
     }
 
     /**
+     * Registration.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
      *

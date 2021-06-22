@@ -192,11 +192,11 @@
             </trans-unit>
             <trans-unit id="register">
                 <source>register</source>
-                <target>zarejestruj się!</target>
+                <target>Zarejestruj się!</target>
             </trans-unit>
             <trans-unit id="log_in">
                 <source>log_in</source>
-                <target>zaloguj się!</target>
+                <target>Zaloguj się!</target>
             </trans-unit>
             <trans-unit id="log_out">
                 <source>log_out</source>
@@ -309,6 +309,42 @@
             <trans-unit id="action_discard">
                 <source>action_discard</source>
                 <target>Odrzuć</target>
+            </trans-unit>
+            <trans-unit id="title_borrowing_return">
+                <source>title_borrowing_return</source>
+                <target>Zwróć książkę</target>
+            </trans-unit>
+            <trans-unit id="sure_to_return_book">
+                <source>sure_to_return_book</source>
+                <target>Czy na pewno chcesz zwrócić książkę </target>
+            </trans-unit>
+            <trans-unit id="action_return">
+                <source>action_return</source>
+                <target>Zwróć</target>
+            </trans-unit>
+            <trans-unit id="label_amount">
+                <source>label_amount</source>
+                <target>Ilość</target>
+            </trans-unit>
+            <trans-unit id="registration">
+                <source>registration</source>
+                <target>Rejestracja</target>
+            </trans-unit>
+            <trans-unit id="label_password">
+                <source>label_password</source>
+                <target>Hasło</target>
+            </trans-unit>
+            <trans-unit id="account_true">
+                <source>account_true</source>
+                <target>Jeśli posiadasz konto,</target>
+            </trans-unit>
+            <trans-unit id="account_false">
+                <source>account_false</source>
+                <target>Jeśli nie posiadasz konta,</target>
+            </trans-unit>
+            <trans-unit id="sign_in">
+                <source>sign_in</source>
+                <target>Logowanie</target>
             </trans-unit>
         </body>
     </file>
