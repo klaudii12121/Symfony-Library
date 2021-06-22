@@ -346,6 +346,46 @@
                 <source>sign_in</source>
                 <target>Sign in</target>
             </trans-unit>
+            <trans-unit id="message.access_denied">
+                <source>message.access_denied</source>
+                <target>Nothing interesting to see there :) </target>
+            </trans-unit>
+            <trans-unit id="willingness_to_borrow">
+                <source>willingness_to_borrow</source>
+                <target>You have expressed your wish to borrow, you have to wait for the Admin to accept your borrow, then you will see it on this list!</target>
+            </trans-unit>
+            <trans-unit id="no_book">
+                <source>no_book</source>
+                <target>We don't have this book in stock yet. Wait for someone else to return their book.</target>
+            </trans-unit>
+            <trans-unit id="message.confirm_borrow">
+                <source>message.confirm_borrow</source>
+                <target>You confirmed the borrow. The book is on loan from today.</target>
+            </trans-unit>
+            <trans-unit id="message.discard_borrow">
+                <source>message.discard_borrow</source>
+                <target>You rejected the borrow.</target>
+            </trans-unit>
+            <trans-unit id="message.return_borrow">
+                <source>message.return_borrow</source>
+                <target>You returned the book.</target>
+            </trans-unit>
+            <trans-unit id="message.category_contains_books">
+                <source>message.category_contains_books</source>
+                <target>Category contains books.</target>
+            </trans-unit>
+            <trans-unit id="message.new_user">
+                <source>message.new_user</source>
+                <target>Hello new user! You are noname now. Go to your profile and fill in the details about yourself!</target>
+            </trans-unit>
+            <trans-unit id="password_changed_successfully">
+                <source>password_changed_successfully</source>
+                <target>Password changed successfully.</target>
+            </trans-unit>
+            <trans-unit id="message.book_is_borrowed">
+                <source>message.book_is_borrowed</source>
+                <target>This book is currently borrowed.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -59,6 +59,7 @@ class UserController extends AbstractController
      */
     public function index(Request $request): Response
     {
+
         $page = $request->query->getInt('page', '1');
         $pagination = $this->userService->createPaginatedList($page);
 
@@ -124,7 +125,7 @@ class UserController extends AbstractController
                 );
 
                 $this->userService->save($user);
-                $this->addFlash('success', 'password changed successfully');
+                $this->addFlash('success', 'password_changed_successfully');
 
                 return $this->redirectToRoute('app_logout');
             }

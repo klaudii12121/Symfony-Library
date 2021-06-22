@@ -119,19 +119,17 @@ class BorrowingController extends AbstractController
      *     name="borrow_show",
      *     requirements={"id": "[1-9]\d*"},
      * )
-     *
-     * @IsGranted("ROLE_USER")
      */
     public function show(Borrowing $borrowing): Response
     {
         if ($borrowing->getUser() !== $this->getUser()) {
-            $this->addFlash('warning', 'message.item_not_found');
+            $this->addFlash('warning', 'message.access_denied');
 
             return $this->redirectToRoute('borrow_index');
         }
 
         return $this->render(
-            'borrowing/show.html.twig',
+            'borrowing/index.html.twig',
             ['borrowing' => $borrowing]
         );
     }
@@ -168,10 +166,10 @@ class BorrowingController extends AbstractController
             $this->borrowingService->save($borrowing);
             $this->bookService->save($bookAmount);
 
-            $this->addFlash('success', 'Wyraziłeś chęć wypożyczenia, musisz poczekać, aż Admin zaakceptuje twoje wypożyczenie, wtedy zobaczysz je na tej liście!');
+            $this->addFlash('success', 'willingness_to_borrow');
             return $this->redirectToRoute('borrow_index');
         }elseif ($book->getAmount() == 0) {
-            $this->addFlash('success', 'Tej ksiązki, na razie, nie mamy na stanie. Poczekaj aż ktoś inny zwróci swój egzemplarz.');
+            $this->addFlash('success', 'no_book');
             return $this->redirectToRoute('borrow_index');
         }
 
@@ -215,7 +213,7 @@ class BorrowingController extends AbstractController
             $borrowing->setBorrowDate(new \DateTime( 'NOW'));
             $this->borrowingService->save($borrowing);
 
-            $this->addFlash('success', 'Potwierdziłeś wypożyczenie. Książka została dzisiaj wypożyczona.');
+            $this->addFlash('success', 'message.confirm_borrow');
             return $this->redirectToRoute('borrow_all');
         }
         return $this->render(
@@ -263,7 +261,7 @@ class BorrowingController extends AbstractController
             $bookAmount = $book->setAmount($book->getAmount()+1);
             $this->bookService->save($bookAmount);
 
-            $this->addFlash('success', 'Odrzuciłeś wypożyczenie.');
+            $this->addFlash('success', 'message.discard_borrow');
             return $this->redirectToRoute('borrow_all');
         }
         return $this->render(
@@ -307,7 +305,7 @@ class BorrowingController extends AbstractController
             $this->bookService->save($bookAmount);
             $this->borrowingService->save($borrowing);
 
-            $this->addFlash('success', 'Zwróciłeś książkę.');
+            $this->addFlash('success', 'message.return_borrow');
             return $this->redirectToRoute('borrow_index');
         }
         return $this->render(

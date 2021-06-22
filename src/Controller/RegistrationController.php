@@ -84,7 +84,7 @@ class RegistrationController extends AbstractController
             $this->userService->save($user);
             $this->userDataService->save($userData);
 
-            $this->addFlash('success', 'Hello new user! You are noname now. Go to your profile and fill in the details about yourself!');
+            $this->addFlash('success', 'message.new_user');
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,

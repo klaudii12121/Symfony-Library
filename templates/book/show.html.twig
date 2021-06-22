@@ -39,12 +39,18 @@
                 {{ 'action_edit'|trans }}
             </a>
         </p>
+        {% if not book.borrowings|length %}
         <p>
             <a href="{{ url('book_delete', {id: book.id}) }}" title="{{ 'action_delete'|trans }}">
                 {{ 'action_delete'|trans }}
             </a>
         </p>
         {% else %}
+            <p style="color: crimson">
+                {{ 'Nie możesz usunąć tej książki, ponieważ jest ona aktualnie wypożyczona.' }}
+            </p>
+        {% endif %}
+    {% else %}
             {% if book.amount != 0 %}
             <p>
                 <a href="{{ url('borrow_create', {id: book.id}) }}" title="{{ 'action_borrow'|trans }}">

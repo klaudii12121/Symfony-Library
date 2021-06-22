@@ -193,6 +193,12 @@ class BookController extends AbstractController
      */
     public function delete(Request $request, Book $book): Response
     {
+        if ($book->getBorrowings()->count()){
+            $this->addFlash('warning', 'message.book_is_borrowed');
+
+            return $this->redirectToRoute('book_index');
+        }
+
         $form = $this->createForm(FormType::class, $book, ['method' => 'DELETE']);
         $form->handleRequest($request);
 

@@ -216,7 +216,7 @@
             </trans-unit>
             <trans-unit id="borrowings">
                 <source>borrowings</source>
-                <target>Twoje wypożyczenia</target>
+                <target>Wypożyczenia</target>
             </trans-unit>
             <trans-unit id="return">
                 <source>return</source>
@@ -345,6 +345,46 @@
             <trans-unit id="sign_in">
                 <source>sign_in</source>
                 <target>Logowanie</target>
+            </trans-unit>
+            <trans-unit id="message.access_denied">
+                <source>message.access_denied</source>
+                <target>Nic ciekawego do zobaczenia :) </target>
+            </trans-unit>
+            <trans-unit id="willingness_to_borrow">
+                <source>willingness_to_borrow</source>
+                <target>Wyraziłeś chęć wypożyczenia, musisz poczekać, aż Admin zaakceptuje twoje wypożyczenie, wtedy zobaczysz je na tej liście!</target>
+            </trans-unit>
+            <trans-unit id="no_book">
+                <source>no_book</source>
+                <target>Tej ksiązki, na razie, nie mamy na stanie. Poczekaj aż ktoś inny zwróci swój egzemplarz.</target>
+            </trans-unit>
+            <trans-unit id="message.confirm_borrow">
+                <source>message.confirm_borrow</source>
+                <target>Potwierdziłeś wypożyczenie. Książka została dzisiaj wypożyczona.</target>
+            </trans-unit>
+            <trans-unit id="message.discard_borrow">
+                <source>message.discard_borrow</source>
+                <target>Odrzuciłeś wypożyczenie.</target>
+            </trans-unit>
+            <trans-unit id="message.return_borrow">
+                <source>message.return_borrow</source>
+                <target>Zwróciłeś książkę.</target>
+            </trans-unit>
+            <trans-unit id="message.category_contains_books">
+                <source>message.category_contains_books</source>
+                <target>Kategoria zawiera książki.</target>
+            </trans-unit>
+            <trans-unit id="message.new_user">
+                <source>message.new_user</source>
+                <target>Cześć, nowy użytkowniku! Aktualnie jesteś bezimiennym - noname. Przejdź do swojego profilu i uzupełnij dane o sobie.</target>
+            </trans-unit>
+            <trans-unit id="password_changed_successfully">
+                <source>password_changed_successfully</source>
+                <target>Hasło zmienione z powodzeniem!</target>
+            </trans-unit>
+            <trans-unit id="message.book_is_borrowed">
+                <source>message.book_is_borrowed</source>
+                <target>Ta książka jest aktualnie wypożyczona.</target>
             </trans-unit>
         </body>
     </file>

@@ -37,6 +37,11 @@
                     {% endif %}
                 </div>
             </li>
+            {% if is_granted('ROLE_ADMIN') %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('borrow_all') }}">{{ 'users_borrowings'|trans }}</a>
+            </li>
+            {% endif %}
         </ul>
     </div>
     <div class="navbar-collapse navbar-right">
@@ -47,10 +52,10 @@
 
                     {{ 'Account'|trans }}{{ app.user.userData.nick }}
                 </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="position: absolute;right: 2%;">
                         <a href="{{ url('user_show', {id: app.user.id}) }}" class="dropdown-item">{{ 'profile_show'|trans }}</a>
                         {% if is_granted('ROLE_ADMIN') %}
-                            <a class="dropdown-item" href="{{ url('borrow_all') }}">{{ 'borrowings'|trans }}</a>
+                            <a class="dropdown-item" href="{{ url('user_index') }}">{{ 'users'|trans }}</a>
                             <a href="{{ url('app_logout') }}" class="btn btn-outline-primary" style="margin-left: 1.5em;margin-top: 1em" >{{ 'log_out'|trans }}</a>
                      {% else %}
                          <a class="dropdown-item" href="{{ url('borrow_index') }}">{{ 'borrowings'|trans }}</a>

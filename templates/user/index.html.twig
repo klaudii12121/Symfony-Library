@@ -14,6 +14,8 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'user.id') }}<i class="fa fa-fw fa-sort"></i></th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_email'|trans, 'user.email') }}<i class="fa fa-fw fa-sort"></i></th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_nick'|trans, 'user.userData.nick') }}<i class="fa fa-fw fa-sort"></i></th>
+                <th>{{ 'label_modify'|trans }}</th>
+                <th>{{ 'label_change_password'|trans }}</th>
             </tr>
             </thead>
             <tbody>
@@ -22,6 +24,16 @@
                     <td>{{ user.id }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.userData.nick }}</td>
+                    <td>
+                        <a href="{{ url('userData_edit', {id: user.userData.id}) }}" title="{{ 'action_edit'|trans }}">
+                            {{ 'action_edit'|trans }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ url('pass_edit', {id: user.id}) }}" title="{{ 'password_edit'|trans }}">
+                            {{ 'password_edit'|trans }}
+                        </a>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
