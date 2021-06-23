@@ -41,9 +41,11 @@ class Tag
     /**
      * Books.
      *
+     * @var Collection|ArrayCollection
+     *
      * @ORM\ManyToMany(targetEntity=Book::class, mappedBy="tags")
      */
-    private ArrayCollection $books;
+    private Collection $books;
 
     /**
      * Tag constructor.

@@ -41,9 +41,11 @@ class Publisher
     /**
      * Books.
      *
+     * @var Collection|ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity=Book::class, mappedBy="publisher")
      */
-    private ArrayCollection $books;
+    private Collection $books;
 
     /**
      * Publisher constructor.

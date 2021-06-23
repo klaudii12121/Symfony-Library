@@ -41,9 +41,11 @@ class Author
     /**
      * Books.
      *
+     * @var Collection|ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity=Book::class, mappedBy="author")
      */
-    private ArrayCollection $books;
+    private Collection $books;
 
     /**
      * Author constructor.

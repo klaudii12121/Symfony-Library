@@ -93,17 +93,21 @@ class Book
     /**
      * Tags.
      *
+     * @var Collection|ArrayCollection
+     *
      * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="books", orphanRemoval=true)
      * @ORM\JoinTable(name="books_tags")
      */
-    private ArrayCollection $tags;
+    private Collection $tags;
 
     /**
      * Borrowings.
      *
+     * @var Collection|ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity=Borrowing::class, mappedBy="book")
      */
-    private ArrayCollection $borrowings;
+    private Collection $borrowings;
 
     /**
      * Amount.
