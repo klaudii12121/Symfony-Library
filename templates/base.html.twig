@@ -1,89 +1,88 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %} {{ 'Welcome!'|trans }} {% endblock %}</title>
-    {% block stylesheets %}
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    {% endblock %}
-</head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{{ url('main_index') }}">{{ 'Library'|trans }}</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('author_index') }}">{{ 'authors'|trans }}</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ 'books'|trans }}</a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="{{ url('book_index') }}">{{ 'title_book_list'|trans }}</a>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %} {{ 'Welcome!'|trans }} {% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+            <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+        {% endblock %}
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{{ url('main_index') }}">{{ 'Library'|trans }}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('author_index') }}">{{ 'authors'|trans }}</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ 'books'|trans }}</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{{ url('book_index') }}">{{ 'title_book_list'|trans }}</a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <a class="dropdown-item" href="{{ url('book_create') }}">{{ 'add_book'|trans }}</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="{{ url('category_index') }}" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ 'categories'|trans }}</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{{ url('category_index') }}">{{ 'title_category_list'|trans }}</a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <a class="dropdown-item" href="{{ url('category_create') }}">{{ 'add_category'|trans }}</a>
+                            {% endif %}
+                        </div>
+                    </li>
                     {% if is_granted('ROLE_ADMIN') %}
-                    <a class="dropdown-item" href="{{ url('book_create') }}">{{ 'add_book'|trans }}</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('borrow_all') }}">{{ 'users_borrowings'|trans }}</a>
+                        </li>
                     {% endif %}
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="{{ url('category_index') }}" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ 'categories'|trans }}</a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="{{ url('category_index') }}">{{ 'title_category_list'|trans }}</a>
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <a class="dropdown-item" href="{{ url('category_create') }}">{{ 'add_category'|trans }}</a>
-                    {% endif %}
-                </div>
-            </li>
-            {% if is_granted('ROLE_ADMIN') %}
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('borrow_all') }}">{{ 'users_borrowings'|trans }}</a>
-            </li>
-            {% endif %}
-        </ul>
-    </div>
-    <div class="navbar-collapse navbar-right">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item dropdown">
-                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                <a class="nav-link dropdown-toggle" style="margin-right: 2em" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
-                    {{ 'Account'|trans }}{{ app.user.userData.nick }}
-                </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="position: absolute;right: 2%;">
-                        <a href="{{ url('user_show', {id: app.user.id}) }}" class="dropdown-item">{{ 'profile_show'|trans }}</a>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <a class="dropdown-item" href="{{ url('user_index') }}">{{ 'users'|trans }}</a>
-                            <a href="{{ url('app_logout') }}" class="btn btn-outline-primary" style="margin-left: 1.5em;margin-top: 1em" >{{ 'log_out'|trans }}</a>
-                     {% else %}
-                         <a class="dropdown-item" href="{{ url('borrow_index') }}">{{ 'borrowings'|trans }}</a>
-                         <a href="{{ url('app_logout') }}" class="btn btn-outline-primary" style="margin-left: 1.5em;margin-top: 1em" >{{ 'log_out'|trans }}</a>
-                     {% endif %}
-                    {% else %}
-                         <a href="{{ url('app_login') }}" class="btn btn-outline-primary">{{'log_in'|trans}}</a>
-                            <a href="{{ url('app_register') }}" class="btn btn-outline-primary">{{ 'register'|trans }}</a>
-                    {% endif %}
-                </div>
-            </li>
-        </ul>
-    </div>
-</nav>
-<div class="container-fluid">
-    {% for type, messages in app.session.flashBag.all %}
-        {% for message in messages %}
-            <div class="alert alert-{{ type }}" role="alert">
-                {{ message|trans }}
+                </ul>
             </div>
-        {% endfor %}
-    {% endfor %}
-    {% block body %}{% endblock %}
-</div>
-{% block javascripts %}
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-{% endblock %}
-</body>
+            <div class="navbar-collapse navbar-right">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <a class="nav-link dropdown-toggle" style="margin-right: 2em" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ 'Account'|trans }}{{ app.user.userData.nick }}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="position: absolute;right: 2%;">
+                                <a href="{{ url('user_show', {id: app.user.id}) }}" class="dropdown-item">{{ 'profile_show'|trans }}</a>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a class="dropdown-item" href="{{ url('user_index') }}">{{ 'users'|trans }}</a>
+                                    <a href="{{ url('app_logout') }}" class="btn btn-outline-primary" style="margin-left: 1.5em;margin-top: 1em" >{{ 'log_out'|trans }}</a>
+                                {% else %}
+                                     <a class="dropdown-item" href="{{ url('borrow_index') }}">{{ 'borrowings'|trans }}</a>
+                                     <a href="{{ url('app_logout') }}" class="btn btn-outline-primary" style="margin-left: 1.5em;margin-top: 1em" >{{ 'log_out'|trans }}</a>
+                                 {% endif %}
+                            </div>
+                        {% else %}
+                            <a href="{{ url('app_login') }}" class="btn btn-outline-primary">{{'log_in'|trans}}</a>
+                            <a href="{{ url('app_register') }}" class="btn btn-outline-primary">{{ 'register'|trans }}</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            {% for type, messages in app.session.flashBag.all %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ type }}" role="alert">
+                        {{ message|trans }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        {% block body %}{% endblock %}
+        {% block javascripts %}
+            <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        {% endblock %}
+    </body>
 </html>

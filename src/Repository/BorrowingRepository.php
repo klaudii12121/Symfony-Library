@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Borrowing;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -17,6 +19,15 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class BorrowingRepository extends ServiceEntityRepository
 {
 
+    /**
+     *Items per page.
+     *
+     * Use constants to define configuration options that rarely change instead
+     * of specifying them in app/config/config.yml.
+     * See https://symfony.com/doc/current/best_practices.html#configuration
+     *
+     * @constant int
+     */
     const PAGINATOR_ITEMS_PER_PAGE = 3;
 
     public function __construct(ManagerRegistry $registry)
@@ -27,7 +38,7 @@ class BorrowingRepository extends ServiceEntityRepository
     /**
      * Query all records.
      *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
+     * @return QueryBuilder Query builder
      */
     public function queryAll(): QueryBuilder
     {
@@ -40,9 +51,9 @@ class BorrowingRepository extends ServiceEntityRepository
     /**
      * Get or create new query builder.
      *
-     * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
+     * @param QueryBuilder|null $queryBuilder Query builder
      *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
+     * @return QueryBuilder Query builder
      */
     private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {
@@ -52,10 +63,10 @@ class BorrowingRepository extends ServiceEntityRepository
     /**
      * Save record.
      *
-     * @param \App\Entity\Borrowing $borrowing Borrowing entity
+     * @param Borrowing $borrowing Borrowing entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function save(Borrowing $borrowing): void
     {
@@ -85,7 +96,7 @@ class BorrowingRepository extends ServiceEntityRepository
     /**
      * Query all borrowings for admin.
      *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
+     * @return QueryBuilder Query builder
      */
     public function queryForAdmin(): QueryBuilder
     {
@@ -100,10 +111,10 @@ class BorrowingRepository extends ServiceEntityRepository
     /**
      * Delete record.
      *
-     * @param \App\Entity\Borrowing $borrowing Borrowing entity
+     * @param Borrowing $borrowing Borrowing entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function delete(Borrowing $borrowing): void
     {

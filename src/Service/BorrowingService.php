@@ -7,6 +7,8 @@ namespace App\Service;
 
 use \App\Entity\Borrowing;
 use App\Repository\BorrowingRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -19,22 +21,22 @@ class BorrowingService
     /**
      * Borrowing repository.
      *
-     * @var \App\Repository\BorrowingRepository
+     * @var BorrowingRepository
      */
-    private $borrowingRepository;
+    private BorrowingRepository $borrowingRepository;
 
     /**
      * Paginator.
      *
-     * @var \Knp\Component\Pager\PaginatorInterface
+     * @var PaginatorInterface
      */
-    private $paginator;
+    private PaginatorInterface $paginator;
 
     /**
      * BorrowingService constructor.
      *
-     * @param \App\Repository\BorrowingRepository      $borrowingRepository Borrowing repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator          Paginator
+     * @param BorrowingRepository $borrowingRepository Borrowing repository
+     * @param PaginatorInterface $paginator          Paginator
      */
     public function __construct(BorrowingRepository $borrowingRepository, PaginatorInterface $paginator)
     {
@@ -48,7 +50,7 @@ class BorrowingService
      * @param UserInterface $user
      * @param int $page Page number
      *
-     * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
+     * @return PaginationInterface Paginated list
      */
     public function borrowByUser(int $page, UserInterface $user): PaginationInterface
     {
@@ -64,7 +66,7 @@ class BorrowingService
      *
      * @param int $page Page number
      *
-     * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
+     * @return PaginationInterface Paginated list
      */
     public function borrowForAdmin(int $page): PaginationInterface
     {
@@ -78,10 +80,10 @@ class BorrowingService
     /**
      * Save borrowing.
      *
-     * @param \App\Entity\Borrowing $borrowing Borrowing entity
+     * @param Borrowing $borrowing Borrowing entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function save(Borrowing $borrowing): void
     {
@@ -91,10 +93,10 @@ class BorrowingService
     /**
      * Delete Borrowing.
      *
-     * @param \App\Entity\Borrowing $borrowing Borrowing entity
+     * @param Borrowing $borrowing Borrowing entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function delete(Borrowing $borrowing): void
     {

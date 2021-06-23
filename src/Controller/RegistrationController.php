@@ -1,4 +1,7 @@
 <?php
+/**
+ * Registration controller.
+ */
 
 namespace App\Controller;
 
@@ -6,39 +9,34 @@ use App\Entity\User;
 use App\Entity\UserData;
 use App\Form\RegistrationFormType;
 use App\Security\LoginFormAuthenticator;
+use App\Service\UserDataService;
+use App\Service\UserService;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
-use App\Service\UserDataService;
-use App\Service\UserService;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-
+/**
+ * Class RegistrationController.
+ */
 class RegistrationController extends AbstractController
 {
     /**
-     * User service
-     *
-     * @var UserService
+     * User service.
      */
-    private $userService;
+    private UserService $userService;
 
     /**
-     * UserData service
-     *
-     * @var UserDataService
+     * UserData service.
      */
-    private $userDataService;
+    private UserDataService $userDataService;
 
     /**
      * RegistrationController constructor.
-     *
-     * @param UserService     $userService
-     * @param UserDataService $userDataService
      */
     public function __construct(UserService $userService, UserDataService $userDataService)
     {
@@ -49,14 +47,12 @@ class RegistrationController extends AbstractController
     /**
      * Registration.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
+     * @param Request $request HTTP request
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     *
-     *
+     * @throws ORMException
+     * @throws OptimisticLockException
      * @Route(
      *     "/register",
      *     methods={"GET", "POST"},

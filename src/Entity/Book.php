@@ -28,7 +28,7 @@ class Book
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * Book name.
@@ -41,19 +41,19 @@ class Book
      * @Assert\NotBlank
      * @Assert\Length(max="255")
      */
-    private $bookName;
+    private string $bookName;
 
     /**
      * Book description.
      *
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(type="string", length=1000, nullable=true)
      *
      * @Assert\Type(type="string")
      * @Assert\Length(max="1000")
      */
-    private $bookDesc;
+    private string $bookDesc;
 
     /**
      * Release year.
@@ -64,7 +64,7 @@ class Book
      *
      * @Assert\Type(type="integer")
      */
-    private $releaseYear;
+    private int $releaseYear;
 
     /**
      * Category.
@@ -72,7 +72,7 @@ class Book
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="books")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $category;
+    private ?Category $category;
 
     /**
      * Author.
@@ -80,7 +80,7 @@ class Book
      * @ORM\ManyToOne(targetEntity=Author::class, inversedBy="books")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $author;
+    private ?Author $author;
 
     /**
      * Publisher.
@@ -88,7 +88,7 @@ class Book
      * @ORM\ManyToOne(targetEntity=Publisher::class, inversedBy="books")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $publisher;
+    private ?Publisher $publisher;
 
     /**
      * Tags.
@@ -96,21 +96,21 @@ class Book
      * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="books", orphanRemoval=true)
      * @ORM\JoinTable(name="books_tags")
      */
-    private $tags;
+    private ArrayCollection $tags;
 
     /**
      * Borrowings.
      *
      * @ORM\OneToMany(targetEntity=Borrowing::class, mappedBy="book")
      */
-    private $borrowings;
+    private ArrayCollection $borrowings;
 
     /**
      * Amount.
      *
      * @ORM\Column(type="integer")
      */
-    private $amount;
+    private ?int $amount;
 
     /**
      * Book constructor.
@@ -292,6 +292,8 @@ class Book
     }
 
     /**
+     * Getter for borrowing.
+     *
      * @return Collection|Borrowing[]
      */
     public function getBorrowings(): Collection
@@ -299,16 +301,24 @@ class Book
         return $this->borrowings;
     }
 
-    public function addBorrowing(Borrowing $borrowing): self
+    /**
+     * Add borrowing.
+     *
+     * @param Borrowing $borrowing
+     */
+    public function addBorrowing(Borrowing $borrowing): void
     {
         if (!$this->borrowings->contains($borrowing)) {
             $this->borrowings[] = $borrowing;
             $borrowing->setBook($this);
         }
-
-        return $this;
     }
 
+    /**
+     * Remove borrowing.
+     *
+     * @param Borrowing $borrowing
+     */
     public function removeBorrowing(Borrowing $borrowing): self
     {
         if ($this->borrowings->removeElement($borrowing)) {
@@ -321,15 +331,23 @@ class Book
         return $this;
     }
 
+    /**
+     * Getter for amount.
+     *
+     * @return int
+     */
     public function getAmount(): ?int
     {
         return $this->amount;
     }
 
-    public function setAmount(int $amount): self
+    /**
+     * Setter for amount.
+     *
+     * @param int $amount
+     */
+    public function setAmount(int $amount): void
     {
         $this->amount = $amount;
-
-        return $this;
     }
 }

@@ -8,7 +8,6 @@ namespace App\Entity;
 use App\Repository\BorrowingRepository;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeInterface;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=BorrowingRepository::class)
@@ -25,7 +24,7 @@ class Borrowing
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * Borrowing date.
@@ -34,7 +33,7 @@ class Borrowing
      *
      * @ORM\Column(type="date", nullable=true)
      */
-    private $borrowDate;
+    private ?DateTimeInterface $borrowDate;
 
     /**
      * Return date.
@@ -43,14 +42,14 @@ class Borrowing
      *
      * @ORM\Column(type="date", nullable=true)
      */
-    private $returnDate;
+    private ?DateTimeInterface $returnDate;
 
     /**
      * User.
      *
      * @ORM\ManyToOne(targetEntity=User::class)
      */
-    private $user;
+    private ?User $user;
 
     /**
      * Book.
@@ -58,7 +57,7 @@ class Borrowing
      * @ORM\ManyToOne(targetEntity=Book::class, inversedBy="borrowings")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $book;
+    private ?Book $book;
 
     /**
      * Getter for Id.

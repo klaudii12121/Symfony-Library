@@ -242,6 +242,10 @@
                 <source>title_borrowing_list</source>
                 <target>Lista wypożyczeń</target>
             </trans-unit>
+            <trans-unit id="title_borrowing_list_now">
+                <source>title_borrowing_list_now</source>
+                <target>Lista aktualnych wypożyczeń</target>
+            </trans-unit>
             <trans-unit id="title_user_details">
                 <source>title_user_details</source>
                 <target>Profil użytkownika</target>
@@ -385,6 +389,14 @@
             <trans-unit id="message.book_is_borrowed">
                 <source>message.book_is_borrowed</source>
                 <target>Ta książka jest aktualnie wypożyczona.</target>
+            </trans-unit>
+            <trans-unit id="title_userData_edit">
+                <source>title_userData_edit</source>
+                <target>Edytuj użytkownika</target>
+            </trans-unit>
+            <trans-unit id="not_blank">
+                <source>not_blank</source>
+                <target>Ta wartość nie może być pusta.</target>
             </trans-unit>
         </body>
     </file>

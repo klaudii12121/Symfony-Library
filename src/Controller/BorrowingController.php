@@ -7,16 +7,16 @@ namespace App\Controller;
 
 use App\Entity\Borrowing;
 use App\Form\BorrowingType;
+use App\Service\BookService;
+use App\Service\BorrowingService;
+use App\Service\UserService;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use App\Service\BorrowingService;
-use App\Service\BookService;
-use App\Service\UserService;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-
 
 /**
  * Class BorrowingController.
@@ -25,27 +25,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  */
 class BorrowingController extends AbstractController
 {
-    /**
-     * @var BorrowingService
-     */
-    private $borrowingService;
+    private BorrowingService $borrowingService;
 
-    /**
-     * @var BookService
-     */
-    private $bookService;
+    private BookService $bookService;
 
-    /**
-     * @var UserService
-     */
-    private $userService;
+    private UserService $userService;
 
     /**
      * BorrowingController constructor.
-     *
-     * @param BorrowingService $borrowingService
-     * @param BookService     $bookService
-     * @param UserService $userService
      */
     public function __construct(BorrowingService $borrowingService, BookService $bookService, UserService $userService)
     {
@@ -53,12 +40,13 @@ class BorrowingController extends AbstractController
         $this->bookService = $bookService;
         $this->userService = $userService;
     }
+
     /**
      * One user borrowings.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param Request $request HTTP request
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @Route(
      *     "/",
@@ -72,7 +60,7 @@ class BorrowingController extends AbstractController
     {
         $user = $this->getUser();
         $page = $request->query->getInt('page', '1');
-        $pagination = $this->borrowingService->borrowByUser($page,$user);
+        $pagination = $this->borrowingService->borrowByUser($page, $user);
 
         return $this->render(
             'borrowing/index.html.twig',
@@ -83,9 +71,9 @@ class BorrowingController extends AbstractController
     /**
      * All borrowings.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param Request $request HTTP request
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @Route(
      *     "/all",
@@ -109,9 +97,9 @@ class BorrowingController extends AbstractController
     /**
      * Show action.
      *
-     * @param \App\Entity\Borrowing $borrowing borrowing entity
+     * @param Borrowing $borrowing borrowing entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @Route(
      *     "/{id}",
@@ -133,15 +121,16 @@ class BorrowingController extends AbstractController
             ['borrowing' => $borrowing]
         );
     }
+
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @param Request $request HTTP request
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @return Response HTTP response
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/create",
@@ -158,18 +147,22 @@ class BorrowingController extends AbstractController
         $form->handleRequest($request);
         $book = $this->bookService->findByID($request->query->getInt('id'));
 
-        if ($form->isSubmitted() && $form->isValid() && $book->getAmount() != 0) {
-            $borrowing->setUser($this->getUser());
-            $borrowing->setBook($book);
-            $bookAmount = $book->setAmount($book->getAmount()-1);
+        if (0 != $book->getAmount()) {
+            if ($form->isSubmitted() && $form->isValid()) {
+                $borrowing->setUser($this->getUser());
+                $borrowing->setBook($book);
+                $bookAmount = $book->setAmount($book->getAmount() - 1);
 
-            $this->borrowingService->save($borrowing);
-            $this->bookService->save($bookAmount);
+                $this->borrowingService->save($borrowing);
+                $this->bookService->save($bookAmount);
 
-            $this->addFlash('success', 'willingness_to_borrow');
-            return $this->redirectToRoute('borrow_index');
-        }elseif ($book->getAmount() == 0) {
+                $this->addFlash('success', 'willingness_to_borrow');
+
+                return $this->redirectToRoute('borrow_index');
+            }
+        } else {
             $this->addFlash('success', 'no_book');
+
             return $this->redirectToRoute('borrow_index');
         }
 
@@ -177,20 +170,20 @@ class BorrowingController extends AbstractController
             'borrowing/create.html.twig',
             ['form' => $form->createView(),
                 'borrowing' => $borrowing,
-                'book' => $book]
+                'book' => $book, ]
         );
     }
 
     /**
      * Confirm action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Entity\Borrowing                      $borrowing           Borrowing entity
+     * @param Request   $request   HTTP request
+     * @param Borrowing $borrowing Borrowing entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/{id}/confirm",
@@ -203,38 +196,39 @@ class BorrowingController extends AbstractController
      */
     public function confirm(Request $request, Borrowing $borrowing): Response
     {
-
-        $form = $this->createForm(BorrowingType::class, $borrowing, [ 'method' => 'PUT']);
+        $form = $this->createForm(BorrowingType::class, $borrowing, ['method' => 'PUT']);
         $form->handleRequest($request);
         $book = $borrowing->getBook();
         $user = $borrowing->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $borrowing->setBorrowDate(new \DateTime( 'NOW'));
+            $borrowing->setBorrowDate(new \DateTime('NOW'));
             $this->borrowingService->save($borrowing);
 
             $this->addFlash('success', 'message.confirm_borrow');
+
             return $this->redirectToRoute('borrow_all');
         }
+
         return $this->render(
             'borrowing/confirm.html.twig',
             ['form' => $form->createView(),
                 'borrowing' => $borrowing,
                 'book' => $book,
-                'user' => $user]
+                'user' => $user, ]
         );
     }
 
     /**
      * Discard action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Entity\Borrowing                      $borrowing           Borrowing entity
+     * @param Request   $request   HTTP request
+     * @param Borrowing $borrowing Borrowing entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/{id}/discard",
@@ -247,8 +241,7 @@ class BorrowingController extends AbstractController
      */
     public function discard(Request $request, Borrowing $borrowing): Response
     {
-
-        $form = $this->createForm(BorrowingType::class, $borrowing, [ 'method' => 'DELETE']);
+        $form = $this->createForm(BorrowingType::class, $borrowing, ['method' => 'DELETE']);
         $form->handleRequest($request);
         $book = $this->bookService->findByObject($borrowing->getBook());
         $user = $borrowing->getUser();
@@ -258,30 +251,33 @@ class BorrowingController extends AbstractController
         }
         if ($form->isSubmitted() && $form->isValid()) {
             $this->borrowingService->delete($borrowing);
-            $bookAmount = $book->setAmount($book->getAmount()+1);
+            $bookAmount = $book->setAmount($book->getAmount() + 1);
             $this->bookService->save($bookAmount);
 
             $this->addFlash('success', 'message.discard_borrow');
+
             return $this->redirectToRoute('borrow_all');
         }
+
         return $this->render(
             'borrowing/discard.html.twig',
             ['form' => $form->createView(),
                 'borrowing' => $borrowing,
                 'book' => $book,
-                'user' => $user,]
+                'user' => $user, ]
         );
     }
+
     /**
      * Return action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Entity\Borrowing                      $borrowing           Borrowing entity
+     * @param Request   $request   HTTP request
+     * @param Borrowing $borrowing Borrowing entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/{id}/return",
@@ -294,24 +290,25 @@ class BorrowingController extends AbstractController
      */
     public function return(Request $request, Borrowing $borrowing): Response
     {
-
-        $form = $this->createForm(BorrowingType::class, $borrowing, [ 'method' => 'PUT']);
+        $form = $this->createForm(BorrowingType::class, $borrowing, ['method' => 'PUT']);
         $form->handleRequest($request);
         $book = $this->bookService->findByObject($borrowing->getBook());
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $borrowing->setReturnDate(new \DateTime( 'NOW'));
-            $bookAmount = $book->setAmount($book->getAmount()+1);
+            $borrowing->setReturnDate(new \DateTime('NOW'));
+            $bookAmount = $book->setAmount($book->getAmount() + 1);
             $this->bookService->save($bookAmount);
             $this->borrowingService->save($borrowing);
 
             $this->addFlash('success', 'message.return_borrow');
+
             return $this->redirectToRoute('borrow_index');
         }
+
         return $this->render(
             'borrowing/return.html.twig',
             ['form' => $form->createView(),
-                'borrowing' => $borrowing,]
+                'borrowing' => $borrowing, ]
         );
     }
 }

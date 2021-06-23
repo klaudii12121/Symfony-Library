@@ -6,35 +6,33 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UpgradePassType;
+use App\Service\UserService;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use App\Form\UpgradePassType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Service\UserService;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class UserController.
  *
  * @Route("/user")
  */
-
 class UserController extends AbstractController
 {
     /**
      * User service.
-     *
-     * @var \App\Service\UserService
      */
-    private $userService;
+    private UserService $userService;
 
     /**
      * UserController constructor.
      *
-     * @param \App\Service\UserService $userService User service
+     * @param UserService $userService User service
      */
     public function __construct(UserService $userService)
     {
@@ -44,10 +42,9 @@ class UserController extends AbstractController
     /**
      * Index action.
      *
+     * @param Request $request HTTP request
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @Route(
      *    "/",
@@ -59,7 +56,6 @@ class UserController extends AbstractController
      */
     public function index(Request $request): Response
     {
-
         $page = $request->query->getInt('page', '1');
         $pagination = $this->userService->createPaginatedList($page);
 
@@ -72,9 +68,9 @@ class UserController extends AbstractController
     /**
      * Show action.
      *
-     * @param \App\Entity\User $user User entity
+     * @param User $user User entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @Route(
      *     "/{id}",
@@ -89,17 +85,21 @@ class UserController extends AbstractController
     {
         return $this->render(
             'user/show.html.twig',
-            ['user' => $user,]
+            ['user' => $user]
         );
     }
 
     /**
      * Upgrade password.
      *
-     * @param \App\Entity\User $user User entity
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param Request $request HTTP request
+     * @param User $user User entity
+     * @param UserPasswordEncoderInterface $passwordEncoder
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/{id}/password",
@@ -116,19 +116,19 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword(
+                $passwordEncoder->encodePassword(
+                    $user,
+                    $form->get('password')->getData()
+                )
+            );
 
-                $user->setPassword(
-                    $passwordEncoder->encodePassword(
-                        $user,
-                        $form->get('password')->getData()
-                    )
-                );
+            $this->userService->save($user);
+            $this->addFlash('success', 'password_changed_successfully');
 
-                $this->userService->save($user);
-                $this->addFlash('success', 'password_changed_successfully');
+            return $this->redirectToRoute('app_logout');
+        }
 
-                return $this->redirectToRoute('app_logout');
-            }
         return $this->render(
             'user/upgrade.html.twig',
             [
@@ -137,7 +137,4 @@ class UserController extends AbstractController
             ]
         );
     }
-
-
-
 }

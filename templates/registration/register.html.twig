@@ -1,23 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'registration'|trans }}{% endblock %}
+{% block title %}
+    {{ 'registration'|trans }}
+{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% for flashError in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
-
-    <h1>{{ 'registration'|trans }}</h1>
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.password, {
-            label: 'Hasło'
-        }) }}
-        <button type="submit" class="btn btn-lg btn-primary">{{ 'register'|trans }}</button>
-    {{ form_end(registrationForm) }}
-</form>
+    <form method="post">
+        {% for flashError in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+        {% endfor %}
+        <h1>{{ 'registration'|trans }}</h1>
+        {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.email) }}
+            {{ form_row(registrationForm.password, {
+                label: 'Hasło'
+            }) }}
+            <button type="submit" class="btn btn-lg btn-primary">{{ 'register'|trans }}</button>
+        {{ form_end(registrationForm) }}
+    </form>
     <br>
     <p>
         {{ 'account_true'|trans }}

@@ -33,32 +33,35 @@
             <dt>{{ 'label_amount'|trans }}</dt>
             <dd>{{  book.amount }}</dd>
         </dl>
-    {% if is_granted('ROLE_ADMIN') %}
-        <p>
-            <a href="{{ url('book_edit', {id: book.id}) }}" title="{{ 'action_edit'|trans }}">
-                {{ 'action_edit'|trans }}
-            </a>
-        </p>
-        {% if not book.borrowings|length %}
-        <p>
-            <a href="{{ url('book_delete', {id: book.id}) }}" title="{{ 'action_delete'|trans }}">
-                {{ 'action_delete'|trans }}
-            </a>
-        </p>
-        {% else %}
-            <p style="color: crimson">
-                {{ 'Nie możesz usunąć tej książki, ponieważ jest ona aktualnie wypożyczona.' }}
-            </p>
-        {% endif %}
-    {% else %}
-            {% if book.amount != 0 %}
+        {% if is_granted('ROLE_ADMIN') %}
             <p>
-                <a href="{{ url('borrow_create', {id: book.id}) }}" title="{{ 'action_borrow'|trans }}">
-                    {{ 'action_borrow'|trans }}
+                <a href="{{ url('book_edit', {id: book.id}) }}" title="{{ 'action_edit'|trans }}">
+                    {{ 'action_edit'|trans }}
                 </a>
             </p>
-                {% endif %}
-    {% endif %}
+            {% if not book.borrowings|length %}
+                <p>
+                    <a href="{{ url('book_delete', {id: book.id}) }}" title="{{ 'action_delete'|trans }}">
+                        {{ 'action_delete'|trans }}
+                    </a>
+                </p>
+            {% else %}
+                <p style="color: crimson">
+                    {{ 'Nie możesz usunąć tej książki, ponieważ jest ona aktualnie wypożyczona.' }}
+                </p>
+            {% endif %}
+        {% else %}
+            {% if book.amount != 0 %}
+                <p>
+                    <a href="{{ url('borrow_create', {id: book.id}) }}" title="{{ 'action_borrow'|trans }}">
+                        {{ 'action_borrow'|trans }}
+                    </a>
+                </p>
+                <p style="color: crimson">
+                    {{ 'Nie możesz wypożyczyć tej książki, ponieważ nie mamy już jej na stanie.' }}
+                </p>
+            {% endif %}
+        {% endif %}
     {% else %}
         <p>
             {{ 'message_item_not_found'|trans }}

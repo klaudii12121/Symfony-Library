@@ -1,38 +1,38 @@
 <?php
-
 /**
- * UserData Controller
+ * UserData Controller.
  */
+
 namespace App\Controller;
 
 use App\Entity\UserData;
-use App\Entity\User;
-use App\Form\UserDataType;;
+use App\Form\UserDataType;
+use App\Service\UserDataService;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Service\UserDataService;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
- * Class UserDataController
+ * Class UserDataController.
+ *
  * @Route("/data")
  */
 class UserDataController extends AbstractController
 {
     /**
-     * UserData service
-     *
-     * @var UserDataService
+     * UserData service.
      */
-    private $userDataService;
+    private UserDataService $userDataService;
 
     /**
      * UserDataController constructor.
      *
      * @param UserDataService $userDataService
+     *
      */
     public function __construct(UserDataService $userDataService)
     {
@@ -42,13 +42,11 @@ class UserDataController extends AbstractController
     /**
      * Edit User data.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param Request $request HTTP request
+     * @param UserData $userData
      *
-     * @return Response
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     *
+     * @throws ORMException
+     * @throws OptimisticLockException
      * @Route(
      *     "/{id}/edit",
      *     methods={"GET", "PUT"},
@@ -60,20 +58,20 @@ class UserDataController extends AbstractController
      */
     public function edit(Request $request, UserData $userData): Response
     {
-            $form = $this->createForm(UserDataType::class, $userData, ['method' => 'PUT']);
-            $form->handleRequest($request);
+        $form = $this->createForm(UserDataType::class, $userData, ['method' => 'PUT']);
+        $form->handleRequest($request);
 
-                if ($form->isSubmitted() && $form->isValid()) {
-                    $this->userDataService->save($userData);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->userDataService->save($userData);
 
-                    $this->addFlash('success', 'message_updated_successfully');
+            $this->addFlash('success', 'message_updated_successfully');
 
-                    if ($this->isGranted('ROLE_ADMIN')) {
-                        return $this->redirectToRoute('user_index');
-                    } else {
-                        return $this->redirectToRoute('main_index',);
-                    }
-                }
+            if ($this->isGranted('ROLE_ADMIN')) {
+                return $this->redirectToRoute('user_index');
+            } else {
+                return $this->redirectToRoute('main_index', );
+            }
+        }
 
         return $this->render(
             'userData/edit.html.twig',

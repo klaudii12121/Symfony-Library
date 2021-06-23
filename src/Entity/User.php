@@ -7,7 +7,6 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -28,7 +27,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface
 {
-
     /**
      * Role user.
      *
@@ -51,26 +49,29 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer", nullable=false)
-     *
      */
-    private $id;
+    private int $id;
 
     /**
      * Email.
      *
      * @ORM\Column(type="string", length=180, unique=true)
      *
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="not_blank")
      * @Assert\Email
+     * @Assert\Length(
+     *     min="6",
+     *     max="180",
+     * )
      */
-    private $email;
+    private ?string $email;
 
     /**
      * Roles.
      *
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private array $roles = [];
 
     /**
      * The hashed password.
@@ -79,18 +80,21 @@ class User implements UserInterface
      *
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="not_blank")
      * @Assert\Type(type="string")
-     *
+     * @Assert\Length(
+     *     min="6",
+     *     max="255"
+     * )
      */
-    private $password;
+    private string $password;
 
     /**
      * User data.
      *
      * @ORM\OneToOne(targetEntity=UserData::class, cascade={"persist", "remove"})
      */
-    private $userData;
+    private ?UserData $userData;
 
     /**
      * Getter for Id.
@@ -180,7 +184,6 @@ class User implements UserInterface
         $this->password = $password;
     }
 
-
     /**
      * Returning a salt is only needed, if you are not using a modern
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
@@ -202,9 +205,7 @@ class User implements UserInterface
     }
 
     /**
-     * Getter for User data
-     *
-     * @return UserData|null
+     * Getter for User data.
      */
     public function getUserData(): ?UserData
     {
@@ -212,8 +213,7 @@ class User implements UserInterface
     }
 
     /**
-     * Setter for User data
-     *
+     * Setter for User data.
      * @param UserData|null $userData
      */
     public function setUserData(?UserData $userData): void

@@ -5,54 +5,46 @@
 {% endblock %}
 
 {% block body %}
-    {% set unixDate = date("1970-01-01") %}
     <h1>{{ 'title_borrowing_list'|trans }}</h1>
     {% if pagination is defined and pagination.items|length %}
-
-        <div class="navigation text-center">
-            {{ knp_pagination_render(pagination) }}
-        </div>
-
         <table class="table table-striped">
             <thead>
-            <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'borrowing.id') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_email'|trans, 'user.email') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_book_name'|trans, 'book.bookName') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_borrow_date'|trans, 'borrowing.borrowDate') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_return_date'|trans, 'borrowing.returnDate') }}</th>
-                <th>{{ 'status'|trans }}</th>
-            </tr>
+                <tr>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'borrowing.id') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_email'|trans, 'user.email') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_book_name'|trans, 'book.bookName') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_borrow_date'|trans, 'borrowing.borrowDate') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_return_date'|trans, 'borrowing.returnDate') }}</th>
+                    <th>{{ 'status'|trans }}</th>
+                </tr>
             </thead>
             <tbody>
-            {% for borrowing in pagination.items %}
-                <tr>
-                    <td>{{ borrowing.id }}</td>
-                    <td>{{ borrowing.user.email }}</td>
-                    <td>{{ borrowing.book.bookName }}</td>
-                    <td>{{ borrowing.borrowDate|date('Y/m/d') }}</td>
-                    {% if borrowing.returnDate is empty %}
-                    <td>{{ borrowing.returnDate}}</td>
-                    <td>
-                        <a href="{{ url('borrow_return', {id: borrowing.id}) }}" title="{{ 'return'|trans }}">
-                            {{ 'return'|trans }}
-                        </a>
-                    </td>
+                {% for borrowing in pagination.items %}
+                    <tr>
+                        <td>{{ borrowing.id }}</td>
+                        <td>{{ borrowing.user.email }}</td>
+                        <td>{{ borrowing.book.bookName }}</td>
+                        <td>{{ borrowing.borrowDate|date('Y/m/d') }}</td>
+                        {% if borrowing.returnDate is empty %}
+                            <td>{{ borrowing.returnDate}}</td>
+                            <td>
+                                <a href="{{ url('borrow_return', {id: borrowing.id}) }}" title="{{ 'return'|trans }}">
+                                    {{ 'return'|trans }}
+                                </a>
+                            </td>
                         {% else %}
                             <td>{{ borrowing.returnDate|date('Y/m/d') }}</td>
                             <td style="color: forestgreen">
                                 {{ 'Oddana' }}
                             </td>
-                    {% endif %}
-                </tr>
-            {% endfor %}
+                        {% endif %}
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
-
         <div class="navigation text-center">
             {{ knp_pagination_render(pagination) }}
         </div>
-
     {% else %}
         <p>
             {{ 'Nic nie wypożyczałeś, bądź czekasz na potwierdzenie wypożyczenia przez Admina.'|trans }}

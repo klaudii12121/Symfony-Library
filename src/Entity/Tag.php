@@ -27,7 +27,7 @@ class Tag
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * Tag name.
@@ -36,14 +36,14 @@ class Tag
      *
      * @ORM\Column(type="string", length=128)
      */
-    private $tagName;
+    private string $tagName;
 
     /**
      * Books.
      *
      * @ORM\ManyToMany(targetEntity=Book::class, mappedBy="tags")
      */
-    private $books;
+    private ArrayCollection $books;
 
     /**
      * Tag constructor.

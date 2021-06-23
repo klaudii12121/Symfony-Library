@@ -2,38 +2,39 @@
 /**
  * Book controller.
  */
+
 namespace App\Controller;
 
 use App\Entity\Book;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
 use App\Form\BookType;
 use App\Service\BookService;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class BookController.
  *
  * @Route("/book")
  */
-
 class BookController extends AbstractController
 {
     /**
      * Book service.
      *
-     * @var \App\Service\BookService
+     * @var BookService
      */
-    private $bookService;
+    private BookService $bookService;
 
     /**
      * BookController constructor.
      *
-     * @param \App\Service\BookService $bookService Book service
+     * @param BookService $bookService Book service
      */
     public function __construct(BookService $bookService)
     {
@@ -43,10 +44,9 @@ class BookController extends AbstractController
     /**
      * Index action.
      *
+     * @param Request $request HTTP request
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @Route(
      *    "/",
@@ -61,7 +61,6 @@ class BookController extends AbstractController
         $page = $request->query->getInt('page', '1');
         $pagination = $this->bookService->createPaginatedList($page);
 
-
         return $this->render(
             'book/index.html.twig',
             ['pagination' => $pagination]
@@ -71,9 +70,9 @@ class BookController extends AbstractController
     /**
      * Show action.
      *
-     * @param \App\Entity\Book $book book entity
+     * @param Book $book book entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @Route(
      *     "/{id}",
@@ -95,12 +94,12 @@ class BookController extends AbstractController
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
+     * @param Request $request HTTP request
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/create",
@@ -120,6 +119,7 @@ class BookController extends AbstractController
             $this->bookService->save($book);
 
             $this->addFlash('success', 'message_created_successfully');
+
             return $this->redirectToRoute('book_index');
         }
 
@@ -132,13 +132,13 @@ class BookController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Entity\Book                      $book           Book entity
+     * @param Request $request HTTP request
+     * @param Book $book    Book entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/{id}/edit",
@@ -174,13 +174,13 @@ class BookController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Entity\Book                      $book           Book entity
+     * @param Request $request HTTP request
+     * @param Book $book    Book entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/{id}/delete",
@@ -193,7 +193,7 @@ class BookController extends AbstractController
      */
     public function delete(Request $request, Book $book): Response
     {
-        if ($book->getBorrowings()->count()){
+        if ($book->getBorrowings()->count()) {
             $this->addFlash('warning', 'message.book_is_borrowed');
 
             return $this->redirectToRoute('book_index');
@@ -223,4 +223,3 @@ class BookController extends AbstractController
         );
     }
 }
-

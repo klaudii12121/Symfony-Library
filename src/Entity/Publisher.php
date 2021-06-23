@@ -27,7 +27,7 @@ class Publisher
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * Publisher name.
@@ -36,14 +36,14 @@ class Publisher
      *
      * @ORM\Column(type="string", length=128)
      */
-    private $publisherName;
+    private string $publisherName;
 
     /**
      * Books.
      *
      * @ORM\OneToMany(targetEntity=Book::class, mappedBy="publisher")
      */
-    private $books;
+    private ArrayCollection $books;
 
     /**
      * Publisher constructor.

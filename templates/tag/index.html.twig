@@ -9,18 +9,17 @@
     {% if pagination is defined and pagination.items|length %}
         <table class="table table-striped">
             <thead>
-            <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'tag.id') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_tag_name'|trans, 'tag.tagName') }}</th>
-                <th>{{ 'label_more'|trans }}</th>
-            </tr>
+                <tr>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'tag.id') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_tag_name'|trans, 'tag.tagName') }}</th>
+                    <th>{{ 'label_more'|trans }}</th>
+                </tr>
             </thead>
             <tbody>
             {% for tag in pagination.items %}
                 <tr>
                     <td>{{ tag.id }}</td>
                     <td>{{ tag.tagName }}</td>
-
                     <td>
                         <a href="{{ url('tag_show', {id: tag.id}) }}" title="{{ 'action_view'|trans }}">
                             {{ 'action_view'|trans }}
@@ -30,11 +29,9 @@
             {% endfor %}
             </tbody>
         </table>
-
         <div class="navigation text-center">
             {{ knp_pagination_render(pagination) }}
         </div>
-
     {% else %}
         <p>
             {{ 'message_empty_list'|trans }}

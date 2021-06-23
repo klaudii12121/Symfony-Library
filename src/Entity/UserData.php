@@ -25,7 +25,7 @@ class UserData
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * Nick.
@@ -41,12 +41,12 @@ class UserData
      * )
      * @Assert\NotBlank
      */
-    private $nick;
+    private string $nick;
 
     /**
      * First name.
      *
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(type="string", length=128, nullable=true)
      *
@@ -56,12 +56,12 @@ class UserData
      *     max="128",
      * )
      */
-    private $firstName;
+    private string $firstName;
 
     /**
      * Last name.
      *
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(type="string", length=128, nullable=true)
      *
@@ -71,7 +71,7 @@ class UserData
      *     max="128",
      * )
      */
-    private $lastName;
+    private string $lastName;
 
     /**
      * Getter for Id.

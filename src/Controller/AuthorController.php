@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Service\AuthorService;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
@@ -25,14 +24,14 @@ class AuthorController extends AbstractController
     /**
      * Author service.
      *
-     * @var \App\Service\AuthorService
+     * @var AuthorService
      */
-    private $authorService;
+    private AuthorService $authorService;
 
     /**
      * AuthorController constructor.
      *
-     * @param \App\Service\AuthorService $authorService Author service
+     * @param AuthorService $authorService Author service
      */
     public function __construct(AuthorService $authorService)
     {
@@ -42,10 +41,9 @@ class AuthorController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
-
+     * @param Request $request HTTP request
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @Route(
      *    "/",
@@ -69,9 +67,9 @@ class AuthorController extends AbstractController
     /**
      * Show action.
      *
-     * @param \App\Entity\Author $author author entity
+     * @param Author $author author entity
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @Route(
      *     "/{id}",

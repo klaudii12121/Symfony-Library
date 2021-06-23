@@ -242,6 +242,10 @@
                 <source>title_borrowing_list</source>
                 <target>List of borrowings</target>
             </trans-unit>
+            <trans-unit id="title_borrowing_list_now">
+                <source>title_borrowing_list_now</source>
+                <target>List of actual borrowings</target>
+            </trans-unit>
             <trans-unit id="title_user_details">
                 <source>title_user_details</source>
                 <target>User details</target>
@@ -385,6 +389,14 @@
             <trans-unit id="message.book_is_borrowed">
                 <source>message.book_is_borrowed</source>
                 <target>This book is currently borrowed.</target>
+            </trans-unit>
+            <trans-unit id="title_userData_edit">
+                <source>title_userData_edit</source>
+                <target>Edit user</target>
+            </trans-unit>
+            <trans-unit id="not_blank">
+                <source>not_blank</source>
+                <target>This value can not be blank.</target>
             </trans-unit>
         </body>
     </file>

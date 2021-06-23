@@ -28,7 +28,7 @@ class Category
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * Category name.
@@ -44,14 +44,14 @@ class Category
      *     max="128",
      * )
      */
-    private $categoryName;
+    private string $categoryName;
 
     /**
      * Books.
      *
      * @ORM\OneToMany(targetEntity=Book::class, mappedBy="category")
      */
-    private $books;
+    private ArrayCollection $books;
 
     /**
      * Category constructor.

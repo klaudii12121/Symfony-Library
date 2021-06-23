@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\UserData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,6 +16,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class UserDataRepository extends ServiceEntityRepository
 {
+    /**
+     * UserDataRepository constructor.
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, UserData::class);
@@ -22,10 +29,10 @@ class UserDataRepository extends ServiceEntityRepository
     /**
      * Save user data.
      *
-     * @param \App\Entity\UserData $userData UserData entity
+     * @param UserData $userData UserData entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function save(UserData $userData): void
     {

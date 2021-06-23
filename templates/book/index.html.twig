@@ -7,16 +7,15 @@
 {% block body %}
     <h1>{{ 'title_book_list'|trans }}</h1>
     {% if pagination is defined and pagination.items|length %}
-
         <table class="table table-striped">
             <thead>
-            <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'book.id') }}<i class="fa fa-fw fa-sort"></i></th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_book_name'|trans, 'book.bookName') }}<i class="fa fa-fw fa-sort"></i></th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_author_name'|trans, 'author.authorName') }}<i class="fa fa-fw fa-sort"></i></th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_category_name'|trans, 'category.categoryName')}}<i class="fa fa-fw fa-sort"></i></th>
-                <th>{{ 'label_more'|trans }}</th>
-            </tr>
+                <tr>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'book.id') }}<i class="fa fa-fw fa-sort"></i></th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_book_name'|trans, 'book.bookName') }}<i class="fa fa-fw fa-sort"></i></th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_author_name'|trans, 'author.authorName') }}<i class="fa fa-fw fa-sort"></i></th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_category_name'|trans, 'category.categoryName')}}<i class="fa fa-fw fa-sort"></i></th>
+                    <th>{{ 'label_more'|trans }}</th>
+                </tr>
             </thead>
             <tbody>
             {% for book in pagination.items %}
@@ -42,11 +41,9 @@
             {% endfor %}
             </tbody>
         </table>
-
         <div class="navigation text-center">
             {{ knp_pagination_render(pagination) }}
         </div>
-
     {% else %}
         <p>
             {{ 'message_empty_list'|trans }}

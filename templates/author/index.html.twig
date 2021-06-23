@@ -5,36 +5,34 @@
 {% endblock %}
 
 {% block body %}
-
     <h1>{{ 'title_author_list'|trans }}</h1>
     {% if pagination is defined and pagination.items|length %}
-
         <table class="table table-striped">
             <thead>
-            <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'author.id') }}<i class="fa fa-fw fa-sort"></i></th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_author_name'|trans, 'author.authorName') }}<i class="fa fa-fw fa-sort"></i></th>
-                <th>{{ 'label_books'|trans }}</th>
-            </tr>
+                <tr>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'author.id') }}<i class="fa fa-fw fa-sort"></i></th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_author_name'|trans, 'author.authorName') }}<i class="fa fa-fw fa-sort"></i></th>
+                    <th>{{ 'label_books'|trans }}</th>
+                </tr>
             </thead>
             <tbody>
-            {% for author in pagination.items %}
-                <tr>
-                    <td>{{ author.id }}</td>
-                    <td>{{ author.authorName }}</td>
-                    <td>
-                        {% if author.books|length %}
-                            {% for books in author.books %}
-                                <a href="{{ url('book_show', {'id': books.id}) }}" title="{{ books.bookName }}">
-                                    {{ books.bookName }}<br>
-                                </a>
-                            {% endfor %}
-                        {% else %}
-                            {{ 'empty_space_books'|trans }}
-                        {% endif %}
-                    </td>
-                </tr>
-            {% endfor %}
+                {% for author in pagination.items %}
+                    <tr>
+                        <td>{{ author.id }}</td>
+                        <td>{{ author.authorName }}</td>
+                        <td>
+                            {% if author.books|length %}
+                                {% for books in author.books %}
+                                    <a href="{{ url('book_show', {'id': books.id}) }}" title="{{ books.bookName }}">
+                                        {{ books.bookName }}<br>
+                                    </a>
+                                {% endfor %}
+                            {% else %}
+                                {{ 'empty_space_books'|trans }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
         <div class="navigation text-center">

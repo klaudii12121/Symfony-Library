@@ -9,42 +9,41 @@
     {% if category is defined and category|length %}
         <table class="table table-striped">
             <thead>
-            <tr>
-                <th>{{ 'label_id'|trans }}</th>
-                <th>{{ 'label_category_name'|trans }}</th>
-                <th>{{ 'label_books'|trans }}</th>
-                <th></th>
-                <th></th>
-            </tr>
+                <tr>
+                    <th>{{ 'label_id'|trans }}</th>
+                    <th>{{ 'label_category_name'|trans }}</th>
+                    <th>{{ 'label_books'|trans }}</th>
+                </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>{{ category.id }}</td>
                     <td>{{ category.categoryName }}</td>
-
                     <td>
-                    {% if category.books|length %}
-                        {% for books in category.books %}
-                            <a href="{{ url('book_show', {'id': books.id}) }}" title="{{ books.bookName }}">
-                                {{ books.bookName }}<br>
+                        {% if category.books|length %}
+                            {% for books in category.books %}
+                                <a href="{{ url('book_show', {'id': books.id}) }}" title="{{ books.bookName }}">
+                                    {{ books.bookName }}<br>
+                                </a>
+                            {% endfor %}
+                        {% else %}
+                            {{ 'empty_space_books'|trans }}
+                        {% endif %}
+                    </td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td>
+                            <a href="{{ url('category_edit', {id: category.id}) }}" title="{{ 'action_edit'|trans }}">
+                                {{ 'action_edit'|trans }}
                             </a>
-                        {% endfor %}
-                    {% else %}
-                        {{ 'empty_space_books'|trans }}
+                        </td>
+                        <td>
+                            {% if not category.books|length %}
+                                <a href="{{ url('category_delete', {id: category.id}) }}" title="{{ 'action_delete'|trans }}">
+                                    {{ 'action_delete'|trans }}
+                                </a>
+                            {% endif %}
+                        </td>
                     {% endif %}
-                    </td>
-                    <td>
-                        <a href="{{ url('category_edit', {id: category.id}) }}" title="{{ 'action_edit'|trans }}">
-                            {{ 'action_edit'|trans }}
-                        </a>
-                    </td>
-                    <td>
-                    {% if not category.books|length %}
-                        <a href="{{ url('category_delete', {id: category.id}) }}" title="{{ 'action_delete'|trans }}">
-                            {{ 'action_delete'|trans }}
-                        </a>
-                    {% endif %}
-                    </td>
                 </tr>
             </tbody>
         </table>

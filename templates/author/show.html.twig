@@ -9,11 +9,11 @@
     {% if author is defined and author|length %}
         <table class="table table-striped">
             <thead>
-            <tr>
-                <th>{{ 'label_id'|trans }}</th>
-                <th>{{ 'label_author_name'|trans }}</th>
-                <th>{{ 'label_books'|trans }}</th>
-            </tr>
+                <tr>
+                    <th>{{ 'label_id'|trans }}</th>
+                    <th>{{ 'label_author_name'|trans }}</th>
+                    <th>{{ 'label_books'|trans }}</th>
+                </tr>
             </thead>
             <tbody>
                 <tr>
@@ -21,9 +21,10 @@
                     <td>{{ author.authorName }}</td>
                     <td>
                         {% for books in author.books %}
-                        <a href="{{ url('book_show', {'id': books.id}) }}" title="{{ books.bookName }}">
-                            {{ books.bookName }}<br>
-                        </a>
+                            <a href="{{ url('book_show', {'id': books.id}) }}" title="{{ books.bookName }}">
+                                {{ books.bookName }}
+                                <br>
+                            </a>
                         {% endfor %}
                     </td>
                 </tr>

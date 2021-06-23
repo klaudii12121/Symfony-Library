@@ -17,22 +17,22 @@ class AuthorService
     /**
      * Author repository.
      *
-     * @var \App\Repository\AuthorRepository
+     * @var AuthorRepository
      */
-    private $authorRepository;
+    private AuthorRepository $authorRepository;
 
     /**
      * Paginator.
      *
-     * @var \Knp\Component\Pager\PaginatorInterface
+     * @var PaginatorInterface
      */
-    private $paginator;
+    private PaginatorInterface $paginator;
 
     /**
      * BookService constructor.
      *
-     * @param \App\Repository\AuthorRepository $authorRepository Author repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator Paginator
+     * @param AuthorRepository $authorRepository Author repository
+     * @param PaginatorInterface $paginator Paginator
      */
     public function __construct(AuthorRepository $authorRepository, PaginatorInterface $paginator)
     {
@@ -45,7 +45,7 @@ class AuthorService
      *
      * @param int $page Page number
      *
-     * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
+     * @return PaginationInterface Paginated list
      */
     public function createPaginatedList(int $page): PaginationInterface
     {

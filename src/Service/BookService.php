@@ -7,6 +7,8 @@ namespace App\Service;
 
 use \App\Entity\Book;
 use App\Repository\BookRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -18,22 +20,22 @@ class BookService
     /**
      * Book repository.
      *
-     * @var \App\Repository\BookRepository
+     * @var BookRepository
      */
-    private $bookRepository;
+    private BookRepository $bookRepository;
 
     /**
      * Paginator.
      *
-     * @var \Knp\Component\Pager\PaginatorInterface
+     * @var PaginatorInterface
      */
-    private $paginator;
+    private PaginatorInterface $paginator;
 
     /**
      * BookService constructor.
      *
-     * @param \App\Repository\BookRepository      $bookRepository Book repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator          Paginator
+     * @param BookRepository $bookRepository Book repository
+     * @param PaginatorInterface $paginator          Paginator
      */
     public function __construct(BookRepository $bookRepository, PaginatorInterface $paginator)
     {
@@ -46,7 +48,7 @@ class BookService
      *
      * @param int $page Page number
      *
-     * @return \Knp\Component\Pager\Pagination\PaginationInterface Paginated list
+     * @return PaginationInterface Paginated list
      */
     public function createPaginatedList(int $page): PaginationInterface
     {
@@ -62,7 +64,7 @@ class BookService
      *
      * @param int $book
      *
-     * @return \App\Entity\Book $book Book entity
+     * @return Book $book Book entity
      *
      */
     public function findByID(int $book): ?Book
@@ -73,9 +75,9 @@ class BookService
     /**
      * Find by object.
      *
-     * @param \App\Entity\Book $book Book entity
+     * @param Book $book Book entity
      *
-     * @return \App\Entity\Book $book Book entity
+     * @return Book $book Book entity
      *
      */
     public function findByObject(Book $book): ?Book
@@ -86,10 +88,10 @@ class BookService
     /**
      * Save book.
      *
-     * @param \App\Entity\Book $book Book entity
+     * @param Book $book Book entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function save(Book $book): void
     {
@@ -99,10 +101,10 @@ class BookService
     /**
      * Delete Book.
      *
-     * @param \App\Entity\Book $book Book entity
+     * @param Book $book Book entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function delete(Book $book): void
     {

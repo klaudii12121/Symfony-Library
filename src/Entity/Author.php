@@ -27,7 +27,7 @@ class Author
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * Author name.
@@ -36,14 +36,14 @@ class Author
      *
      * @ORM\Column(type="string", length=128)
      */
-    private $authorName;
+    private string $authorName;
 
     /**
      * Books.
      *
      * @ORM\OneToMany(targetEntity=Book::class, mappedBy="author")
      */
-    private $books;
+    private ArrayCollection $books;
 
     /**
      * Author constructor.
