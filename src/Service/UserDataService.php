@@ -30,6 +30,20 @@ class UserDataService
         $this->userDataRepository = $userDataRepository;
     }
 
+    /**
+     * Find one by id.
+     *
+     * @param int $id
+     *
+     * @return \App\Entity\UserData $userData UserData entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function find(int $id): ?UserData
+    {
+        return $this->userDataRepository->find($id);
+    }
 
     /**
      * Save User.

@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title_user_details'|trans({'%id%': book.id|default('')}) }}
+    {{ 'title_user_details'|trans }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title_user_details'|trans({'%id%': book.id|default('')}) }}</h1>
+    <h1>{{ 'title_user_details'|trans }}</h1>
     {% if user.userData.nick != 'noname' and user.userData|length %}
         <dl class="dl-horizontal">
             <dt>{{ 'label_id'|trans }}</dt>
@@ -20,7 +20,7 @@
             <dd>{{ user.userData.lastName }}</dd>
         </dl>
         <p>
-            <a href="{{ url('userData_edit', {id: user.userData.id}) }}" title="{{ 'action_edit'|trans }}">
+            <a href="{{ url('userData_edit', {id: user.userData.id} }}" title="{{ 'action_edit'|trans }}">
                 {{ 'action_edit'|trans }}
             </a>
         </p>

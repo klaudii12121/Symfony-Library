@@ -43,7 +43,7 @@ class UserDataController extends AbstractController
      * Edit User data.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-
+     *
      * @return Response
      *
      * @throws \Doctrine\ORM\ORMException
@@ -63,13 +63,18 @@ class UserDataController extends AbstractController
             $form = $this->createForm(UserDataType::class, $userData, ['method' => 'PUT']);
             $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $this->userDataService->save($userData);
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $this->userDataService->save($userData);
 
-                $this->addFlash('success', 'message_updated_successfully');
+                    $this->addFlash('success', 'message_updated_successfully');
 
-                return $this->redirectToRoute('main_index');
-            }
+                    if ($this->isGranted('ROLE_ADMIN')) {
+                        return $this->redirectToRoute('user_index');
+                    } else {
+                        return $this->redirectToRoute('main_index',);
+                    }
+                }
+
         return $this->render(
             'userData/edit.html.twig',
             [

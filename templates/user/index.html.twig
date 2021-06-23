@@ -25,7 +25,7 @@
                     <td>{{ user.email }}</td>
                     <td>{{ user.userData.nick }}</td>
                     <td>
-                        <a href="{{ url('userData_edit', {id: user.userData.id}) }}" title="{{ 'action_edit'|trans }}">
+                        <a href="{{ url('userData_edit', {idData: user.userData.id}) }}" title="{{ 'action_edit'|trans }}">
                             {{ 'action_edit'|trans }}
                         </a>
                     </td>
