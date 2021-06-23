@@ -2,6 +2,18 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" datatype="plaintext" original="file.ext">
         <body>
+            <trans-unit id="Welcome">
+                 <source>Welcome</source>
+                 <target>Witaj!</target>
+            </trans-unit>
+            <trans-unit id="users_borrowings">
+                <source>users_borrowings</source>
+                <target>Wypożyczenie użytkowników</target>
+            </trans-unit>
+            <trans-unit id="users">
+                <source>users</source>
+                <target>Lista użytkowników</target>
+            </trans-unit>
             <trans-unit id="title_author_list">
                  <source>title_author_list</source>
                  <target>Lista autorów</target>
@@ -397,6 +409,54 @@
             <trans-unit id="not_blank">
                 <source>not_blank</source>
                 <target>Ta wartość nie może być pusta.</target>
+            </trans-unit>
+            <trans-unit id="go_to_category">
+                <source>go_to_category</source>
+                <target>Przejdź do kategorii</target>
+            </trans-unit>
+            <trans-unit id="go_to_author">
+                <source>go_to_author</source>
+                <target>Przejdź do autora</target>
+            </trans-unit>
+            <trans-unit id="actually_borrowed">
+                <source>actually_borrowed</source>
+                <target>Nie możesz usunąć tej książki, ponieważ jest ona aktualnie wypożyczona.</target>
+            </trans-unit>
+            <trans-unit id="book_lack">
+                <source>book_lack</source>
+                <target>Nie możesz wypożyczyć tej książki, ponieważ nie mamy już jej na stanie.</target>
+            </trans-unit>
+            <trans-unit id="active_borrow">
+                <source>active_borrow</source>
+                <target>Aktualnie wypożyczona</target>
+            </trans-unit>
+            <trans-unit id="borrowing_index_blank">
+                <source>borrowing_index_blank</source>
+                <target>Nic nie wypożyczałeś, bądź czekasz na potwierdzenie wypożyczenia przez Admina.</target>
+            </trans-unit>
+            <trans-unit id="returned">
+                <source>returned</source>
+                <target>Oddana</target>
+            </trans-unit>
+            <trans-unit id="title_user_list">
+                <source>title_user_list</source>
+                <target>Lista użytkowników</target>
+            </trans-unit>
+            <trans-unit id="label_modify">
+                <source>label_modify</source>
+                <target>Zmień dane użytkownika</target>
+            </trans-unit>
+            <trans-unit id="no_user_info">
+                <source>no_user_info</source>
+                <target>Nie posiadamy informacji o Tobie :C</target>
+            </trans-unit>
+            <trans-unit id="title_password_edit">
+                <source>title_password_edit</source>
+                <target>Zmienianie hasła</target>
+            </trans-unit>
+            <trans-unit id="label_new_pass">
+                <source>label_new_pass</source>
+                <target>Nowe hasło</target>
             </trans-unit>
         </body>
     </file>

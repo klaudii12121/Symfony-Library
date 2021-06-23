@@ -31,7 +31,7 @@
         </p>
     {% else %}
         <p>
-            {{ 'We have no informations about you :C' }}
+            {{ 'no_user_info'|trans }}
         </p>
         <p>
             <a href="{{ url('userData_edit', {id: user.userData.id}) }}" title="{{ 'action_edit'|trans }}">

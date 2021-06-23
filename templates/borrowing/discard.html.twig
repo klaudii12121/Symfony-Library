@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title_borrowing_discard'|trans({'%id%': book.id|default('')}) }}
+    {{ 'title_borrowing_discard'|trans }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title_borrowing_discard'|trans({'%id%': book.id|default('')}) }}</h1>
+    <h1>{{ 'title_borrowing_discard'|trans }}</h1>
     {{ form_start(form, { method: 'DELETE', action: url('borrow_discard', {id: borrowing.id, book: book.id}) }) }}
     {{ form_widget(form) }}
     <p>{{ 'sure_to_discard_book'|trans }} "{{ book.bookName }}" {{ 'byUser'|trans }} {{ borrowing.user.userData.nick }}? </p>

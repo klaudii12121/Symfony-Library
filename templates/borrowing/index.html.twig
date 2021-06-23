@@ -35,7 +35,7 @@
                         {% else %}
                             <td>{{ borrowing.returnDate|date('Y/m/d') }}</td>
                             <td style="color: forestgreen">
-                                {{ 'Oddana' }}
+                                {{ 'returned'|trans }}
                             </td>
                         {% endif %}
                     </tr>
@@ -47,7 +47,7 @@
         </div>
     {% else %}
         <p>
-            {{ 'Nic nie wypożyczałeś, bądź czekasz na potwierdzenie wypożyczenia przez Admina.'|trans }}
+            {{ 'borrowing_index_blank'|trans }}
         </p>
     {% endif %}
 {% endblock %}

@@ -39,7 +39,7 @@
                         {% else %}
                             <td>{{ borrowing.borrowDate|date('Y/m/d') }}</td>
                             <td>{{ borrowing.returnDate }}</td>
-                            <td style="color: forestgreen">{{ 'aktualnie wypożyczona' }}</td>
+                            <td style="color: forestgreen">{{ 'active_borrow'|trans }}</td>
                         {% endif %}
                     </tr>
                 {% endif %}

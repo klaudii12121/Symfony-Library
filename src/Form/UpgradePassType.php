@@ -10,6 +10,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * Class UpgradePassType.
@@ -34,9 +36,14 @@ class UpgradePassType extends AbstractType
             PasswordType::class,
             [
                 'label' => 'label_new_pass',
-                'required' => true,
-                'attr' => ['max_length' => 128],
                 'data' => '',
+                'constraints' => [
+                    new NotBlank(),
+                    new Length([
+                        'min' => 6,
+                        'max' => 255,
+                    ]),
+                ],
             ]
         );
     }

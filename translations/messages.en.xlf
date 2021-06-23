@@ -2,6 +2,18 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" datatype="plaintext" original="file.ext">
         <body>
+            <trans-unit id="Welcome">
+                 <source>Welcome</source>
+                 <target>Welcome!</target>
+            </trans-unit>
+            <trans-unit id="users_borrowings">
+                <source>users_borrowings</source>
+                <target>Users borrowings</target>
+            </trans-unit>
+            <trans-unit id="users">
+                <source>users</source>
+                <target>List of users</target>
+            </trans-unit>
             <trans-unit id="title_author_list">
                  <source>title_author_list</source>
                  <target>List of authors</target>
@@ -397,6 +409,54 @@
             <trans-unit id="not_blank">
                 <source>not_blank</source>
                 <target>This value can not be blank.</target>
+            </trans-unit>
+            <trans-unit id="go_to_category">
+                <source>go_to_category</source>
+                <target>Go to category</target>
+            </trans-unit>
+            <trans-unit id="go_to_author">
+                <source>go_to_author</source>
+                <target>Go to author</target>
+            </trans-unit>
+            <trans-unit id="actually_borrowed">
+                <source>actually_borrowed</source>
+                <target>You cannot delete this book because it is actually borrowed.</target>
+            </trans-unit>
+            <trans-unit id="book_lack">
+                <source>book_lack</source>
+                <target>You cannot borrow this book as we no longer have it in stock.</target>
+            </trans-unit>
+            <trans-unit id="active_borrow">
+                <source>active_borrow</source>
+                <target>Actually borrowed</target>
+            </trans-unit>
+            <trans-unit id="borrowing_index_blank">
+                <source>borrowing_index_blank</source>
+                <target>You have not borrowed anything, or you are just waiting for the confirmation of borrow by Admin.</target>
+            </trans-unit>
+            <trans-unit id="returned">
+                <source>returned</source>
+                <target>Returned</target>
+            </trans-unit>
+            <trans-unit id="title_user_list">
+                <source>title_user_list</source>
+                <target>List of users</target>
+            </trans-unit>
+            <trans-unit id="label_modify">
+                <source>label_modify</source>
+                <target>Modify users data</target>
+            </trans-unit>
+            <trans-unit id="no_user_info">
+                <source>no_user_info</source>
+                <target>We have no informations about you :C</target>
+            </trans-unit>
+            <trans-unit id="title_password_edit">
+                <source>title_password_edit</source>
+                <target>Changing password</target>
+            </trans-unit>
+            <trans-unit id="label_new_pass">
+                <source>label_new_pass</source>
+                <target>New password</target>
             </trans-unit>
         </body>
     </file>

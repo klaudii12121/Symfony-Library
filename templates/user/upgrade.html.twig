@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title_password_edit'|trans({'%id%': user.id|default('')}) }}
+    {{ 'title_password_edit'|trans }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title_password_edit'|trans({'%id%': user.id|default('')}) }}</h1>
+    <h1>{{ 'title_password_edit'|trans }}</h1>
     {{ form_start(form, { method: 'PUT', action: url('pass_edit', {id: user.id}) }) }}
     {{ form_widget(form) }}
     <div class="form-group row float-sm-right">
