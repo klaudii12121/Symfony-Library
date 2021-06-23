@@ -52,6 +52,14 @@ class BookType extends AbstractType
         );
 
         $builder->add(
+            'releaseYear',
+            IntegerType::class,
+            [
+                'label' => 'label_release_year',
+            ]
+        );
+
+        $builder->add(
             'category',
             EntityType::class,
             [
