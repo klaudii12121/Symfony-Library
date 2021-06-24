@@ -264,8 +264,6 @@ class Book
     /**
      * Add for tag.
      *
-     * @param Tag $tag
-     *
      * @return $this
      */
     public function addTag(Tag $tag): self
@@ -279,8 +277,6 @@ class Book
 
     /**
      * Remove for tag.
-     *
-     * @param Tag $tag
      *
      * @return $this
      */

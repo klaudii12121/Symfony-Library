@@ -44,6 +44,7 @@ class UserDataType extends AbstractType
                 [
                     'label' => 'label_first_name',
                     'attr' => ['max_length' => 128],
+                    'required' => false,
                 ]
         );
         $builder->add(
@@ -52,6 +53,7 @@ class UserDataType extends AbstractType
             [
                 'label' => 'label_last_name',
                 'attr' => ['max_length' => 128],
+                'required' => false,
             ]
         );
     }

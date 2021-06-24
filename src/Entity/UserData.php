@@ -9,7 +9,6 @@ use App\Repository\UserDataRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * @ORM\Entity(repositoryClass=UserDataRepository::class)
  * @ORM\Table(name="usersData")
@@ -56,7 +55,7 @@ class UserData
      *     max="128",
      * )
      */
-    private string $firstName;
+    private ?string $firstName;
 
     /**
      * Last name.
@@ -71,7 +70,13 @@ class UserData
      *     max="128",
      * )
      */
-    private string $lastName;
+    private ?string $lastName;
+
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="userData", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     /**
      * Getter for Id.
@@ -141,5 +146,17 @@ class UserData
     public function setLastName(?string $lastName): void
     {
         $this->lastName = $lastName;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }

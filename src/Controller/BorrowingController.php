@@ -308,7 +308,8 @@ class BorrowingController extends AbstractController
         return $this->render(
             'borrowing/return.html.twig',
             ['form' => $form->createView(),
-                'borrowing' => $borrowing, ]
+                'borrowing' => $borrowing,
+                'book' => $book]
         );
     }
 }

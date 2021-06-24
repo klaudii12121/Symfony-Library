@@ -44,8 +44,6 @@ class User implements UserInterface
     /**
      * Primary key.
      *
-     * @var int
-     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer", nullable=false)
@@ -75,8 +73,6 @@ class User implements UserInterface
 
     /**
      * The hashed password.
-     *
-     * @var string
      *
      * @ORM\Column(type="string")
      *
@@ -214,7 +210,6 @@ class User implements UserInterface
 
     /**
      * Setter for User data.
-     * @param UserData|null $userData
      */
     public function setUserData(?UserData $userData): void
     {

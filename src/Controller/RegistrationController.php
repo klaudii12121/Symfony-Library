@@ -77,6 +77,7 @@ class RegistrationController extends AbstractController
             $user->setRoles([User::ROLE_USER]);
             $user->setUserData($userData);
             $userData->setNick('noname');
+            $userData->setUser($user);
             $this->userService->save($user);
             $this->userDataService->save($userData);
 

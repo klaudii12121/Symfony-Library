@@ -6,8 +6,8 @@
 namespace App\Entity;
 
 use App\Repository\BorrowingRepository;
-use Doctrine\ORM\Mapping as ORM;
 use DateTimeInterface;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=BorrowingRepository::class)
@@ -18,8 +18,6 @@ class Borrowing
     /**
      * Primary key.
      *
-     * @var int
-     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -29,16 +27,12 @@ class Borrowing
     /**
      * Borrowing date.
      *
-     * @var DateTimeInterface|null
-     *
      * @ORM\Column(type="date", nullable=true)
      */
     private ?DateTimeInterface $borrowDate;
 
     /**
      * Return date.
-     *
-     * @var DateTimeInterface|null
      *
      * @ORM\Column(type="date", nullable=true)
      */
@@ -68,21 +62,23 @@ class Borrowing
     {
         return $this->id;
     }
+
     /**
      * Getter for borrow date.
      *
      * @return DateTimeInterface|null BorrowDate
      */
-    public function getBorrowDate(): ?\DateTimeInterface
+    public function getBorrowDate(): ?DateTimeInterface
     {
         return $this->borrowDate;
     }
+
     /**
      * Setter for borrow date.
      *
      * @param DateTimeInterface|null $borrowDate
      */
-    public function setBorrowDate(\DateTimeInterface $borrowDate): void
+    public function setBorrowDate(DateTimeInterface $borrowDate): void
     {
         $this->borrowDate = $borrowDate;
     }
@@ -92,25 +88,21 @@ class Borrowing
      *
      * @return DateTimeInterface|null ReturnDate
      */
-    public function getReturnDate(): ?\DateTimeInterface
+    public function getReturnDate(): ?DateTimeInterface
     {
         return $this->returnDate;
     }
 
     /**
      * Setter for return date.
-     *
-     * @param DateTimeInterface|null $returnDate
      */
-    public function setReturnDate(?\DateTimeInterface $returnDate): void
+    public function setReturnDate(?DateTimeInterface $returnDate): void
     {
         $this->returnDate = $returnDate;
     }
 
     /**
      * Getter for user.
-     *
-     * @return User|null
      */
     public function getUser(): ?User
     {
@@ -119,8 +111,6 @@ class Borrowing
 
     /**
      * Setter for user.
-     *
-     * @param User|null $user
      */
     public function setUser(?User $user): void
     {
@@ -129,8 +119,6 @@ class Borrowing
 
     /**
      * Getter for book.
-     *
-     * @return Book|null
      */
     public function getBook(): ?Book
     {
@@ -139,8 +127,6 @@ class Borrowing
 
     /**
      * Setter for book.
-     *
-     * @param Book|null $book
      */
     public function setBook(?Book $book): void
     {
