@@ -1,4 +1,7 @@
 <?php
+/**
+ * Book repository.
+ */
 
 namespace App\Repository;
 
@@ -28,6 +31,11 @@ class BookRepository extends ServiceEntityRepository
      */
     const PAGINATOR_ITEMS_PER_PAGE = 3;
 
+    /**
+     * BookRepository constructor.
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Book::class);
@@ -46,18 +54,6 @@ class BookRepository extends ServiceEntityRepository
             ->leftjoin('book.category', 'category')
             ->leftjoin('book.category', 'publisher')
             ->orderBy('book.bookName', 'ASC');
-    }
-
-    /**
-     * Get or create new query builder.
-     *
-     * @param QueryBuilder|null $queryBuilder Query builder
-     *
-     * @return QueryBuilder Query builder
-     */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
-    {
-        return $queryBuilder ?? $this->createQueryBuilder('book');
     }
 
     /**
@@ -86,6 +82,18 @@ class BookRepository extends ServiceEntityRepository
     {
         $this->_em->remove($book);
         $this->_em->flush();
+    }
+
+    /**
+     * Get or create new query builder.
+     *
+     * @param QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?? $this->createQueryBuilder('book');
     }
 
     // /**

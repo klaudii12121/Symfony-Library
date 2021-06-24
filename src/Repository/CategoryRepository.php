@@ -1,4 +1,7 @@
 <?php
+/**
+ * Category repository.
+ */
 
 namespace App\Repository;
 
@@ -28,6 +31,11 @@ class CategoryRepository extends ServiceEntityRepository
      */
     const PAGINATOR_ITEMS_PER_PAGE = 3;
 
+    /**
+     * CategoryRepository constructor.
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Category::class);

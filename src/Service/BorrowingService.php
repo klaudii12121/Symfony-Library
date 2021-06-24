@@ -47,10 +47,10 @@ class BorrowingService
     /**
      * Borrowings by User.
      *
+     * @param int           $page
      * @param UserInterface $user
-     * @param int           $page Page number
      *
-     * @return PaginationInterface Paginated list
+     * @return PaginationInterface
      */
     public function borrowByUser(int $page, UserInterface $user): PaginationInterface
     {

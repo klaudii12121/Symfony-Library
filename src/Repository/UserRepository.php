@@ -1,4 +1,7 @@
 <?php
+/**
+ * User repository.
+ */
 
 namespace App\Repository;
 
@@ -31,6 +34,11 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     const PAGINATOR_ITEMS_PER_PAGE = 3;
 
+    /**
+     * UserRepository constructor.
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
@@ -48,19 +56,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->leftjoin('user.userData', 'userData')
             ->orderBy('user.id', 'ASC');
     }
-
-    /**
-     * Get or create new query builder.
-     *
-     * @param QueryBuilder|null $queryBuilder Query builder
-     *
-     * @return QueryBuilder Query builder
-     */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
-    {
-        return $queryBuilder ?? $this->createQueryBuilder('user');
-    }
-
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
@@ -95,6 +90,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush($user);
     }
 
+    /**
+     * Get or create new query builder.
+     *
+     * @param QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?? $this->createQueryBuilder('user');
+    }
 
     // /**
     //  * @return User[] Returns an array of User objects

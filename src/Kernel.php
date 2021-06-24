@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Kernel.
+ */
 namespace App;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
@@ -9,6 +11,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
 
+/**
+ * Class Kernel
+ */
 class Kernel extends BaseKernel
 {
     use MicroKernelTrait;

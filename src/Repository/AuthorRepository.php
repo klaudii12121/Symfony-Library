@@ -1,4 +1,7 @@
 <?php
+/**
+ * Author repository.
+ */
 
 namespace App\Repository;
 
@@ -26,6 +29,10 @@ class AuthorRepository extends ServiceEntityRepository
      */
     const PAGINATOR_ITEMS_PER_PAGE = 3;
 
+    /**
+     * AuthorRepository constructor.
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Author::class);

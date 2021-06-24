@@ -1,4 +1,7 @@
 <?php
+/**
+ * Borrowing repository.
+ */
 
 namespace App\Repository;
 
@@ -6,8 +9,8 @@ use App\Entity\Borrowing;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
-use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -18,7 +21,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class BorrowingRepository extends ServiceEntityRepository
 {
-
     /**
      *Items per page.
      *
@@ -30,6 +32,10 @@ class BorrowingRepository extends ServiceEntityRepository
      */
     const PAGINATOR_ITEMS_PER_PAGE = 3;
 
+    /**
+     * BorrowingRepository constructor.
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Borrowing::class);
@@ -45,19 +51,8 @@ class BorrowingRepository extends ServiceEntityRepository
         return $this->getOrCreateQueryBuilder()
             ->select('borrowing', 'user', 'book')
             ->leftjoin('borrowing.user', 'user')
-            ->leftjoin('borrowing.book', 'book');
-    }
-
-    /**
-     * Get or create new query builder.
-     *
-     * @param QueryBuilder|null $queryBuilder Query builder
-     *
-     * @return QueryBuilder Query builder
-     */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
-    {
-        return $queryBuilder ?? $this->createQueryBuilder('borrowing');
+            ->leftjoin('borrowing.book', 'book')
+            ->orderBy('borrowing.borrowDate', 'DESC');
     }
 
     /**
@@ -76,7 +71,6 @@ class BorrowingRepository extends ServiceEntityRepository
 
     /**
      * Query borrowing by user.
-     *
      * @param UserInterface $user
      *
      * @return QueryBuilder
@@ -88,7 +82,7 @@ class BorrowingRepository extends ServiceEntityRepository
         $queryBuilder->andWhere('borrowing.borrowDate IS NOT NULL');
         $queryBuilder->andWhere('borrowing.user = :user')
             ->setParameter('user', $user);
-        $queryBuilder->orderBy('borrowing.returnDate', 'ASC');
+        $queryBuilder->orderBy('borrowing.borrowDate', 'DESC');
 
         return $queryBuilder;
     }
@@ -103,7 +97,7 @@ class BorrowingRepository extends ServiceEntityRepository
         $queryBuilder = $this->queryAll();
 
         $queryBuilder->andWhere('borrowing.returnDate IS NULL');
-        $queryBuilder->orderBy('borrowing.borrowDate', 'ASC');
+        $queryBuilder->orderBy('borrowing.borrowDate', 'DESC');
 
         return $queryBuilder;
     }
@@ -121,6 +115,19 @@ class BorrowingRepository extends ServiceEntityRepository
         $this->_em->remove($borrowing);
         $this->_em->flush();
     }
+
+    /**
+     * Get or create new query builder.
+     *
+     * @param QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?? $this->createQueryBuilder('borrowing');
+    }
+
     // /**
     //  * @return Borrowing[] Returns an array of Borrowing objects
     //  */

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * UserData repository.
+ */
 namespace App\Repository;
 
 use App\Entity\UserData;
