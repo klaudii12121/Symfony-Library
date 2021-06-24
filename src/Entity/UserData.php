@@ -40,7 +40,7 @@ class UserData
      * )
      * @Assert\NotBlank
      */
-    private string $nick;
+    private ?string $nick;
 
     /**
      * First name.

@@ -31,8 +31,8 @@ class AuthorService
     /**
      * BookService constructor.
      *
-     * @param AuthorRepository $authorRepository Author repository
-     * @param PaginatorInterface $paginator Paginator
+     * @param AuthorRepository   $authorRepository Author repository
+     * @param PaginatorInterface $paginator        Paginator
      */
     public function __construct(AuthorRepository $authorRepository, PaginatorInterface $paginator)
     {

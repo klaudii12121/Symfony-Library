@@ -88,4 +88,3 @@ class AuthorController extends AbstractController
         );
     }
 }
-

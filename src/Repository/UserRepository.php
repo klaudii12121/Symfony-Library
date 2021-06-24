@@ -44,7 +44,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
-            ->select('user','userData')
+            ->select('user', 'userData')
             ->leftjoin('user.userData', 'userData')
             ->orderBy('user.id', 'ASC');
     }
@@ -65,7 +65,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      * @param UserInterface $user
-     * @param string $newEncodedPassword
+     * @param string        $newEncodedPassword
+     *
      * @throws ORMException
      * @throws OptimisticLockException
      */

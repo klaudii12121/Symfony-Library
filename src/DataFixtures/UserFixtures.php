@@ -6,6 +6,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
+use App\Entity\UserData;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -40,8 +41,11 @@ class UserFixtures extends AbstractBaseFixtures
     {
         $this->createMany(15, 'users', function ($i) {
             $user = new User();
+            $userData = new UserData();
             $user->setEmail(sprintf('user%d@example.com', $i));
             $user->setRoles([User::ROLE_USER]);
+            $userData->setUser($user);
+            $userData->setNick('noname');
             $user->setPassword(
                 $this->passwordEncoder->encodePassword(
                     $user,
@@ -54,8 +58,11 @@ class UserFixtures extends AbstractBaseFixtures
 
         $this->createMany(5, 'admins', function ($i) {
             $user = new User();
+            $userData = new UserData();
             $user->setEmail(sprintf('admin%d@example.com', $i));
             $user->setRoles([User::ROLE_ADMIN]);
+            $userData->setUser($user);
+            $userData->setNick('adminnoname');
             $user->setPassword(
                 $this->passwordEncoder->encodePassword(
                     $user,

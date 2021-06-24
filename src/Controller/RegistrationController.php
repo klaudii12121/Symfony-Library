@@ -53,6 +53,7 @@ class RegistrationController extends AbstractController
      *
      * @throws ORMException
      * @throws OptimisticLockException
+     *
      * @Route(
      *     "/register",
      *     methods={"GET", "POST"},

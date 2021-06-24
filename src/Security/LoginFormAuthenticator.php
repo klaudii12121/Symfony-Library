@@ -132,7 +132,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     /**
      * On authentication success.
      *
-     * @param Request $request
+     * @param Request        $request
      * @param TokenInterface $token
      * @param $providerKey
      *

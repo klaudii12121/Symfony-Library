@@ -36,7 +36,7 @@ class BorrowingService
      * BorrowingService constructor.
      *
      * @param BorrowingRepository $borrowingRepository Borrowing repository
-     * @param PaginatorInterface $paginator          Paginator
+     * @param PaginatorInterface  $paginator           Paginator
      */
     public function __construct(BorrowingRepository $borrowingRepository, PaginatorInterface $paginator)
     {
@@ -48,7 +48,7 @@ class BorrowingService
      * Borrowings by User.
      *
      * @param UserInterface $user
-     * @param int $page Page number
+     * @param int           $page Page number
      *
      * @return PaginationInterface Paginated list
      */

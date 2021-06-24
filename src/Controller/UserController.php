@@ -92,8 +92,8 @@ class UserController extends AbstractController
     /**
      * Upgrade password.
      *
-     * @param Request $request HTTP request
-     * @param User $user User entity
+     * @param Request                      $request         HTTP request
+     * @param User                         $user            User entity
      * @param UserPasswordEncoderInterface $passwordEncoder
      *
      * @return Response HTTP response
