@@ -33,6 +33,10 @@ class BorrowingController extends AbstractController
 
     /**
      * BorrowingController constructor.
+     *
+     * @param BorrowingService $borrowingService
+     * @param BookService      $bookService
+     * @param UserService      $userService
      */
     public function __construct(BorrowingService $borrowingService, BookService $bookService, UserService $userService)
     {
@@ -307,9 +311,11 @@ class BorrowingController extends AbstractController
 
         return $this->render(
             'borrowing/return.html.twig',
-            ['form' => $form->createView(),
+            [
+                'form' => $form->createView(),
                 'borrowing' => $borrowing,
-                'book' => $book, ]
+                'book' => $book,
+            ]
         );
     }
 }

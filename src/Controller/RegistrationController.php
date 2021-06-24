@@ -37,6 +37,9 @@ class RegistrationController extends AbstractController
 
     /**
      * RegistrationController constructor.
+     *
+     * @param UserService     $userService
+     * @param UserDataService $userDataService
      */
     public function __construct(UserService $userService, UserDataService $userDataService)
     {
@@ -47,7 +50,10 @@ class RegistrationController extends AbstractController
     /**
      * Registration.
      *
-     * @param Request $request HTTP request
+     * @param Request                      $request         HTTP request
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param GuardAuthenticatorHandler    $guardHandler
+     * @param LoginFormAuthenticator       $authenticator
      *
      * @return Response HTTP response
      *
