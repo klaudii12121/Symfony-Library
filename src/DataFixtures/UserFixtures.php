@@ -44,6 +44,7 @@ class UserFixtures extends AbstractBaseFixtures
             $userData = new UserData();
             $user->setEmail(sprintf('user%d@example.com', $i));
             $user->setRoles([User::ROLE_USER]);
+            $user->setUserData($userData);
             $userData->setUser($user);
             $userData->setNick('noname');
             $user->setPassword(

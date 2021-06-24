@@ -68,5 +68,10 @@
             {{ 'message_item_not_found'|trans }}
         </p>
     {% endif %}
+    <div class="form-group row float-sm-left">
+        <a href="{{ url('book_index') }}" class="btn btn-link">
+            {{ 'action_back_to_list'|trans }}
+        </a>
+    </div>
 {% endblock %}
 

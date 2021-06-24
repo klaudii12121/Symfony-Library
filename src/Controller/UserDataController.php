@@ -30,9 +30,6 @@ class UserDataController extends AbstractController
 
     /**
      * UserDataController constructor.
-     *
-     * @param UserDataService $userDataService
-     *
      */
     public function __construct(UserDataService $userDataService)
     {
@@ -43,8 +40,8 @@ class UserDataController extends AbstractController
      * Edit User data.
      *
      * @param Request $request HTTP request
-     * @param UserData $userData
      *
+     * @return Response
      * @throws ORMException
      * @throws OptimisticLockException
      * @Route(
@@ -58,9 +55,7 @@ class UserDataController extends AbstractController
      */
     public function edit(Request $request, UserData $userData): Response
     {
-
-        if (($this->getUser()->getId() === $userData->getUser()->getId()) || $this->isGranted("ROLE_ADMIN")) {
-
+        if (($this->getUser()->getId() === $userData->getUser()->getId()) || $this->isGranted('ROLE_ADMIN')) {
             $form = $this->createForm(UserDataType::class, $userData, ['method' => 'PUT']);
             $form->handleRequest($request);
 
@@ -72,7 +67,7 @@ class UserDataController extends AbstractController
                 if ($this->isGranted('ROLE_ADMIN')) {
                     return $this->redirectToRoute('user_index');
                 } else {
-                    return $this->redirectToRoute('main_index',);
+                    return $this->redirectToRoute('main_index', );
                 }
             }
 
@@ -84,6 +79,7 @@ class UserDataController extends AbstractController
                 ]
             );
         }
-        return $this->redirectToRoute('main_index',);
+
+        return $this->redirectToRoute('main_index', );
     }
 }

@@ -35,4 +35,9 @@
             {{ 'message_empty_list'|trans }}
         </p>
     {% endif %}
+    <div class="form-group row float-sm-left">
+        <a href="{{ url('author_index') }}" class="btn btn-link">
+            {{ 'action_back_to_list'|trans }}
+        </a>
+    </div>
 {% endblock %}
