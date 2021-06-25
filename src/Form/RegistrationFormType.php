@@ -35,10 +35,6 @@ class RegistrationFormType extends AbstractType
                 // this is read and encoded in the controller
                 'constraints' => [
                     new NotBlank(),
-                    new Length([
-                        'min' => 6,
-                        'max' => 255,
-                    ]),
                 ],
             ]);
     }
