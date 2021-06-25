@@ -140,7 +140,6 @@ class UserController extends AbstractController
                 ]
             );
         }
-        $this->addFlash('success', 'password_changed_successfully');
 
         return $this->redirectToRoute('main_index');
     }
