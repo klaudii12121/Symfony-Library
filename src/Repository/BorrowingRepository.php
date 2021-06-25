@@ -97,7 +97,7 @@ class BorrowingRepository extends ServiceEntityRepository
         $queryBuilder = $this->queryAll();
 
         $queryBuilder->andWhere('borrowing.returnDate IS NULL');
-        $queryBuilder->orderBy('borrowing.borrowDate', 'DESC');
+        $queryBuilder->orderBy('borrowing.borrowDate', 'ASC');
 
         return $queryBuilder;
     }
