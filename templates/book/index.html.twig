@@ -39,9 +39,12 @@
                             <a href="{{ url('book_index', {'filters.tag_id' : tag.id}) }}" title="{{ tag.tagName }}">
                                 {{ tag.tagName }}
                             </a>
+                            {% if not loop.last %}
+                                {{ ', ' }}
+                            {% endif %}
                         {% endfor %}
                     {% else %}
-                      {{ 'brak' }}
+                      {{ 'message_empty_list'| trans }}
                     {% endif %}
                     </td>
                     <td>
