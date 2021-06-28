@@ -6,6 +6,8 @@
 namespace App\Repository;
 
 use App\Entity\Book;
+use App\Entity\Category;
+use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -42,21 +44,6 @@ class BookRepository extends ServiceEntityRepository
     }
 
     /**
-     * Query all records.
-     *
-     * @return QueryBuilder Query builder
-     */
-    public function queryAll(): QueryBuilder
-    {
-        return $this->getOrCreateQueryBuilder()
-            ->select('book', 'author', 'category', 'publisher')
-            ->leftjoin('book.author', 'author')
-            ->leftjoin('book.category', 'category')
-            ->leftjoin('book.category', 'publisher')
-            ->orderBy('book.bookName', 'ASC');
-    }
-
-    /**
      * Save record.
      *
      * @param Book $book Book entity
@@ -82,6 +69,52 @@ class BookRepository extends ServiceEntityRepository
     {
         $this->_em->remove($book);
         $this->_em->flush();
+    }
+
+    /**
+     * Query all records.
+     *
+     * @param array $filters Filters array
+     *
+     * @return QueryBuilder Query builder
+     */
+    public function queryAll(array $filters = []): QueryBuilder
+    {
+        $queryBuilder = $this->getOrCreateQueryBuilder()
+            ->select(
+                'partial book.{id, bookName}',
+                'partial category.{id, categoryName}',
+                'partial tags.{id, tagName}'
+            )
+            ->join('book.category', 'category')
+            ->leftJoin('book.tags', 'tags')
+            ->orderBy('book.bookName', 'ASC');
+        $queryBuilder = $this->applyFiltersToList($queryBuilder, $filters);
+
+        return $queryBuilder;
+    }
+
+    /**
+     * Apply filters to paginated list.
+     *
+     * @param QueryBuilder $queryBuilder Query builder
+     * @param array                      $filters      Filters array
+     *
+     * @return QueryBuilder Query builder
+     */
+    private function applyFiltersToList(QueryBuilder $queryBuilder, array $filters = []): QueryBuilder
+    {
+        if (isset($filters['category']) && $filters['category'] instanceof Category) {
+            $queryBuilder->andWhere('category = :category')
+                ->setParameter('category', $filters['category']);
+        }
+
+        if (isset($filters['tag']) && $filters['tag'] instanceof Tag) {
+            $queryBuilder->andWhere('tags IN (:tag)')
+                ->setParameter('tag', $filters['tag']);
+        }
+
+        return $queryBuilder;
     }
 
     /**

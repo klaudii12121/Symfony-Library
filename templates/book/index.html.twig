@@ -14,6 +14,7 @@
                     <th>{{ knp_pagination_sortable(pagination, 'label_book_name'|trans, 'book.bookName') }}<i class="fa fa-fw fa-sort"></i></th>
                     <th>{{ knp_pagination_sortable(pagination, 'label_author_name'|trans, 'author.authorName') }}<i class="fa fa-fw fa-sort"></i></th>
                     <th>{{ knp_pagination_sortable(pagination, 'label_category_name'|trans, 'category.categoryName')}}<i class="fa fa-fw fa-sort"></i></th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_tag_name'|trans, 'tag.tagName')}}<i class="fa fa-fw fa-sort"></i></th>
                     <th>{{ 'label_more'|trans }}</th>
                 </tr>
             </thead>
@@ -28,9 +29,20 @@
                         </a>
                     </td>
                     <td>
-                        <a href="{{ url('category_show', {id: book.category.id}) }}" title="{{ 'category_view'|trans }}">
+                        <a href="{{ url('book_index', {'filters.category_id' : book.category.id}) }}" title="{{ book.category.categoryName }}">
                             {{ book.category.categoryName }}
                         </a>
+                    </td>
+                    <td>
+                    {% if book.tags is defined and book.tags|length %}
+                        {% for tag in book.tags %}
+                            <a href="{{ url('book_index', {'filters.tag_id' : tag.id}) }}" title="{{ tag.tagName }}">
+                                {{ tag.tagName }}
+                            </a>
+                        {% endfor %}
+                    {% else %}
+                      {{ 'brak' }}
+                    {% endif %}
                     </td>
                     <td>
                         <a href="{{ url('book_show', {id: book.id}) }}" title="{{ 'action_view'|trans }}">

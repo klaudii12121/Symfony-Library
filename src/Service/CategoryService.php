@@ -44,6 +44,18 @@ class CategoryService
     }
 
     /**
+     * Find category by Id.
+     *
+     * @param int $id Category Id
+     *
+     * @return Category|null Category entity
+     */
+    public function findById(int $id): ?Category
+    {
+        return $this->categoryRepository->find($id);
+    }
+
+    /**
      * Create paginated list.
      *
      * @param int $page Page number

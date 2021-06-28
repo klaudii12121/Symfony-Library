@@ -458,6 +458,10 @@
                 <source>label_new_pass</source>
                 <target>Nowe hasło</target>
             </trans-unit>
+            <trans-unit id="label_tag_name">
+                <source>label_tag_name</source>
+                <target>Tagi</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

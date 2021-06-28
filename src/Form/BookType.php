@@ -73,6 +73,16 @@ class BookType extends AbstractType
         );
 
         $builder->add(
+            'tags',
+            TextType::class,
+            [
+                'label' => 'label_tags',
+                'required' => false,
+                'attr' => ['max_length' => 128],
+            ]
+        );
+
+        $builder->add(
             'author',
             EntityType::class,
             [
