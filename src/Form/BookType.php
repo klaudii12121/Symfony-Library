@@ -9,6 +9,7 @@ use App\Entity\Author;
 use App\Entity\Book;
 use App\Entity\Category;
 use App\Entity\Publisher;
+use App\Entity\Tag;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -16,12 +17,30 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use App\Form\DataTransformer\TagsDataTransformer;
 
 /**
  * Class BookType.
  */
 class BookType extends AbstractType
 {
+    /**
+     * Tags data transformer.
+     *
+     * @var TagsDataTransformer
+     */
+    private TagsDataTransformer $tagsDataTransformer;
+
+    /**
+     * TaskType constructor.
+     *
+     * @param TagsDataTransformer $tagsDataTransformer Tags data transformer
+     */
+    public function __construct(TagsDataTransformer $tagsDataTransformer)
+    {
+        $this->tagsDataTransformer = $tagsDataTransformer;
+    }
+
     /**
      * Builds the form.
      *
@@ -76,10 +95,13 @@ class BookType extends AbstractType
             'tags',
             TextType::class,
             [
-                'label' => 'label_tags',
+                'label' => 'label_tag_name',
                 'required' => false,
                 'attr' => ['max_length' => 128],
             ]
+        );
+        $builder->get('tags')->addModelTransformer(
+            $this->tagsDataTransformer
         );
 
         $builder->add(

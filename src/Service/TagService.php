@@ -9,8 +9,6 @@ use App\Entity\Tag;
 use App\Repository\TagRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
-use Knp\Component\Pager\Pagination\PaginationInterface;
-use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * Class TagService.
@@ -25,22 +23,13 @@ class TagService
     private TagRepository $tagRepository;
 
     /**
-     * Paginator.
-     *
-     * @var PaginatorInterface
-     */
-    private PaginatorInterface $paginator;
-
-    /**
      * TagService constructor.
      *
      * @param TagRepository $tagRepository Tag repository
-     * @param PaginatorInterface $paginator Paginator
      */
-    public function __construct(TagRepository $tagRepository, PaginatorInterface $paginator)
+    public function __construct(TagRepository $tagRepository)
     {
         $this->tagRepository = $tagRepository;
-        $this->paginator = $paginator;
     }
 
     /**
@@ -53,21 +42,6 @@ class TagService
     public function findById(int $id): ?Tag
     {
         return $this->tagRepository->find($id);
-    }
-
-    /**
-     * Create paginated list.
-     *
-     * @param int $page Page number
-     * @return PaginationInterface Paginated list
-     */
-    public function createPaginatedList(int $page): PaginationInterface
-    {
-        return $this->paginator->paginate(
-            $this->tagRepository->queryAll(),
-            $page,
-            TagRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
     }
 
     /**
@@ -94,5 +68,17 @@ class TagService
     public function delete(Tag $tag): void
     {
         $this->tagRepository->delete($tag);
+    }
+
+    /**
+     * Find by name.
+     *
+     * @param string $TagName
+     *
+     * @return Tag|null Tag entity
+     */
+    public function findOneByTagName(string $tagName): ?Tag
+    {
+        return $this->tagRepository->findOneByTagName($tagName);
     }
 }
