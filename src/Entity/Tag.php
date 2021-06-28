@@ -22,8 +22,6 @@ class Tag
     /**
      * Primary key.
      *
-     * @var int
-     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -32,8 +30,6 @@ class Tag
 
     /**
      * Tag name.
-     *
-     * @var string
      *
      * @ORM\Column(type="string", length=128)
      *
@@ -48,8 +44,6 @@ class Tag
 
     /**
      * Books.
-     *
-     * @var Collection|ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity=Book::class, mappedBy="tags")
      */
@@ -72,6 +66,7 @@ class Tag
     {
         return $this->id;
     }
+
     /**
      * Getter for tagName.
      *
@@ -81,6 +76,7 @@ class Tag
     {
         return $this->tagName;
     }
+
     /**
      * Setter for tagName.
      *

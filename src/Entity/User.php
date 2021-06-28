@@ -44,6 +44,8 @@ class User implements UserInterface
     /**
      * Primary key.
      *
+     * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer", nullable=false)
@@ -52,6 +54,8 @@ class User implements UserInterface
 
     /**
      * Email.
+     *
+     * @var string
      *
      * @ORM\Column(type="string", length=180, unique=true)
      *
@@ -62,10 +66,12 @@ class User implements UserInterface
      *     max="180",
      * )
      */
-    private ?string $email;
+    private string $email;
 
     /**
      * Roles.
+     *
+     * @var array
      *
      * @ORM\Column(type="json")
      */
@@ -73,6 +79,8 @@ class User implements UserInterface
 
     /**
      * The hashed password.
+     *
+     * @var string
      *
      * @ORM\Column(type="string")
      *
@@ -87,6 +95,8 @@ class User implements UserInterface
 
     /**
      * User data.
+     *
+     * @var UserData|null
      *
      * @ORM\OneToOne(targetEntity=UserData::class, cascade={"persist", "remove"}, mappedBy="user")
      */
@@ -126,6 +136,8 @@ class User implements UserInterface
      * A visual identifier that represents this user.
      *
      * @see UserInterface
+     *
+     * @return string
      */
     public function getUsername(): string
     {
@@ -185,6 +197,8 @@ class User implements UserInterface
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
      *
      * @see UserInterface
+     *
+     * @return string|null
      */
     public function getSalt(): ?string
     {
@@ -201,7 +215,9 @@ class User implements UserInterface
     }
 
     /**
-     * Getter for User data.
+     * Getter for userData.
+     *
+     * @return UserData|null
      */
     public function getUserData(): ?UserData
     {
@@ -210,6 +226,8 @@ class User implements UserInterface
 
     /**
      * Setter for User data.
+     *
+     * @param UserData|null $userData
      */
     public function setUserData(?UserData $userData): void
     {

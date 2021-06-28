@@ -48,10 +48,10 @@ class BookService
     /**
      * BookService constructor.
      *
-     * @param BookRepository $bookRepository Book repository
-     * @param PaginatorInterface $paginator Paginator
-     * @param CategoryService $categoryService
-     * @param TagService $tagService
+     * @param BookRepository     $bookRepository  Book repository
+     * @param PaginatorInterface $paginator       Paginator
+     * @param CategoryService    $categoryService
+     * @param TagService         $tagService
      */
     public function __construct(BookRepository $bookRepository, PaginatorInterface $paginator, CategoryService $categoryService, TagService $tagService)
     {
@@ -64,7 +64,7 @@ class BookService
     /**
      * Create paginated list.
      *
-     * @param int $page Page number
+     * @param int   $page    Page number
      * @param array $filters Filters array
      *
      * @return PaginationInterface Paginated list
@@ -160,5 +160,4 @@ class BookService
 
         return $resultFilters;
     }
-
 }

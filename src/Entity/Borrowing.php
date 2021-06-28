@@ -18,6 +18,8 @@ class Borrowing
     /**
      * Primary key.
      *
+     * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -27,12 +29,16 @@ class Borrowing
     /**
      * Borrowing date.
      *
+     * @var DateTimeInterface
+     *
      * @ORM\Column(type="date", nullable=true)
      */
-    private ?DateTimeInterface $borrowDate;
+    private DateTimeInterface $borrowDate;
 
     /**
      * Return date.
+     *
+     * @var DateTimeInterface|null
      *
      * @ORM\Column(type="date", nullable=true)
      */
@@ -41,17 +47,22 @@ class Borrowing
     /**
      * User.
      *
+     * @var User
+     *
      * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
      */
-    private ?User $user;
+    private User $user;
 
     /**
      * Book.
      *
+     * @var Book
+     *
      * @ORM\ManyToOne(targetEntity=Book::class, inversedBy="borrowings")
      * @ORM\JoinColumn(nullable=false)
      */
-    private ?Book $book;
+    private Book $book;
 
     /**
      * Getter for Id.
@@ -76,7 +87,7 @@ class Borrowing
     /**
      * Setter for borrow date.
      *
-     * @param DateTimeInterface|null $borrowDate
+     * @param DateTimeInterface $borrowDate
      */
     public function setBorrowDate(DateTimeInterface $borrowDate): void
     {
@@ -95,6 +106,8 @@ class Borrowing
 
     /**
      * Setter for return date.
+     *
+     * @param DateTimeInterface|null $returnDate
      */
     public function setReturnDate(?DateTimeInterface $returnDate): void
     {
@@ -103,6 +116,8 @@ class Borrowing
 
     /**
      * Getter for user.
+     *
+     * @return User|null
      */
     public function getUser(): ?User
     {
@@ -111,14 +126,18 @@ class Borrowing
 
     /**
      * Setter for user.
+     *
+     * @param User $user
      */
-    public function setUser(?User $user): void
+    public function setUser(User $user): void
     {
         $this->user = $user;
     }
 
     /**
      * Getter for book.
+     *
+     * @return Book|null
      */
     public function getBook(): ?Book
     {
@@ -127,8 +146,10 @@ class Borrowing
 
     /**
      * Setter for book.
+     *
+     * @param Book $book
      */
-    public function setBook(?Book $book): void
+    public function setBook(Book $book): void
     {
         $this->book = $book;
     }

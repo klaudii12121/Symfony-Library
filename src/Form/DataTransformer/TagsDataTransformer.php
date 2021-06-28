@@ -50,6 +50,7 @@ class TagsDataTransformer implements DataTransformerInterface
         foreach ($tags as $tag) {
             $tagNames[] = $tag->getTagName();
         }
+
         return implode(', ', $tagNames);
     }
 

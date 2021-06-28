@@ -49,7 +49,7 @@ class Category
     /**
      * Books.
      *
-     * @var Collection|ArrayCollection
+     * @var Collection
      *
      * @ORM\OneToMany(targetEntity=Book::class, mappedBy="category")
      */

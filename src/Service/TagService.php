@@ -73,7 +73,7 @@ class TagService
     /**
      * Find by name.
      *
-     * @param string $TagName
+     * @param string $tagName
      *
      * @return Tag|null Tag entity
      */

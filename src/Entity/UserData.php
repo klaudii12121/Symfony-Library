@@ -40,7 +40,7 @@ class UserData
      * )
      * @Assert\NotBlank
      */
-    private ?string $nick;
+    private string $nick;
 
     /**
      * First name.
@@ -73,10 +73,14 @@ class UserData
     private ?string $lastName;
 
     /**
+     * User.
+     *
+     * @var User
+     *
      * @ORM\OneToOne(targetEntity=User::class, inversedBy="userData", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    private User $user;
 
     /**
      * Getter for Id.
@@ -148,15 +152,23 @@ class UserData
         $this->lastName = $lastName;
     }
 
+    /**
+     * Getter for user.
+     *
+     * @return User|null
+     */
     public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(User $user): self
+    /**
+     * Setter for user.
+     *
+     * @param User $user
+     */
+    public function setUser(User $user): void
     {
         $this->user = $user;
-
-        return $this;
     }
 }
