@@ -81,9 +81,11 @@ class BookRepository extends ServiceEntityRepository
     public function queryAll(array $filters = []): QueryBuilder
     {
         $queryBuilder = $this->getOrCreateQueryBuilder()
-            ->select('book','category','tags','publisher','author')
-            ->join('book.category', 'category')
+            ->select('book', 'category', 'tags', 'publisher', 'author')
+            ->leftjoin('book.category', 'category')
             ->leftJoin('book.tags', 'tags')
+            ->leftJoin('book.publisher', 'publisher')
+            ->leftJoin('book.author', 'author')
             ->orderBy('book.bookName', 'ASC');
         $queryBuilder = $this->applyFiltersToList($queryBuilder, $filters);
 
