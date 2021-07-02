@@ -151,7 +151,7 @@ class BorrowingController extends AbstractController
         $form->handleRequest($request);
         $book = $this->bookService->findByID($request->query->getInt('id'));
 
-        if (0 != $book->getAmount()) {
+        if (0 !== $book->getAmount()) {
             if ($form->isSubmitted() && $form->isValid()) {
                 $borrowing->setUser($this->getUser());
                 $borrowing->setBook($book);
