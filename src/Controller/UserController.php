@@ -108,29 +108,31 @@ class UserController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      * )
      *
-     * @IsGranted("ROLE_USER")
+     * @IsGranted(
+     *     "UPGRADE",
+     *     subject="user"
+     * )
      */
     public function upgradePass(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        if (($this->getUser()->getId() === $user->getId()) || $this->isGranted('ROLE_ADMIN')) {
             $form = $this->createForm(UpgradePassType::class, $user, ['method' => 'PUT']);
             $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $user->setPassword(
-                    $passwordEncoder->encodePassword(
-                        $user,
-                        $form->get('password')->getData()
-                    )
-                );
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword(
+                $passwordEncoder->encodePassword(
+                    $user,
+                    $form->get('password')->getData()
+                )
+            );
 
-                $this->userService->save($user);
-                $this->addFlash('success', 'password_changed_successfully');
+            $this->userService->save($user);
+            $this->addFlash('success', 'password_changed_successfully');
 
-                if (!$this->isGranted('ROLE_ADMIN')) {
-                    return $this->redirectToRoute('app_logout');
-                }
+            if (!$this->isGranted('ROLE_ADMIN')) {
+                return $this->redirectToRoute('app_logout');
             }
+        }
 
             return $this->render(
                 'user/upgrade.html.twig',
@@ -139,8 +141,5 @@ class UserController extends AbstractController
                     'user' => $user,
                 ]
             );
-        }
-
-        return $this->redirectToRoute('main_index');
     }
 }

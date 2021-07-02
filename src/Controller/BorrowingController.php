@@ -99,34 +99,6 @@ class BorrowingController extends AbstractController
     }
 
     /**
-     * Show action.
-     *
-     * @param Borrowing $borrowing borrowing entity
-     *
-     * @return Response HTTP response
-     *
-     * @Route(
-     *     "/{id}",
-     *     methods={"GET"},
-     *     name="borrow_show",
-     *     requirements={"id": "[1-9]\d*"},
-     * )
-     */
-    public function show(Borrowing $borrowing): Response
-    {
-        if ($borrowing->getUser() !== $this->getUser()) {
-            $this->addFlash('warning', 'message.access_denied');
-
-            return $this->redirectToRoute('borrow_index');
-        }
-
-        return $this->render(
-            'borrowing/index.html.twig',
-            ['borrowing' => $borrowing]
-        );
-    }
-
-    /**
      * Create action.
      *
      * @param Request $request HTTP request

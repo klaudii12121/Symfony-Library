@@ -56,35 +56,34 @@ class UserDataController extends AbstractController
      *     name="userData_edit",
      * );
      *
-     * @IsGranted("ROLE_USER")
+     * @IsGranted(
+     *     "EDIT",
+     *     subject="userData"
+     * )
      */
     public function edit(Request $request, UserData $userData): Response
     {
-        if (($this->getUser()->getId() === $userData->getUser()->getId()) || $this->isGranted('ROLE_ADMIN')) {
-            $form = $this->createForm(UserDataType::class, $userData, ['method' => 'PUT']);
-            $form->handleRequest($request);
+        $form = $this->createForm(UserDataType::class, $userData, ['method' => 'PUT']);
+        $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $this->userDataService->save($userData);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->userDataService->save($userData);
 
-                $this->addFlash('success', 'message_updated_successfully');
+            $this->addFlash('success', 'message_updated_successfully');
 
-                if ($this->isGranted('ROLE_ADMIN')) {
-                    return $this->redirectToRoute('user_index');
-                }
-
-                return $this->redirectToRoute('main_index');
+            if ($this->isGranted('ROLE_ADMIN')) {
+                return $this->redirectToRoute('user_index');
             }
 
-            return $this->render(
-                'userData/edit.html.twig',
-                [
+            return $this->redirectToRoute('main_index');
+        }
+
+        return $this->render(
+            'userData/edit.html.twig',
+            [
                     'form' => $form->createView(),
                     'userData' => $userData,
                 ]
-            );
-        }
-
-        return $this->redirectToRoute('main_index');
+        );
     }
 }
