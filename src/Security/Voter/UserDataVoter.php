@@ -18,14 +18,14 @@ class UserDataVoter extends Voter
     /**
      * Security helper.
      *
-     * @var \Symfony\Component\Security\Core\Security
+     * @var Security
      */
-    private $security;
+    private Security $security;
 
     /**
      * OrderVoter constructor.
      *
-     * @param \Symfony\Component\Security\Core\Security $security Security helper
+     * @param Security $security Security helper
      */
     public function __construct(Security $security)
     {
@@ -40,7 +40,7 @@ class UserDataVoter extends Voter
      *
      * @return bool True if the attribute and subject are supported, false otherwise
      */
-    protected function supports($attribute, $subject)
+    protected function supports($attribute, $subject): bool
     {
         return in_array($attribute, ['VIEW', 'EDIT', 'DELETE'])
             && $subject instanceof UserData;
@@ -56,7 +56,7 @@ class UserDataVoter extends Voter
      *
      * @return bool Result
      */
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
         // if the user is anonymous, do not grant access
