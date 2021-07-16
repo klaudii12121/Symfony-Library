@@ -2,7 +2,7 @@
 Object-oriented Virtual Library app using the Symfony 4.4 framework.
 
 ## Instalacja na serwerze
-- Tworzymy folder, w którym będziemy przetrzymywali naszą aplikację: 'Library'
+- Tworzymy folder, w którym będziemy przetrzymywali naszą aplikację
 - Usuwamy plik .env.local
 - W pliku .env ustawiamy paramtetry dostępowe do bazy danych,
 - W katalogu app/public tworzymy plik .htaccess o następującej zawartości:
