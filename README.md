@@ -13,15 +13,15 @@ proces paginacji, oprócz zwiększania wydajności strony, dodatkowo ułatwia od
 interesującej pozycji.
 
 ## Funkcje
-###Użytkownik niezalogowany:
+### Użytkownik niezalogowany:
 ❖ założenie konta
 ❖ brak możliwości wypożyczenia zasobu
-###Użytkownik zalogowany:
+### Użytkownik zalogowany:
 ❖ zarządzanie swoim kontem (zmiana hasła, modyfikacja danych)
 ❖ przeglądanie biblioteki
 ❖ wyszukiwanie danych książek po tytule, kategorii, tagach
 ❖ możliwość wypożyczenia zasobu i podglądu historii wypożyczeń
-###Administrator:
+### Administrator:
 ❖ posiadanie własnego konta, którym może zarządzać (zmiana hasła, modyfikacja danych)
 ❖ tworzenie, edycja i usuwanie elementów znajdujących się na stronie (książki, kategorie, tagi)
 ❖ podejmowanie decyzji o zatwierdzeniu/odrzuceniu wypożyczenia
