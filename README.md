@@ -14,21 +14,21 @@ interesującej pozycji.
 
 ## Funkcje
 ### Użytkownik niezalogowany:
-❖ założenie konta  
-❖ brak możliwości wypożyczenia zasobu  
+- założenie konta  
+- brak możliwości wypożyczenia zasobu  
 ### Użytkownik zalogowany:
-❖ zarządzanie swoim kontem (zmiana hasła, modyfikacja danych)  
-❖ przeglądanie biblioteki  
-❖ wyszukiwanie danych książek po tytule, kategorii, tagach  
-❖ możliwość wypożyczenia zasobu i podglądu historii wypożyczeń  
+- zarządzanie swoim kontem (zmiana hasła, modyfikacja danych)  
+- przeglądanie biblioteki  
+- wyszukiwanie danych książek po tytule, kategorii, tagach  
+- możliwość wypożyczenia zasobu i podglądu historii wypożyczeń  
 ### Administrator:
-❖ posiadanie własnego konta, którym może zarządzać (zmiana hasła, modyfikacja danych)  
-❖ tworzenie, edycja i usuwanie elementów znajdujących się na stronie (książki, kategorie, tagi)  
-❖ podejmowanie decyzji o zatwierdzeniu/odrzuceniu wypożyczenia  
-❖ podgląd aktualnych wypożyczeń użytkowników  
-❖ zarządzanie kontami użytkowników (zmiana hasła, modyfikacja danych)  
-❖ przeglądanie biblioteki  
-❖ wyszukiwanie danych książek po tytule, kategorii, tagach  
+- posiadanie własnego konta, którym może zarządzać (zmiana hasła, modyfikacja danych)  
+- tworzenie, edycja i usuwanie elementów znajdujących się na stronie (książki, kategorie, tagi)  
+- podejmowanie decyzji o zatwierdzeniu/odrzuceniu wypożyczenia  
+- podgląd aktualnych wypożyczeń użytkowników  
+- zarządzanie kontami użytkowników (zmiana hasła, modyfikacja danych)  
+- przeglądanie biblioteki  
+- wyszukiwanie danych książek po tytule, kategorii, tagach  
 
 ## Instalacja na serwerze
 - Tworzymy folder, w którym będziemy przetrzymywali naszą aplikację  
