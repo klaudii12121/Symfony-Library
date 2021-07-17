@@ -15,10 +15,12 @@ interesującej pozycji.
 ## Funkcje
 ### Użytkownik niezalogowany:
 - założenie konta  
+- przeglądanie biblioteki  
 - brak możliwości wypożyczenia zasobu  
 ### Użytkownik zalogowany:
 - zarządzanie swoim kontem (zmiana hasła, modyfikacja danych)  
 - przeglądanie biblioteki  
+- tworzenie tagów
 - wyszukiwanie danych książek po tytule, kategorii, tagach  
 - możliwość wypożyczenia zasobu i podglądu historii wypożyczeń  
 ### Administrator:
@@ -29,6 +31,9 @@ interesującej pozycji.
 - zarządzanie kontami użytkowników (zmiana hasła, modyfikacja danych)  
 - przeglądanie biblioteki  
 - wyszukiwanie danych książek po tytule, kategorii, tagach  
+
+## Model bazy danych
+![schemat](https://user-images.githubusercontent.com/80485893/126038448-4ab99287-f8f5-4b91-b3a1-6fceca1296c4.png)
 
 ## Instalacja na serwerze
 - Tworzymy folder, w którym będziemy przetrzymywali naszą aplikację  
