@@ -36,7 +36,7 @@ interesującej pozycji.
 ![schemat](https://user-images.githubusercontent.com/80485893/126038448-4ab99287-f8f5-4b91-b3a1-6fceca1296c4.png)
 
 ## Testowi użytkownicy
-Admin - admin0@example.com, hasło: admin1234
+Admin - admin0@example.com, hasło: admin1234  
 User - user0@example.com, hasło: user1234
 
 ## Instalacja na serwerze
